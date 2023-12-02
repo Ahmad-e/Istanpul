@@ -101,9 +101,9 @@ const Header = () =>{
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={handleClose}>Ru</MenuItem>
-                            <MenuItem onClick={handleClose}>Ar</MenuItem>
-                            <MenuItem onClick={handleClose}>En</MenuItem>
+                            <MenuItem onClick={handleClose}><img className="ALM" src="https://flagcdn.com/us.svg"/>English</MenuItem>
+                            <MenuItem onClick={handleClose}><img className="ALM" src="https://flagcdn.com/ru.svg"/>Русский</MenuItem>
+                            <MenuItem onClick={handleClose}><img className="ALM" src="https://flagcdn.com/sy.svg"/>عربية </MenuItem>
                         </Menu>
                         </div>
                     )}

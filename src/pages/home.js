@@ -32,7 +32,7 @@ const Home =()=>{
         <div className="row justify-content-center mt-5 mb-5 d-flex align-items-center text-lg-start">
           <div className="box col-lg-4 col-md-5" >
             <h1> <span className="App-text">istanbul</span> <span className="gold-color i_font">shop</span>  </h1>
-            <p className="opacity-75 mt-4 fs-7">Enjoy a unique shopping experience for the best choice </p>
+            <p style={{ fontSize:"medium" }} className="opacity-75 mt-4">Enjoy a unique shopping experience for the best choice </p>
             <div className="mt-5 mb-5">
             <Button href="/regester" className="App_button">GET STARTED</Button>
             </div>
