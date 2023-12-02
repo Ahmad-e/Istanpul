@@ -1,0 +1,48 @@
+:root
+{
+  --main-color:#E6392B;
+}
+
+.app_link
+{
+    color: #111;
+    font-weight: 600;
+}
+.app_link:hover{
+    color: var(--main-color);
+}
+.search_form
+{
+    width: 90%;
+    max-width: 500px;
+    margin: 10px;
+}
+.search_button
+{
+    --bs-btn-color: var(--main-color);
+    -bs-btn-color: var(--main-color);
+    --bs-btn-border-color: var(--main-color);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--main-color);
+    --bs-btn-hover-border-color: var(--main-color);
+    --bs-btn-focus-shadow-rgb: 25,135,84;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--main-color);
+    --bs-btn-active-border-color: var(--main-color);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: var(--main-color);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--main-color);
+    --bs-gradient: none;
+    border-radius: 0px 15px 15px 0px;
+
+}
+.text-search
+{
+    border-radius: 15px 0px 0px 15px;
+}
+.card
+{
+    max-width: 300px;
+    margin: 10px auto; 
+}
