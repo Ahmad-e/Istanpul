@@ -47,10 +47,10 @@ const Home =()=>{
 
           </span>
           <span>
-            <Button href="/search" variant="outline-danger" className="keyword_button" >product</Button>
-            <Button href="/search" variant="outline-danger" className="keyword_button" >product</Button>
-            <Button href="/search" variant="outline-danger" className="keyword_button"  >product</Button>
-            <Button href="/search" variant="outline-danger" className="keyword_button"  >product</Button>
+            <Button href="/search" variant="outline-danger" className="keyword_button" >candies</Button>
+            <Button href="/search" variant="outline-danger" className="keyword_button" >drinks</Button>
+            <Button href="/search" variant="outline-danger" className="keyword_button"  >Local products</Button>
+            <Button href="/search" variant="outline-danger" className="keyword_button"  >Imported products</Button>
           </span>
           <span>
             <Button href="/search" variant="outline-danger" className="keyword_button"  >show all </Button>
@@ -58,9 +58,6 @@ const Home =()=>{
 
         </div>
         <Row className="justify-content-center">
-                            <Col lg={3} md={6} sm={12} >
-                                <CardItem id={0} imgURL={Test} name="Istanpul website" disc="bestwebsite in the world" price="10000" />
-                            </Col>
                             <Col lg={3} md={6} sm={12} >
                                 <CardItem id={0} imgURL={Test} name="Istanpul website" disc="bestwebsite in the world" price="10000" />
                             </Col>
