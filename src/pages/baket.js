@@ -5,8 +5,12 @@ import Test from '../test.jpg';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useSelector } from 'react-redux';
 
 const Baket =()=>{
+
+    const Lang=useSelector((state) => state.counter.language);
+
     return(
         <Container >
             <Row className="justify-content-center" >
@@ -23,7 +27,7 @@ const Baket =()=>{
                                 <Form > 
                                 <Form.Group>
                                     <Form.Label>
-                                        Quantity:
+                                    {Lang==="Ar" ? ("الكمية ") : Lang==="En"? ("Quantity ") : "Количество "}:
                                     </Form.Label>
                                 <Form.Control
                                     style={{ maxWidth: "100px" }}
@@ -35,7 +39,7 @@ const Baket =()=>{
                                 </Form>
                             </Col>
                         <Col className="total" lg={3} md={4} sm={12}>
-                            total:<h4 style={{ display:"inline-block" }} className="App-text">1000$</h4>
+                        {Lang==="Ar" ? ("المجموع ") : Lang==="En"? ("total ") : "Общая "}:<h4 style={{ display:"inline-block" }} className="App-text">1000$</h4>
                         </Col>
                     </Row>
                     <Row style={{ padding : "0px" }} className="baket_card" >
@@ -51,7 +55,7 @@ const Baket =()=>{
                                     
                                 <Form.Group>
                                     <Form.Label>
-                                        Quantity:
+                                    {Lang==="Ar" ? ("الكمية ") : Lang==="En"? ("Quantity ") : "Количество "}:
                                     </Form.Label>
                                 <Form.Control
                                     style={{ maxWidth: "100px" }}
@@ -63,7 +67,7 @@ const Baket =()=>{
                                 </Form>
                             </Col>
                         <Col className="total" lg={3} md={4} sm={12}>
-                            total:<h4 style={{ display:"inline-block" }} className="App-text">1000$</h4>
+                        {Lang==="Ar" ? ("المجموع ") : Lang==="En"? ("total ") : "Общая "}:<h4 style={{ display:"inline-block" }} className="App-text">1000$</h4>
                         </Col>
                     </Row>
                     <Row style={{ padding : "0px" }} className="baket_card" >
@@ -78,7 +82,7 @@ const Baket =()=>{
                                 <Form > 
                                 <Form.Group>
                                     <Form.Label>
-                                        Quantity:
+                                    {Lang==="Ar" ? ("الكمية ") : Lang==="En"? ("Quantity ") : "Количество "}:
                                     </Form.Label>
                                     <Form.Control
                                         style={{ maxWidth: "100px" }}
@@ -91,20 +95,20 @@ const Baket =()=>{
                                 </Form>
                             </Col>
                         <Col className="total" lg={3} md={4} sm={12}>
-                            total:<h4 style={{ display:"inline-block" }} className="App-text">1000$</h4>
+                        {Lang==="Ar" ? ("المجموع ") : Lang==="En"? ("total ") : "Общая "}:<h4 style={{ display:"inline-block" }} className="App-text">1000$</h4>
                         </Col>
                     </Row>
                 </Col>
                 
                 <Col style={{ height:"100%" , display:"grid" }} className="baket_card" lg={3} md={4} sm={5} xs={10}>
                     <div >
-                        <span>item1 : </span><h5 className="App-text end_card_baket" >5000 $</h5><br/>
-                        <span>item2 : </span> <h5 className="App-text end_card_baket" >100 $</h5><br/>
-                        <span>item3 : </span> <h5 className="App-text end_card_baket" >90 $</h5>
+                        <span>{Lang==="Ar" ? ("عنصر") : Lang==="En"? ("item") : "пункт "}1 : </span><h5 className="App-text end_card_baket" >5000$</h5><br/>
+                        <span>{Lang==="Ar" ? ("عنصر") : Lang==="En"? ("item") : "пункт "}2  : </span> <h5 className="App-text end_card_baket" >100$</h5><br/>
+                        <span>{Lang==="Ar" ? ("عنصر") : Lang==="En"? ("item") : "пункт "}3  : </span> <h5 className="App-text end_card_baket" >90$</h5>
 
                     </div><br/>
                     <div>
-                        total : <h4 className="gold-color end_card_baket" >5190 $</h4>
+                    {Lang==="Ar" ? ("المجموع ") : Lang==="En"? ("total ") : "Общая "} : <h4 className="gold-color end_card_baket" >5190 $</h4>
                     </div>
                     <br/>
                     <Button style={{     width: "200px" , margin: "auto" }} href="/regester" className="App_button">Continue to payment<ArrowForwardIcon/> </Button>

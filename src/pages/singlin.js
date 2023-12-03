@@ -12,9 +12,11 @@ import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import { useSelector } from 'react-redux';
+
 
 const Singlin =()=>{
-
+    const Lang=useSelector((state) => state.counter.language);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const [showPassword, setShowPassword] = useState(false);
     const [phone, setPhone] = useState('');
@@ -31,9 +33,9 @@ const Singlin =()=>{
 
     return(
         
-        <div className="sign">
+        <div dir="ltr" className="sign">
             <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
-                <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                <InputLabel htmlFor="standard-adornment-password">{Lang==="Ar" ? ("كلمة السر") : Lang==="En"? ("password") : "пароль"}</InputLabel>
                 <Input
                     id="standard-adornment-password"
                     type={showPassword ? 'text' : 'password'}
@@ -50,8 +52,8 @@ const Singlin =()=>{
                     }
                 />
             </FormControl><br/>
-            <TextField error helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="standard-basic" label="name" variant="standard" /><br/>
-            <TextField error helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="standard-basic" label="email" variant="standard" /><br/><br/>
+            <TextField error helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="standard-basic" label={Lang==="Ar" ? ("الاسم") : Lang==="En"? ("name") : "имя"} variant="standard" /><br/>
+            <TextField error helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="standard-basic" label={Lang==="Ar" ? ("الإيميل") : Lang==="En"? ("email") : "электронная почта"} variant="standard" /><br/><br/>
             <PhoneInput
                 defaultCountry="ru"
                 value={phone}
@@ -59,7 +61,7 @@ const Singlin =()=>{
             />
             <br/>
             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel style={{ color:"#E6392B" }} id="demo-simple-select-standard-label">kind</InputLabel>
+                <InputLabel style={{ color:"#E6392B" }} id="demo-simple-select-standard-label">{Lang==="Ar" ? ("المدينة") : Lang==="En"? ("city") : "Город"}</InputLabel>
                     <Select
                          style={{ borderColor:"#E6392B" }} 
                         labelId="demo-simple-select-standard-label"
@@ -77,9 +79,9 @@ const Singlin =()=>{
                         <MenuItem value={30}>Imported products</MenuItem>
                     </Select>
             </FormControl><br/><br/>
+            <Button href="/regester" className="App_button"> {Lang==="Ar" ? ("إرسال") : Lang==="En"? ("submit") : "отправлять"} </Button><br/><br/><br/>
+            <a href="/login" className="App_link" > {Lang==="Ar" ? ("أنا أملك حساب") : Lang==="En"? ("I have account") : "у меня есть аккаунт"} </a>
             
-            <Button href="/regester" className="App_button"> submit </Button><br/><br/><br/>
-            <a href="/login" className="App_link" > I have account </a>
         </div>
     )
 }

@@ -15,24 +15,35 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import './style.css'
 import Badge from '@mui/material/Badge';
+import {setLanguege} from '../store';
+import { useSelector,useDispatch } from 'react-redux';
+
+
 
 const Header = () =>{
-
+    const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [auth] = React.useState(true);
-
+    const Lang=useSelector((state) => state.counter.language);
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
+        console.log(anchorEl)
       };
       
-    const handleClose = () => {
+    const setLanguage = (lang) => {
+        console.log("changelanguage");
+        dispatch(setLanguege(lang));
         setAnchorEl(null);
       };
+    const handleClose=()=>{
+        setAnchorEl(null);
+    }
+    
 
 
     return(
         <>
-        <Navbar collapseOnSelect expand="md" className="bg-body-tertiary">
+        <Navbar  collapseOnSelect expand="md" className="bg-body-tertiary">
          <Container>
           <Navbar.Brand href="/">
           <img
@@ -62,13 +73,13 @@ const Header = () =>{
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className=" flex-grow-1 pe-3">
-                    <Nav.Link className="app_link" href="/search">search</Nav.Link>
-                    <Nav.Link className="app_link" href="/aboutus">about us</Nav.Link>
+                    <Nav.Link className="app_link" href="/search">{Lang==="Ar" ? ("البحث") : Lang==="En"? ("Search") : "поиск"}</Nav.Link>
+                    <Nav.Link className="app_link" href="/aboutus">{Lang==="Ar" ? ("معلومات عنا") : Lang==="En"? ("about us") : "о нас"}</Nav.Link>
 
                 </Nav>
                 <Nav>
-                    <Nav.Link className="app_link" eventKey={2} href="/login">login</Nav.Link>
-                    <Button href="/regester" className="App_button">Regester</Button>
+                    <Nav.Link className="app_link" eventKey={2} href="/login">{Lang==="Ar" ? ("تسجيل دخول") : Lang==="En"? ("login") : "войти"}</Nav.Link>
+                    <Button href="/regester" className="App_button">{Lang==="Ar" ? ("تسجيل حساب") : Lang==="En"? ("Regester") : "регистр"}</Button>
                     <Nav.Link  className="app_link" href="/baket">
                         <Badge color="secondary" badgeContent={100} color="error">
                             <ShoppingCartIcon />
@@ -101,9 +112,9 @@ const Header = () =>{
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={handleClose}><img className="ALM" src="https://flagcdn.com/us.svg"/>English</MenuItem>
-                            <MenuItem onClick={handleClose}><img className="ALM" src="https://flagcdn.com/ru.svg"/>Русский</MenuItem>
-                            <MenuItem onClick={handleClose}><img className="ALM" src="https://flagcdn.com/sy.svg"/>عربية </MenuItem>
+                            <MenuItem onClick={()=>setLanguage('En')}><img className="ALM" src="https://flagcdn.com/us.svg"/>English</MenuItem>
+                            <MenuItem onClick={()=>setLanguage('Ru')}><img className="ALM" src="https://flagcdn.com/ru.svg"/>Русский</MenuItem>
+                            <MenuItem onClick={()=>setLanguage('Ar')}><img className="ALM" src="https://flagcdn.com/sy.svg"/>عربية </MenuItem>
                         </Menu>
                         </div>
                     )}
@@ -112,7 +123,7 @@ const Header = () =>{
             </Navbar.Offcanvas>
         </Container>
         </Navbar>
-        <Row className="justify-content-center">
+        <Row dir="ltr" className="justify-content-center">
             <Form className="d-flex search_form">
                 <Form.Control
                 placeholder="Search for items ... "

@@ -12,12 +12,14 @@ import Login from './pages/login';
 import Aboutus from './pages/aboutus';
 import Down from './commponents/down'
 import AdminApp from './Admin/adminApp';
-
+import { useSelector } from 'react-redux';
 import AdminHome from './Admin/adminHome';
 import AdminHeader from './Admin/adminHeader'
 function App() {
+  const Lang=useSelector((state) => state.counter.language);
+
   return (
-    <div className="App" >
+    <div dir={ Lang==="Ar" ? ("rtl") :("ltr")} className="App" >
       <BrowserRouter >
       <Header/>
         <Routes>

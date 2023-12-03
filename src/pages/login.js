@@ -9,9 +9,10 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import TextField from '@mui/material/TextField';
 import Button from 'react-bootstrap/Button';
 import 'react-international-phone/style.css';
+import { useSelector } from 'react-redux';
 
 const Login =()=>{
-
+    const Lang=useSelector((state) => state.counter.language);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const [showPassword, setShowPassword] = useState(false);
     const handleMouseDownPassword = (event) => {
@@ -20,9 +21,9 @@ const Login =()=>{
 
 
     return(
-        <div className="sign">
+        <div dir="ltr" className="sign">
             <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
-                <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                <InputLabel htmlFor="standard-adornment-password">{Lang==="Ar" ? ("كلمة السر") : Lang==="En"? ("password") : "пароль"}</InputLabel>
                 <Input
                     id="standard-adornment-password"
                     type={showPassword ? 'text' : 'password'}
@@ -39,9 +40,10 @@ const Login =()=>{
                     }
                 />
             </FormControl><br/>
-            <TextField error helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="standard-basic" label="email" variant="standard" /><br/><br/><br/><br/>
-            <a href="/regester" className="App_link" > I dont hav account </a><br/><br/>
-            <Button href="/login" className="App_button"> submit </Button>
+            <TextField error helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="standard-basic" label={Lang==="Ar" ? ("الإيميل") : Lang==="En"? ("email") : "электронная почта"} variant="standard" /><br/><br/><br/><br/>
+
+            <Button href="/login" className="App_button"> {Lang==="Ar" ? ("إرسال") : Lang==="En"? ("submit") : "отправлять"} </Button><br/><br/>
+            <a href="/regester" className="App_link" > {Lang==="Ar" ? ("أنا لا أملك حساب") : Lang==="En"? ("I don't have an account") : "у меня нет аккаунта"} </a>
         </div>
     )
 }

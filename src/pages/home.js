@@ -5,36 +5,23 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Test from '../LOGO.png';
 import CardItem from '../commponents/card'
-/*import { useSelector,useDispatch } from 'react-redux';
-import {setToken,setLanguege,setBaket,addProduct } from '../store'*/
+import { useSelector } from 'react-redux';
 
 const Home =()=>{
 
-  /*const account_=useSelector((state) => state.counter.account);
-  const color=useSelector((state) => state.counter.mode);
-  const token=useSelector((state) => state.counter.token);
+
+  //const color=useSelector((state) => state.counter.mode);
   const Lang=useSelector((state) => state.counter.language);
-  const baket=useSelector((state) => state.counter.baket);
-  const dispatch = useDispatch();
-  const test=()=>{
-    dispatch(addProduct(
-      {
-        product_id:1,
-        quantity:9
-      }
-    ))
 
-
-  }*/
     return(
       <>
         <Container className="section pt-5" >
         <div className="row justify-content-center mt-5 mb-5 d-flex align-items-center text-lg-start">
           <div className="box col-lg-4 col-md-5" >
-            <h1> <span className="App-text">istanbul</span> <span className="gold-color i_font">shop</span>  </h1>
-            <p style={{ fontSize:"medium" }} className="opacity-75 mt-4">Enjoy a unique shopping experience for the best choice </p>
+            <h1> <span className="App-text">{Lang==="Ar" ? ("إسطنبول") : Lang==="En"? ("Istanbul") : "Стамбул"}</span> <span className="gold-color i_font">{Lang==="Ar" ? ("إسطنبول") : Lang==="En"? ("shop") : "магазин"}</span>  </h1>
+            <p style={{ fontSize:"medium" }} className="opacity-75 mt-4">{Lang==="Ar" ? (" تمتع بتجربة تسوق فريدة من أجل اختيارات أفضل" ) : Lang==="En"? ("Enjoy a unique shopping experience for the best choice") : "Наслаждайтесь уникальным опытом покупок и делайте лучший выбор"} </p>
             <div className="mt-5 mb-5">
-            <Button href="/regester" className="App_button">GET STARTED</Button>
+            <Button href="/regester" className="App_button">{Lang==="Ar" ? ("ابدأ التسوق") : Lang==="En"? ("GET STARTED") : "Начать покупки"}</Button>
             </div>
           </div>
           <div style={{ textAlign:"center" }} className="img-fluid col-lg-7 col-md-5 d-none d-md-block">
@@ -53,7 +40,7 @@ const Home =()=>{
             <Button href="/search" variant="outline-danger" className="keyword_button"  >Imported products</Button>
           </span>
           <span>
-            <Button href="/search" variant="outline-danger" className="keyword_button"  >show all </Button>
+            <Button href="/search" variant="outline-danger" className="keyword_button"  >{Lang==="Ar" ? ("عرض الكل") : Lang==="En"? ("show all") : "Посмотреть все"}</Button>
           </span>
 
         </div>
