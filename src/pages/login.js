@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import Button from 'react-bootstrap/Button';
 import 'react-international-phone/style.css';
 import { useSelector } from 'react-redux';
+import { PhoneInput } from 'react-international-phone';
 
 const Login =()=>{
     const Lang=useSelector((state) => state.counter.language);
@@ -18,10 +19,16 @@ const Login =()=>{
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
       };
-
+      const [phone, setPhone] = useState('');
 
     return(
         <div dir="ltr" className="sign">
+            <br/>
+            <PhoneInput
+                defaultCountry="ru"
+                value={phone}
+                onChange={(phone) => setPhone(phone)}
+            /><br/>
             <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
                 <InputLabel htmlFor="standard-adornment-password">{Lang==="Ar" ? ("كلمة السر") : Lang==="En"? ("password") : "пароль"}</InputLabel>
                 <Input
@@ -39,8 +46,8 @@ const Login =()=>{
                     </InputAdornment>
                     }
                 />
-            </FormControl><br/>
-            <TextField error helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="standard-basic" label={Lang==="Ar" ? ("الإيميل") : Lang==="En"? ("email") : "электронная почта"} variant="standard" /><br/><br/><br/><br/>
+            </FormControl>
+            <br/><br/><br/>
 
             <Button href="/login" className="App_button"> {Lang==="Ar" ? ("إرسال") : Lang==="En"? ("submit") : "отправлять"} </Button><br/><br/>
             <a href="/regester" className="App_link" > {Lang==="Ar" ? ("أنا لا أملك حساب") : Lang==="En"? ("I don't have an account") : "у меня нет аккаунта"} </a>

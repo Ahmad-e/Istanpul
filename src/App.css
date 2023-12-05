@@ -20,6 +20,10 @@
   font-weight: bold;
   color: var(--sec-color);
 }
+.d_n
+{
+  display: none;
+}
 .App_button
 {
   --bs-btn-color: #fff;
@@ -36,7 +40,7 @@
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: var(--main-color);
   --bs-btn-disabled-border-color: var(--main-color);
-    border-radius: 30px;
+    border-radius: 20px;
     height: 42px;
     transition: ease-in-out .15s ;
     margin: 5px;

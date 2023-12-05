@@ -43,7 +43,7 @@ const Header = () =>{
 
     return(
         <>
-        <Navbar  collapseOnSelect expand="md" className="bg-body-tertiary">
+        <Navbar  collapseOnSelect expand="xxlg" className="bg-body-tertiary">
          <Container>
           <Navbar.Brand href="/">
           <img
@@ -75,11 +75,17 @@ const Header = () =>{
                 <Nav className=" flex-grow-1 pe-3">
                     <Nav.Link className="app_link" href="/search">{Lang==="Ar" ? ("البحث") : Lang==="En"? ("Search") : "поиск"}</Nav.Link>
                     <Nav.Link className="app_link" href="/aboutus">{Lang==="Ar" ? ("معلومات عنا") : Lang==="En"? ("about us") : "о нас"}</Nav.Link>
+                    <Nav.Link className="app_link" href="/favorite">{Lang==="Ar" ? (" المفضلة ") : Lang==="En"? ("favorite") : "любимый"}</Nav.Link>
+                    <Nav.Link className="app_link" href="/offers">{Lang==="Ar" ? (" العروض ") : Lang==="En"? ("offers") : "Цены со скидкой"}</Nav.Link>
+                    <Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" أفضل المنتجات ") : Lang==="En"? (" best broduct") : "Лучшие продукты"}</Nav.Link>
+                    <Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" الحلويات ") : Lang==="En"? (" sweets ") : "сладости"}</Nav.Link>
+                    <Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" المشروبات ") : Lang==="En"? (" drinks ") : "напитки"}</Nav.Link>
+                    <Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" أنواع أُخرى ") : Lang==="En"? (" other kinds ") : "другие виды"}</Nav.Link>
 
                 </Nav>
                 <Nav>
                     <Nav.Link className="app_link" eventKey={2} href="/login">{Lang==="Ar" ? ("تسجيل دخول") : Lang==="En"? ("login") : "войти"}</Nav.Link>
-                    <Button href="/regester" className="App_button">{Lang==="Ar" ? ("تسجيل حساب") : Lang==="En"? ("Regester") : "регистр"}</Button>
+                    <Button href="/regester" style={{ width:"130px" }} className="App_button">{Lang==="Ar" ? ("تسجيل حساب") : Lang==="En"? ("Regester") : "регистр"}</Button>
                     <Nav.Link  className="app_link" href="/baket">
                         <Badge color="secondary" badgeContent={100} color="error">
                             <ShoppingCartIcon />
@@ -112,9 +118,9 @@ const Header = () =>{
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={()=>setLanguage('En')}><img className="ALM" src="https://flagcdn.com/us.svg"/>English</MenuItem>
-                            <MenuItem onClick={()=>setLanguage('Ru')}><img className="ALM" src="https://flagcdn.com/ru.svg"/>Русский</MenuItem>
-                            <MenuItem onClick={()=>setLanguage('Ar')}><img className="ALM" src="https://flagcdn.com/sy.svg"/>عربية </MenuItem>
+                            <MenuItem onClick={()=>setLanguage('En')}><img className="ALM" src="https://flagcdn.com/w320/gb.png"/> English </MenuItem>
+                            <MenuItem onClick={()=>setLanguage('Ru')}><img className="ALM" src="https://flagcdn.com/ru.svg"/> Русский </MenuItem>
+                            <MenuItem onClick={()=>setLanguage('Ar')}><img className="ALM" src="https://flagcdn.com/w320/sa.png"/> عربية </MenuItem>
                         </Menu>
                         </div>
                     )}
@@ -130,7 +136,7 @@ const Header = () =>{
                 className="text-search"
                 aria-label="Search"
                 />
-                <Button variant="outline-success" className="search_button"><SearchIcon /></Button>
+                <Button  variant="outline-success" className="search_button"><SearchIcon /></Button>
             </Form>
         </Row>
         </>

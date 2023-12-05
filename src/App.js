@@ -10,11 +10,13 @@ import Search from './pages/search';
 import Singlin from './pages/singlin';
 import Login from './pages/login';
 import Aboutus from './pages/aboutus';
-import Down from './commponents/down'
+import Favoret from './pages/favorit'
+import Down from './commponents/down';
 import AdminApp from './Admin/adminApp';
 import { useSelector } from 'react-redux';
 import AdminHome from './Admin/adminHome';
-import AdminHeader from './Admin/adminHeader'
+import AdminHeader from './Admin/adminHeader';
+import Offers from './pages/offers'
 function App() {
   const Lang=useSelector((state) => state.counter.language);
 
@@ -30,6 +32,8 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="regester" element={<Singlin />} />
             <Route path="baket" element={<Baket />} />
+            <Route path="favorite" element={<Favoret />} />
+            <Route path="offers" element={<Offers />} />
             <Route path="admin" element={<AdminApp />} >
               <Route path="home" element={<AdminHome />} />
               <Route path="header" element={<AdminHeader/>} />

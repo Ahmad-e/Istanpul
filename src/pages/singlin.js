@@ -24,6 +24,34 @@ const Singlin =()=>{
         event.preventDefault();
       };
 
+    const [errorName,setErrorName] = useState(false);
+    const [errorEmail,setErrorEmail] = useState(false);
+    const [errorPassword,setErrorPassword] = useState(false);
+    const sent = () =>{
+        const name = document.getElementById("Name").value;
+        const email = document.getElementById("Email").value;
+        const password = document.getElementById("Pass").value;
+        const phone_numper = phone
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if(!name)
+            setErrorName(true)
+        else
+            setErrorName(false)
+
+        if(password.length<8)
+            setErrorPassword(true)
+        else
+            setErrorPassword(false)
+
+        if(re.test(email))
+            setErrorEmail(false);
+        else
+            setErrorEmail(true)
+        
+        if(name && email && password && phone_numper)
+            console.log("tmam")
+    }
       
     const [age, setAge] = useState('');
       
@@ -34,10 +62,13 @@ const Singlin =()=>{
     return(
         
         <div dir="ltr" className="sign">
-            <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+            
+            <TextField error={errorName} helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="Name" label={Lang==="Ar" ? ("الاسم") : Lang==="En"? ("name") : "имя"} variant="standard" /><br/>
+            <TextField error={errorEmail}  helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="Email" label={Lang==="Ar" ? ("الإيميل") : Lang==="En"? ("email") : "электронная почта"} variant="standard" /><br/>
+            <FormControl error={errorPassword} sx={{ m: 1, width: '25ch' }} variant="standard">
                 <InputLabel htmlFor="standard-adornment-password">{Lang==="Ar" ? ("كلمة السر") : Lang==="En"? ("password") : "пароль"}</InputLabel>
                 <Input
-                    id="standard-adornment-password"
+                    id="Pass"
                     type={showPassword ? 'text' : 'password'}
                     endAdornment={
                     <InputAdornment position="end">
@@ -51,10 +82,10 @@ const Singlin =()=>{
                     </InputAdornment>
                     }
                 />
-            </FormControl><br/>
-            <TextField error helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="standard-basic" label={Lang==="Ar" ? ("الاسم") : Lang==="En"? ("name") : "имя"} variant="standard" /><br/>
-            <TextField error helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="standard-basic" label={Lang==="Ar" ? ("الإيميل") : Lang==="En"? ("email") : "электронная почта"} variant="standard" /><br/><br/>
+            </FormControl>
+            <br/><br/><br/>
             <PhoneInput
+                id="phone"
                 defaultCountry="ru"
                 value={phone}
                 onChange={(phone) => setPhone(phone)}
@@ -78,8 +109,9 @@ const Singlin =()=>{
                         <MenuItem value={30}>Local products</MenuItem>
                         <MenuItem value={30}>Imported products</MenuItem>
                     </Select>
-            </FormControl><br/><br/>
-            <Button href="/regester" className="App_button"> {Lang==="Ar" ? ("إرسال") : Lang==="En"? ("submit") : "отправлять"} </Button><br/><br/><br/>
+            </FormControl><br/>
+            
+            <Button onClick={()=>sent()} className="App_button"> {Lang==="Ar" ? ("إرسال") : Lang==="En"? ("submit") : "отправлять"} </Button><br/><br/><br/>
             <a href="/login" className="App_link" > {Lang==="Ar" ? ("أنا أملك حساب") : Lang==="En"? ("I have account") : "у меня есть аккаунт"} </a>
             
         </div>
