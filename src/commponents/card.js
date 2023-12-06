@@ -26,7 +26,7 @@ const CardItem =(props)=>{
                 <Card  style={{ borderRadius:"20px" }}  sx={{ maxWidth: 345 }}>
                     <CardActionArea >
                         <div className={"offer_div "+(offer ? (""):("d_n") )} >
-                        {offer}%<TrendingDownIcon/>  offer
+                        {offer}%<TrendingDownIcon/>
                         </div>
                         <CardMedia
                         component="img"

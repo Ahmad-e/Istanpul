@@ -73,15 +73,23 @@ const Header = () =>{
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className=" flex-grow-1 pe-3">
-                    <Nav.Link className="app_link" href="/search">{Lang==="Ar" ? ("البحث") : Lang==="En"? ("Search") : "поиск"}</Nav.Link>
-                    <Nav.Link className="app_link" href="/aboutus">{Lang==="Ar" ? ("معلومات عنا") : Lang==="En"? ("about us") : "о нас"}</Nav.Link>
-                    <Nav.Link className="app_link" href="/favorite">{Lang==="Ar" ? (" المفضلة ") : Lang==="En"? ("favorite") : "любимый"}</Nav.Link>
+                    <Nav.Link className="app_link" href="/search">{Lang==="Ar" ? (" بدء التسوق ") : Lang==="En"? ("Start shopping") : "Начать покупки"} </Nav.Link>
                     <Nav.Link className="app_link" href="/offers">{Lang==="Ar" ? (" العروض ") : Lang==="En"? ("offers") : "Цены со скидкой"}</Nav.Link>
+                    <Nav.Link className="app_link" href="/favorite">{Lang==="Ar" ? (" المفضلة ") : Lang==="En"? ("favorite") : "любимый"}</Nav.Link>
                     <Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" أفضل المنتجات ") : Lang==="En"? (" best broduct") : "Лучшие продукты"}</Nav.Link>
-                    <Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" الحلويات ") : Lang==="En"? (" sweets ") : "сладости"}</Nav.Link>
-                    <Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" المشروبات ") : Lang==="En"? (" drinks ") : "напитки"}</Nav.Link>
-                    <Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" أنواع أُخرى ") : Lang==="En"? (" other kinds ") : "другие виды"}</Nav.Link>
+                    <ul>
+                        <li><Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" الحلويات ") : Lang==="En"? (" sweets ") : "сладости"}</Nav.Link></li>
+                        <li><Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" المشروبات ") : Lang==="En"? (" drinks ") : "напитки"}</Nav.Link></li>
+                        <li><Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" الغذائيات ") : Lang==="En"? (" Nutrition ") : "Питание"}</Nav.Link></li>
+                        <li><Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" بهارات ") : Lang==="En"? (" spices ") : "специи"}</Nav.Link></li>
+                        <li><Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" المكسرات ") : Lang==="En"? (" Nuts ") : "Орехи"}</Nav.Link></li>
+                        <li><Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" أنواع أُخرى ") : Lang==="En"? (" other kinds ") : "другие виды"}</Nav.Link></li>
+                    </ul>
+                    
 
+
+
+                    <Nav.Link className="app_link" href="/aboutus">{Lang==="Ar" ? ("معلومات عنا") : Lang==="En"? ("about us") : "о нас"}</Nav.Link>
                 </Nav>
                 <Nav>
                     <Nav.Link className="app_link" eventKey={2} href="/login">{Lang==="Ar" ? ("تسجيل دخول") : Lang==="En"? ("login") : "войти"}</Nav.Link>
@@ -119,7 +127,7 @@ const Header = () =>{
                             onClose={handleClose}
                         >
                             <MenuItem onClick={()=>setLanguage('En')}><img className="ALM" src="https://flagcdn.com/w320/gb.png"/> English </MenuItem>
-                            <MenuItem onClick={()=>setLanguage('Ru')}><img className="ALM" src="https://flagcdn.com/ru.svg"/> Русский </MenuItem>
+                            <MenuItem onClick={()=>setLanguage('Ru')}><img className="ALM" src="https://flagcdn.com/w320/ru.png"/> Русский </MenuItem>
                             <MenuItem onClick={()=>setLanguage('Ar')}><img className="ALM" src="https://flagcdn.com/w320/sa.png"/> عربية </MenuItem>
                         </Menu>
                         </div>

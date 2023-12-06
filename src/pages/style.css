@@ -83,8 +83,9 @@
 {
     padding: 22px;
     margin: 12px;
+    margin-bottom: 15px;
     text-align: start;
-    border-radius: 5px;
+    border-radius: 20px;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 6px 0 rgba(0, 0, 0, 0.19);
 }
 .baket_img_card
@@ -94,6 +95,7 @@
     height: 100%;
     max-width: 300px;
     object-fit: cover;
+    border-radius: 20px 0px 0px 20px;
 }
 .baket_info_card
 {

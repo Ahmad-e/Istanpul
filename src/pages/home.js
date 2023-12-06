@@ -15,7 +15,7 @@ const Home =()=>{
 
     return(
       <>
-        <Container className="section pt-5 " >
+        <Container className="sectio" >
         <div className="row justify-content-center mt-5 mb-5 d-flex align-items-center text-lg-start">
           <div className="box col-lg-4 col-md-5" >
             <h1> <span className="App-text">{Lang==="Ar" ? ("إسطنبول") : Lang==="En"? ("Istanbul") : "Стамбул"}</span> <span className="gold-color i_font">{Lang==="Ar" ? ("شوب") : Lang==="En"? ("shop") : "магазин"}</span>  </h1>

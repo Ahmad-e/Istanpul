@@ -57,14 +57,11 @@
 .offer_div
 {
   width: 80px;
-  height: 80px;
   color: var(--main-color);
   position: absolute;
   border-radius:  20px 0px 20px 0px;
   font-family: fantasy;
   padding: 6px;
-  border-width: 4px;
-  border-style: outset;
   background-color: rgba(151, 145, 145, 0.5);
 }
 .salary
@@ -129,6 +126,14 @@
   }
   .contact .social .instagram:hover {
     background-color: #f00975;
+  }
+  .telegram
+  {
+    color: honeydew;
+  }
+  .contact .social .telegram:hover
+  {
+    background-color: #0088cc;
   }
   .contact .social a i {
     font-size: 20px;
