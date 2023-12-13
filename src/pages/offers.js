@@ -5,6 +5,9 @@ import Test from '../test.jpg';
 import CardItem from '../commponents/card';
 
 const Offers =()=>{
+
+    
+
     return(
         <div>
             <Row className="justify-content-center">

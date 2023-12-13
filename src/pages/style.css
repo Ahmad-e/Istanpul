@@ -90,13 +90,31 @@
 }
 .baket_img_card
 {
-    max-height: 260px;
     width:100%;
     height: 100%;
-    max-width: 300px;
     object-fit: cover;
-    border-radius: 20px 0px 0px 20px;
 }
+.b_r_tr_img
+{
+  border-top-right-radius: 20px;
+}
+.b_r_br_img
+{
+  border-bottom-right-radius: 20px;
+}
+.b_r_tl_img
+{
+  border-top-left-radius: 20px;
+}
+.b_r_bl_img
+{
+  border-bottom-left-radius: 20px;
+}
+@media only screen and (max-width: 767px) {
+    .baket_img_card {
+      border-radius: 20px 20px 0px 0px;
+    }
+  }
 .baket_info_card
 {
     margin: 20px;
@@ -123,3 +141,9 @@
     margin: 20px 0px;
     text-align: center;
 }
+
+
+/*form start*/
+
+
+/* form end */

@@ -14,13 +14,40 @@ const Baket =()=>{
     return(
         <Container >
             <Row className="justify-content-center" >
-                <Col  lg={8} md={7} sm={6} xs={10}>
+                <Col  lg={8} md={10} sm={7} xs={10}>
                     <Row style={{ padding : "0px" }} className=" baket_card" >
-                        <Col style={{ padding : "0px" }} lg={4} md={4} sm={12} >
-                            <img className="baket_img_card" src={Test}  />
-                            
+                        <Col  lg={4} md={5} sm={12} style={{ padding : "0px" }}>
+                            <img className={ " baket_img_card" + (Lang==='Ar' ? (" b_r_tr_img  b_r_br_img ") : (" b_r_tl_img b_r_bl_img "))  } src={Test}  />
                         </Col>
-                        <Col lg={4} md={4} sm={12} className="baket_info_card" > 
+                        <Col lg={4} md={3} sm={12} className="baket_info_card" > 
+                                <h4> Super shampoo </h4>
+                                <div className="light_font">the best shampoo in the world</div>
+                                <h4 className="gold-color" > 1000 $ </h4>
+                                <Form > 
+                                <Form.Group>
+                                    <Form.Label>
+                                    {Lang==="Ar" ? ("الكمية ") : Lang==="En"? ("Quantity ") : "Количество "}:
+                                    </Form.Label>
+                                <Form.Control
+                                    style={{ maxWidth: "100px" }}
+                                    required
+                                    type="number"
+                                    min={1}
+                                    maxLength="10"
+                                />
+                                </Form.Group>
+                                </Form>
+                        </Col>
+                        <Col className="total" lg={3} md={2} sm={12} xs={12}>
+                        {Lang==="Ar" ? ("المجموع ") : Lang==="En"? ("total ") : "Общая "}:<h4 style={{ display:"inline-block" }} className="App-text">1000$</h4><br/>
+                        <Button href="/search" variant="outline-danger" className="keyword_button"  >Remove</Button>
+                        </Col>
+                    </Row>
+                    <Row style={{ padding : "0px" }} className=" baket_card" >
+                        <Col  lg={4} md={5} sm={12} style={{ padding : "0px" }}>
+                            <img className={ " baket_img_card" + (Lang==='Ar' ? (" b_r_tr_img  b_r_br_img ") : (" b_r_tl_img b_r_bl_img "))  } src={Test}  />
+                        </Col>
+                        <Col lg={4} md={3} sm={12} className="baket_info_card" > 
                                 <h4> Super shampoo </h4>
                                 <div className="light_font">the best shampoo in the world</div>
                                 <h4 className="gold-color" > 1000 $ </h4>
@@ -34,73 +61,19 @@ const Baket =()=>{
                                     required
                                     type="number"
                                     maxLength="10"
+                                    min={1}
                                 />
                                 </Form.Group>
                                 </Form>
-                            </Col>
-                        <Col className="total" lg={3} md={4} sm={12}>
-                        {Lang==="Ar" ? ("المجموع ") : Lang==="En"? ("total ") : "Общая "}:<h4 style={{ display:"inline-block" }} className="App-text">1000$</h4>
                         </Col>
-                    </Row>
-                    <Row style={{ padding : "0px" }} className="baket_card" >
-                        <Col style={{ padding : "0px" }} lg={4} md={4} sm={12} >
-                            <img className="baket_img_card" src={Test}  />
-                            
-                        </Col>
-                        <Col lg={4} md={4} sm={12} className="baket_info_card" > 
-                                <h4> istanbul website </h4>
-                                <div className="light_font">the best website in the world</div>
-                                <h4 className="gold-color" > 1000 $ </h4>
-                                <Form > 
-                                    
-                                <Form.Group>
-                                    <Form.Label>
-                                    {Lang==="Ar" ? ("الكمية ") : Lang==="En"? ("Quantity ") : "Количество "}:
-                                    </Form.Label>
-                                <Form.Control
-                                    style={{ maxWidth: "100px" }}
-                                    required
-                                    type="number"
-                                    maxLength="10"
-                                />
-                                </Form.Group>
-                                </Form>
-                            </Col>
-                        <Col className="total" lg={3} md={4} sm={12}>
-                        {Lang==="Ar" ? ("المجموع ") : Lang==="En"? ("total ") : "Общая "}:<h4 style={{ display:"inline-block" }} className="App-text">1000$</h4>
-                        </Col>
-                    </Row>
-                    <Row style={{ padding : "0px" }} className="baket_card" >
-                        <Col style={{ padding : "0px" }} lg={4} md={4} sm={12} >
-                            <img className="baket_img_card" src={Test}  />
-                            
-                        </Col>
-                        <Col lg={4} md={4} sm={12} className="baket_info_card" > 
-                                <h4> istanbul website </h4>
-                                <div className="light_font">the best website in the world</div>
-                                <h4 className="gold-color" > 1000 $ </h4>
-                                <Form > 
-                                <Form.Group>
-                                    <Form.Label>
-                                    {Lang==="Ar" ? ("الكمية ") : Lang==="En"? ("Quantity ") : "Количество "}:
-                                    </Form.Label>
-                                    <Form.Control
-                                        style={{ maxWidth: "100px" }}
-                                        required
-                                        type="number"
-
-                                        maxLength="10"
-                                    />
-                                    </Form.Group>
-                                </Form>
-                            </Col>
-                        <Col className="total" lg={3} md={4} sm={12}>
-                        {Lang==="Ar" ? ("المجموع ") : Lang==="En"? ("total ") : "Общая "}:<h4 style={{ display:"inline-block" }} className="App-text">1000$</h4>
+                        <Col className="total" lg={3} md={2} sm={12} xs={12}>
+                        {Lang==="Ar" ? ("المجموع ") : Lang==="En"? ("total ") : "Общая "}:<h4 style={{ display:"inline-block" }} className="App-text">1000$</h4><br/>
+                        <Button href="/search" variant="outline-danger" className="keyword_button"  >Remove</Button>
                         </Col>
                     </Row>
                 </Col>
                 
-                <Col style={{ height:"100%" , display:"grid" }} className="baket_card" lg={3} md={4} sm={5} xs={10}>
+                <Col style={{ height:"100%" , display:"grid" }} className="baket_card" lg={3} md={7} sm={8} xs={10}>
                     <div >
                         <span>{Lang==="Ar" ? ("عنصر") : Lang==="En"? ("item") : "пункт "}1 : </span><h5 className="App-text end_card_baket" >5000$</h5><br/>
                         <span>{Lang==="Ar" ? ("عنصر") : Lang==="En"? ("item") : "пункт "}2  : </span> <h5 className="App-text end_card_baket" >100$</h5><br/>

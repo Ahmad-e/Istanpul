@@ -2,7 +2,10 @@
 {
   --main-color:#E6392B;
 }
-
+.offcanvas
+{
+  max-width: 240px;
+}
 .app_link
 {
     color: #111;
@@ -44,6 +47,7 @@
     border-radius: 0px 15px 15px 0px;
 
 }
+
 .text-search
 {
     border-radius: 15px 0px 0px 15px;
@@ -57,12 +61,14 @@
 .offer_div
 {
   width: 80px;
-  color: var(--main-color);
-  position: absolute;
-  border-radius:  20px 0px 20px 0px;
-  font-family: fantasy;
-  padding: 6px;
-  background-color: rgba(151, 145, 145, 0.5);
+    font-size: 16px;
+    color: white;
+    position: absolute;
+    font-family: fantasy;
+    margin: 10px;
+    border-radius: 20px;
+    padding: 2px;
+    background-color: var(--main-color);
 }
 .salary
 {
@@ -119,10 +125,10 @@
     margin-bottom: 20px;
   }
   .contact .social .facebook:hover {
-    background-color: #1877f2;
+    background-color: #0077FF;
   }
   .contact .social .twitter:hover {
-    background-color: var(--main-color);
+    background-color: 	#25D366;
   }
   .contact .social .instagram:hover {
     background-color: #f00975;
@@ -171,6 +177,7 @@
 
 /*<![CDATA[*/
 .market-btn {
+  width: 100%;
     display: inline-block;
     padding: 0.3125rem 0.875rem;
     padding-left: 2.8125rem;

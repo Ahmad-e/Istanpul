@@ -2,7 +2,6 @@
   text-align: center;
   font-size: 18px;
   background-color: rgb(248,249,250);
-  min-height: 800px;
   font-family: 'Inria Sans';font-size: 18px;
 }
 :root
@@ -66,4 +65,24 @@
 {
   display: flex;
   justify-content: space-between
+}
+.b_r_0
+{
+  border-radius: 0px;
+}
+.b_r_tr
+{
+  border-top-right-radius: 20px;
+}
+.b_r_br
+{
+  border-bottom-right-radius: 20px;
+}
+.b_r_tl
+{
+  border-top-left-radius: 20px;
+}
+.b_r_bl
+{
+  border-bottom-left-radius: 20px;
 }

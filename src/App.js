@@ -12,6 +12,8 @@ import Login from './pages/login';
 import Aboutus from './pages/aboutus';
 import Favoret from './pages/favorit'
 import Down from './commponents/down';
+import Form from './pages/form'
+import Requests from './pages/requests'
 import AdminApp from './Admin/adminApp';
 import { useSelector } from 'react-redux';
 import AdminHome from './Admin/adminHome';
@@ -33,6 +35,8 @@ function App() {
             <Route path="regester" element={<Singlin />} />
             <Route path="baket" element={<Baket />} />
             <Route path="favorite" element={<Favoret />} />
+            <Route path="requests" element={<Requests />} />
+            <Route path="form" element={<Form />} />
             <Route path="offers" element={<Offers />} />
             <Route path="admin" element={<AdminApp />} >
               <Route path="home" element={<AdminHome />} />
