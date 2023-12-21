@@ -22,7 +22,7 @@ const Down = () =>{
 
     return(
         
-        <div className="contact mt-5 p-5">
+        <div dir={"ltr"} className="contact mt-5 p-5">
             <Container className="contact-container d-flex justify-content-between">
                 <div className="mb-3">
                     <h2 className="logo text-start ">
@@ -44,17 +44,17 @@ const Down = () =>{
                     <div className="text2" >info@istanbulru.com</div>
                     <div className="text3" > +7 918 679-31-15 </div><br/>
                         <a href="https://www.kobinet.com.tr/" target="_blank" class="market-btn apple-btn" role="button">
-                        <span class="market-button-subtitle">Download on the</span>
-                        <span class="market-button-title">App Store</span>
+                            <span class="market-button-subtitle">Download on the</span>
+                            <span class="market-button-title">App Store</span>
                         </a>
                         <br/>
                         <a href="https://www.kobinet.com.tr/" target="_blank" class="market-btn google-btn" role="button">
-                        <span class="market-button-subtitle">Download on the</span>
-                        <span class="market-button-title">Google Play</span>
+                            <span class="market-button-subtitle">Download on the</span>
+                            <span class="market-button-title">Google Play</span>
                         </a>
                     </div>
                     <div className="d-flex flex-column mt-lg-4 justify-content-center align-items-center">
-                        <h4>Contact Us</h4>
+                        <h4></h4>
                         <ul className="social mt-3 d-flex align-items-center justify-content-center">
                             
                                 <a href="" class="facebook">
@@ -81,12 +81,12 @@ const Down = () =>{
                                 </svg>
                                 </a>
                             
-                            
-                                <a  class="twitter">
-                                    <WhatsAppIcon style={{ fill: "white" }}/>
-                                </a>
+                                
                                 <a href="https://instagram.com/istanbul.krd" class="instagram">
                                     <InstagramIcon  style={{ fill: "white" }} />
+                                </a>
+                                <a  class="twitter">
+                                    <WhatsAppIcon style={{ fill: "white" }}/>
                                 </a>
                                 <a href="https://instagram.com/istanbul.krd" class="telegram">
                                     <TelegramIcon  style={{ fill: "white" }} />

@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Test from '../test.jpg';
@@ -7,7 +8,7 @@ import CardItem from '../commponents/card'
 const Favorit =()=>{
     const Lang=useSelector((state) => state.counter.language);
     return(
-        <div>
+        <Container>
             <div>
             <br/><br/>{Lang==="Ar" ? ("هنا العناصر التي تم اختيارها كمفضلة أثناء التسوق") : Lang==="En"? ("Here are the items that were chosen as favorites while shopping") : "Вот товары, которые были выбраны в качестве фаворитов при покупках"}<br/><br/>
             </div>
@@ -25,7 +26,7 @@ const Favorit =()=>{
                     <CardItem id={0} imgURL={Test} name="Istanpul website" disc="bestwebsite in the world" price="10000" />
                 </Col>
             </Row>
-        </div>
+        </Container>
     )
 }
 export default Favorit

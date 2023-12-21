@@ -81,20 +81,20 @@ const Search =()=>{
                         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                             <InputLabel style={{ color:"#E6392B" }} id="demo-simple-select-standard-label">kind</InputLabel>
                             <Select
-                             style={{ borderColor:"#E6392B" }} 
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            value={age}
-                            onChange={handleChange}
-                            label="Age"
-                            >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={10}>candies</MenuItem>
-                            <MenuItem value={20}>drinks</MenuItem>
-                            <MenuItem value={30}>Local products</MenuItem>
-                            <MenuItem value={30}>Imported products</MenuItem>
+                                style={{ borderColor:"#E6392B" }} 
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={age}
+                                onChange={handleChange}
+                                label="Age"
+                                >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                <MenuItem value={10}>candies</MenuItem>
+                                <MenuItem value={20}>drinks</MenuItem>
+                                <MenuItem value={30}>Local products</MenuItem>
+                                <MenuItem value={30}>Imported products</MenuItem>
                             </Select>
                         </FormControl>
                     </Col>

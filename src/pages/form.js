@@ -44,18 +44,34 @@ const customTheme = (outerTheme) =>
   });
 
 
+  
+
+
 
 
 const Form = () => {
     const Lang=useSelector((state) => state.counter.language);
     const [age, setAge] = useState('');
+    const [selectedState,setSelectedState] = useState('')
       
-    const handleChange = (event) => {
+    const handleChangeState = (event) => {
+      setSelectedState(event.target.value);
+      console.log( selectedState )
+    };
+    const handleChangeCity = (event) => {
       setAge(event.target.value);
     };
       
       const outerTheme = useTheme();
-
+      const [tes,setTes] = useState([]);
+      const test =()=>{
+        
+        for(var i=0 ; i<cities.length ; i++  )
+        {
+          tes.push(cities[i].district)
+        }
+        console.log([...new Set(tes)])
+      }
 
     return(
         <div>
@@ -101,29 +117,50 @@ const Form = () => {
             </div>
             {Lang==="Ar" ? ("أدخل المدينة التي تسكنها حالياً") : Lang==="En"? ("Enter the city you currently live in") : "Введите город, в котором вы сейчас проживаете"}<br/><br/>
             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel style={{ color:"#E6392B" }} id="demo-simple-select-standard-label">{Lang==="Ar" ? ("الولاية") : Lang==="En"? ("state") : "состояние"}</InputLabel>
+                    <Select
+                         style={{ borderColor:"#E6392B" }} 
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={age}
+                        onChange={handleChangeState}
+                        label="Age"
+                        >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {state.map((item)=>{
+                          return(<MenuItem  value={item} >{item}</MenuItem>)
+                        })}
+                    </Select>
+            </FormControl>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel style={{ color:"#E6392B" }} id="demo-simple-select-standard-label">{Lang==="Ar" ? ("المدينة") : Lang==="En"? ("city") : "Город"}</InputLabel>
                     <Select
                          style={{ borderColor:"#E6392B" }} 
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
                         value={age}
-                        onChange={handleChange}
+                        id="state"
+                        onChange={()=>handleChangeCity()}
                         label="Age"
                         >
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
                         {cities.map((item)=>{
-                        return(<MenuItem>{item.district} _ {item.name}</MenuItem>)
+                          if(selectedState===item.district)
+                            return(<MenuItem>{item.district} _ {item.name}</MenuItem>)
                         })}
                     </Select>
-            </FormControl><br/>
+            </FormControl>
+            <br/>
             <br/><br/>
             <div style={{ display: "flex" , justifyContent: "center" }}>
                 <hr style={{     width: "84%" }} />
             </div>
             {Lang==="Ar" ? ("أنهي إدخال بياناتك من فضلك ثم إضغط على تقديم الطلب") : Lang==="En"? ("Please finish entering your data, then click Send the request") : "Пожалуйста, завершите ввод данных, затем нажмите Отправить запрос"}<br/><br/>
-            <Button className="App_button">{Lang==="Ar" ? ("تقديم الطلب") : Lang==="En"? ("Send the request") : "Отправить запрос"}</Button><br/>
+            <Button onClick={()=>test()} className="App_button">{Lang==="Ar" ? ("تقديم الطلب") : Lang==="En"? ("Send the request") : "Отправить запрос"}</Button><br/>
         </div>
     )
 }
@@ -568,6 +605,16 @@ export default  Form
     { code: 'ZW', label: 'Zimbabwe', phone: '263' },
   ];
 
+  const state = [
+    "Сибирский",
+    "Приволжский",
+    "Южный",
+    "Северо-Кавказский",
+    "Уральский",
+    "Дальневосточный",
+    "Центральный"
+    ,"Северо-Западный"
+  ]
   const cities = [
     {
       "coords": {
@@ -11910,5 +11957,3 @@ export default  Form
       "subject": "Московская область"
     }
   ]
-  
-  
