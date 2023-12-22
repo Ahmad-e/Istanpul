@@ -21,6 +21,7 @@ import AdminHeader from './Admin/adminHeader';
 import Offers from './pages/offers'
 function App() {
   const Lang=useSelector((state) => state.counter.language);
+  document.querySelector("meta[name='theme-color']").content = "#f8f9fa";
 
   return (
     <div dir={ Lang==="Ar" ? ("rtl") :("ltr")} className="App" >
