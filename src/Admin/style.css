@@ -1,0 +1,20 @@
+.Admin_App
+{
+    display: flex;
+    justify-items: center;
+}
+
+.bar
+{
+    background-color: grey;
+    width: 300px;
+}
+.bar_link
+{
+    padding: 10px;
+}
+.bar_link:hover
+{
+    background-color: #ddd;
+    transition: ease-in-out .15s ;
+}

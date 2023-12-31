@@ -1,14 +1,23 @@
-import { Routes, Route, Link, Outlet } from 'react-router-dom';
+import {Outlet } from 'react-router-dom';
+import AdminHeader from './adminHeader';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
-import AdminHome from './adminHome';
-import AdminHeader from './adminHeader'
+import './style.css';
+
+
+
 const AdminApp =()=>{
     return(
-    <div className="App" >
-        <Routes>
-          <Route path="home" element={<AdminHome />} />
-          <Route path="header" element={<AdminHeader/>} />
-        </Routes>
+    <div>
+      <Row>
+        <Col xlg={4} xs={3} >
+          <AdminHeader/>
+        </Col>
+        <Col xlg={8} xs={9} >
+          <Outlet/>
+        </Col>
+      </Row>
     </div>
     )
 }

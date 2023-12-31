@@ -5,7 +5,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Button from 'react-bootstrap/Button';
@@ -22,11 +21,11 @@ const CardItem =(props)=>{
 
 
     return(
-        <div className="Card" >
+        <div dir="ltr" className="Card" >
                 <Card  style={{ borderRadius:"20px" }}  sx={{ maxWidth: 345 }}>
                     <CardActionArea >
-                        <div className={"offer_div "+(offer ? (""):("d_n") )} >
-                        {offer}%<TrendingDownIcon/>
+                        <div dir="ltr" className={"offer_div "+(offer ? (""):("d_n") )} >
+                        {offer}%
                         </div>
                         <CardMedia
                         component="img"
@@ -34,7 +33,7 @@ const CardItem =(props)=>{
                         image={imageURL}
                         alt="green iguana"
                         />
-                        <CardContent style={{ textAlign:"start" }} >
+                        <CardContent  style={{ textAlign:"start" }} >
                             <Typography style={{ textAlign:"start" }} gutterBottom variant="h5" component="div">
                             {name}
                             </Typography>

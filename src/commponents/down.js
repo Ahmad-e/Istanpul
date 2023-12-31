@@ -94,8 +94,6 @@ const Down = () =>{
                                 
                         </ul>
                     </div>
-                    
-                
             </Container>
             <Col className="center">
             

@@ -10,14 +10,20 @@ import Search from './pages/search';
 import Singlin from './pages/singlin';
 import Login from './pages/login';
 import Aboutus from './pages/aboutus';
-import Favoret from './pages/favorit'
+import Favoret from './pages/favorit';
+import Suggestion from './pages/suggestion'
 import Down from './commponents/down';
 import Form from './pages/form'
 import Requests from './pages/requests'
 import AdminApp from './Admin/adminApp';
 import { useSelector } from 'react-redux';
 import AdminHome from './Admin/adminHome';
-import AdminHeader from './Admin/adminHeader';
+import Create_Employee from './Admin/create_employee';
+import Delivery from './Admin/delivery';
+import AdminOffers from './Admin/offers';
+import AdminProducts from './Admin/products';
+import AdminRequests from './Admin/requests';
+import Sales from './Admin/sales';
 import Offers from './pages/offers'
 function App() {
   const Lang=useSelector((state) => state.counter.language);
@@ -29,7 +35,6 @@ function App() {
       <BrowserRouter >
       <Header/>
         <Routes>
-          
             <Route index element={<Home />} />
             <Route path="aboutus" element={<Aboutus />} />
             <Route path="search" element={<Search />} />
@@ -37,12 +42,18 @@ function App() {
             <Route path="regester" element={<Singlin />} />
             <Route path="baket" element={<Baket />} />
             <Route path="favorite" element={<Favoret />} />
+            <Route path="sendMessage" element={<Suggestion />} />
             <Route path="requests" element={<Requests />} />
             <Route path="form" element={<Form />} />
             <Route path="offers" element={<Offers />} />
             <Route path="admin" element={<AdminApp />} >
-              <Route path="home" element={<AdminHome />} />
-              <Route path="header" element={<AdminHeader/>} />
+            <Route path="home" element={<AdminHome />} />
+              <Route path="createEmployee" element={<Create_Employee />} />
+              <Route path="delivery" element={<Delivery />} />
+              <Route path="adminOffers" element={<AdminOffers />} />
+              <Route path="adminProducts" element={<AdminProducts />} />
+              <Route path="adminRequests" element={<AdminRequests />} />
+              <Route path="adminSales" element={<Sales />} />
             </Route>
         </Routes>
         <Down/>

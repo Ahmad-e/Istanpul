@@ -98,6 +98,7 @@ const Header = () =>{
                 <Nav>
                 <Nav.Link className="app_link" eventKey={2} href="/requests">{Lang==="Ar" ? (" الطلبات ") : Lang==="En"? ("Requests") : "Запросы"}</Nav.Link>
                 <Nav.Link className="app_link" eventKey={2} href="/form">{Lang==="Ar" ? (" انضم إلينا ! ") : Lang==="En"? ("join us") : "Присоединяйтесь к нам"}</Nav.Link>
+                <Nav.Link className="app_link" eventKey={2} href="/sendMessage">{Lang==="Ar" ? (" أرسل إقتراح ") : Lang==="En"? ("Send a suggestion") : "Отправить предложение"}</Nav.Link>
                     <Nav.Link className="app_link" eventKey={2} href="/login">{Lang==="Ar" ? ("تسجيل دخول") : Lang==="En"? ("login") : "войти"}</Nav.Link>
                     <Button href="/regester" style={{ width:"130px" }} className="App_button">{Lang==="Ar" ? ("تسجيل حساب") : Lang==="En"? ("Regester") : "регистр"}</Button>
                     <Nav.Link  className="app_link" href="/baket">
