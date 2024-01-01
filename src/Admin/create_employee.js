@@ -33,7 +33,6 @@ const Create_Employee =()=>{
         const name = document.getElementById("Name").value;
         const email = document.getElementById("Email").value;
         const password = document.getElementById("Pass").value;
-        const phone_numper = phone
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if(!name)
@@ -51,7 +50,7 @@ const Create_Employee =()=>{
         else
             setErrorEmail(true)
         
-        if(name && email && password && phone_numper)
+        if(name && email && password && phone)
             console.log("tmam")
     }
       
@@ -62,9 +61,12 @@ const Create_Employee =()=>{
     };
 
     return(
-        
-        <div dir="ltr" className="sign">
-            
+        <>
+        <div>
+            You are create new employee in the system , save the date whene you end submit and take it to employee to start work 
+        </div>
+        <div dir="ltr" style={{ display: "inline-block" }}>
+
             <TextField error={errorName} helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="Name" label={Lang==="Ar" ? ("الاسم") : Lang==="En"? ("name") : "имя"} variant="standard" /><br/>
             <TextField error={errorEmail}  helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }}  id="Email" label={Lang==="Ar" ? ("الإيميل") : Lang==="En"? ("email") : "электронная почта"} variant="standard" /><br/>
             <FormControl error={errorPassword} sx={{ m: 1, width: '25ch' }} variant="standard">
@@ -113,10 +115,10 @@ const Create_Employee =()=>{
                     </Select>
             </FormControl><br/>
             
-            <Button onClick={()=>sent()} className="App_button"> {Lang==="Ar" ? ("إرسال") : Lang==="En"? ("submit") : "отправлять"} </Button><br/><br/><br/>
-            <a href="/login" className="App_link" > {Lang==="Ar" ? ("أنا أملك حساب") : Lang==="En"? ("I have account") : "у меня есть аккаунт"} </a>
+            <Button onClick={()=>sent()} className="App_button"> {Lang==="Ar" ? ("إرسال") : Lang==="En"? ("submit") : "отправлять"} </Button>
             
         </div>
+        </>
     )
 }
 export default Create_Employee

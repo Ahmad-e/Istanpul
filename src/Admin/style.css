@@ -1,20 +1,40 @@
+:root
+{
+  --main-color:#E6392B;
+  --sec-color:#FFBF41;
+}
+
 .Admin_App
 {
     display: flex;
     justify-items: center;
 }
-
-.bar
+.admin_header_En , .admin_header_Ru
 {
-    background-color: grey;
-    width: 300px;
+    text-align: center;
+    border-color: #e6372b75;
+    border-style: solid;
+    border-width: 0px;
+    border-right-width: 1px;
+}
+.admin_header_Ar
+{
+    text-align: center;
+    border-color: #e6372b75;
+    border-style: solid;
+    border-width: 0px;
+    border-left-width: 1px;
 }
 .bar_link
-{
+{  
     padding: 10px;
 }
 .bar_link:hover
 {
     background-color: #ddd;
     transition: ease-in-out .15s ;
+}
+.input_item_admin
+{   
+    margin: 20px 0px;
 }

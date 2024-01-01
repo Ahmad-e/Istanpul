@@ -31,7 +31,7 @@ const CardItem =(props)=>{
                         component="img"
                         height="150"
                         image={imageURL}
-                        alt="green iguana"
+                        alt="Downloading image ... "
                         />
                         <CardContent  style={{ textAlign:"start" }} >
                             <Typography style={{ textAlign:"start" }} gutterBottom variant="h5" component="div">
