@@ -24,7 +24,8 @@ import AdminOffers from './Admin/offers';
 import AdminProducts from './Admin/products';
 import AdminRequests from './Admin/requests';
 import Sales from './Admin/sales';
-import Offers from './pages/offers'
+import AdminSuggestion from './Admin/suggestion';
+import Offers from './pages/offers';
 function App() {
   const Lang=useSelector((state) => state.counter.language);
   
@@ -54,6 +55,7 @@ function App() {
               <Route path="adminProducts" element={<AdminProducts />} />
               <Route path="adminRequests" element={<AdminRequests />} />
               <Route path="adminSales" element={<Sales />} />
+              <Route path="adminSuggestion" element={<AdminSuggestion />} />
             </Route>
         </Routes>
         <Down/>

@@ -122,7 +122,7 @@ const Form = () => {
                          style={{ borderColor:"#E6392B" }} 
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
-                        value={age}
+                        value={selectedState}
                         onChange={handleChangeState}
                         label="Age"
                         >
@@ -140,7 +140,7 @@ const Form = () => {
                          style={{ borderColor:"#E6392B" }} 
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
-                        value={age}
+                        
                         id="state"
                         onChange={()=>handleChangeCity()}
                         label="Age"

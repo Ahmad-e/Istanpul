@@ -8,6 +8,7 @@ import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import AnnouncementIcon from '@mui/icons-material/Announcement';
 
 
 const AdminHeader =()=>{
@@ -22,6 +23,7 @@ const AdminHeader =()=>{
             <Nav.Link className="app_link bar_link" eventKey={2} href="adminProducts"> <PostAddIcon/><br/><span className="d_n_s" > {Lang==="Ar" ? (" البضائع ") : Lang==="En"? ("Products") : "Запросы"}</span></Nav.Link>
             <Nav.Link className="app_link bar_link " eventKey={2} href="adminRequests"> <ListAltIcon/><br/><span className="d_n_s" > {Lang==="Ar" ? (" الطلبات ") : Lang==="En"? ("Requests") : "Запросы"}</span></Nav.Link>
             <Nav.Link className="app_link bar_link " eventKey={2} href="adminSales"> <PointOfSaleIcon/><br/><span className="d_n_s" > {Lang==="Ar" ? (" المبيعات ") : Lang==="En"? ("Sales") : "Запросы"}</span></Nav.Link>
+            <Nav.Link className="app_link bar_link " eventKey={2} href="adminSuggestion"> <AnnouncementIcon/><br/><span className="d_n_s" > {Lang==="Ar" ? (" الشكاوي ") : Lang==="En"? ("Suggestion") : "Запросы"}</span></Nav.Link>
         </div>
     )
 }
