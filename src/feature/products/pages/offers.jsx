@@ -1,9 +1,8 @@
-import { useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Test from '../test.jpg';
-import CardItem from '../commponents/card';
+import Test from '../../../assets/images/test.jpg';
+import CardItem from '../../../components/card';
 
 const Offers =()=>{
 

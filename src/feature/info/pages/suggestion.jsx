@@ -9,7 +9,6 @@ const Suggestion = () => {
 
     const Lang=useSelector((state) => state.counter.language);
 
-
     return(
         <Container>
             <Row className="justify-content-center " >

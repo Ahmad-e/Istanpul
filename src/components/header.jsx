@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import Logo from '../LOGO.png'
+import Logo from '../assets/images/LOGO.png';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SearchIcon from '@mui/icons-material/Search';
@@ -102,7 +102,8 @@ const Header = () =>{
                     <Nav.Link className="app_link" eventKey={2} href="/login">{Lang==="Ar" ? ("تسجيل دخول") : Lang==="En"? ("login") : "войти"}</Nav.Link>
                     <Button href="/regester" style={{ width:"130px" }} className="App_button">{Lang==="Ar" ? ("تسجيل حساب") : Lang==="En"? ("Regester") : "регистр"}</Button>
                     <Nav.Link  className="app_link" href="/baket">
-                        <Badge color="secondary" badgeContent={100} color="error">
+                        <Badge color="secondary" badgeContent={100} >
+                        {/* <Badge color="secondary" badgeContent={100} color="error"> */}
                             <ShoppingCartIcon />
                         </Badge>
                     </Nav.Link>

@@ -1,10 +1,10 @@
 import Container from 'react-bootstrap/Container';
-import HomePage from '../SVGs/homePage'
+import HomePage from '../components/homePage'
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Test from '../test.jpg';
-import CardItem from '../commponents/card'
+import Test from '../../../assets/images/test.jpg';
+import CardItem from '../../../components/card'
 import { useSelector } from 'react-redux';
 
 const Home =()=>{

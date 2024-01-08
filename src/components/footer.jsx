@@ -1,12 +1,13 @@
 import { Container } from "react-bootstrap";
 import { useSelector } from 'react-redux';
-import logo from '../LOGO.png';
+import logo from '../assets/images/LOGO.png';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import {useState} from 'react'
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+
 const Down = () =>{
     const color = useSelector((state) => state.counter.mode);
     const [coped,setCoped] = useState (false);
