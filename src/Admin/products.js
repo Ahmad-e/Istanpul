@@ -66,6 +66,7 @@ const AdminProducts = () => {
     const [selectedtype, setselectedType] = React.useState('');
     const [name, setName] = React.useState('');
     const [disc, setDesc] = React.useState('');
+    const [Longdisc, setLongDesc] = React.useState('');
     const [quantity, setQuantity] = React.useState(0);
     const [salary, setSalary] = React.useState(0);
     const [sourceSalary, setSourceSalary] = React.useState(0);
@@ -78,6 +79,9 @@ const AdminProducts = () => {
     }
     const handleChangeDisc = (event) => {
         setDesc(event.target.value)
+    }
+    const handleChangeLongDisc = (event) => {
+        setLongDesc(event.target.value)
     }
     const handleChangeQuantity = (event) => {
         setQuantity(event.target.value)
@@ -137,6 +141,15 @@ const AdminProducts = () => {
                         size="md"
                         variant="outlined"
                         onChange={handleChangeDisc}
+                    />
+                </Col>
+                <Col className="input_item_admin" lg={6} md={8} sm={12}>
+                    <Textarea
+                        minRows={2}
+                        placeholder="Long discription in profile"
+                        size="md"
+                        variant="outlined"
+                        onChange={handleChangeLongDisc}
                     />
                 </Col>
                 <Col className="input_item_admin" lg={3} md={4} sm={12}>

@@ -74,7 +74,9 @@
 .justify_content_between
 {
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+  padding: 50px 0px;
+
 }
 .b_r_0
 {
