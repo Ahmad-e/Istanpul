@@ -26,6 +26,7 @@ import AdminRequests from './Admin/requests';
 import Sales from './Admin/sales';
 import AdminSuggestion from './Admin/suggestion';
 import Offers from './feature/products/pages/offers';
+import HomePageAdmin from "./Admin/pages/home/pages/home_page_admin";
 function App() {
   const Lang = useSelector((state) => state.counter.language);
 
@@ -34,8 +35,9 @@ function App() {
   return (
     <div dir={Lang === "Ar" ? ("rtl") : ("ltr")} className="App" >
       <BrowserRouter >
-        <Header />
-        <Routes>
+        {/* <Header /> */}
+        <HomePageAdmin />
+        {/* <Routes>
           <Route index element={<Home />} />
           <Route path="aboutus" element={<Aboutus />} />
           <Route path="search" element={<Search />} />
@@ -57,8 +59,8 @@ function App() {
             <Route path="adminSales" element={<Sales />} />
             <Route path="adminSuggestion" element={<AdminSuggestion />} />
           </Route>
-        </Routes>
-        <Down />
+        </Routes> */}
+        {/* <Down /> */}
       </BrowserRouter>
     </div>
   );

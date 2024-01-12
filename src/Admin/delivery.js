@@ -92,7 +92,7 @@ const Delivery =()=>{
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
                             value={selectedCity}
-                            id="state"
+                            // id="state"
                             onChange={handleChangeCity}
                             label="city"
                             >
