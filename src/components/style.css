@@ -9,7 +9,8 @@
 .app_link
 {
     color: #111;
-    font-weight: 600;
+    font-family: 'Inria Sans';font-size: 18px;
+    font-weight: bold;
 }
 .app_link:hover{
     color: var(--main-color);
@@ -47,6 +48,13 @@
     border-radius: 0px 15px 15px 0px;
 
 }
+.bg-body-tertiary
+{
+  box-shadow: 0px 4px 16px rgb(0 0 0 / 5%);
+  height: 90px;
+  margin-bottom: 25px;
+
+}
 
 .text-search
 {
@@ -60,16 +68,16 @@
 }
 .offer_div
 {
-  
-
+  text-align: center;
   font-size: 16px;
   color: white;
   position: absolute;
-  font-family: fantasy;
+  width: 54px;
   margin: 10px;
   border-radius: 20px;
   padding: 7px;
   background-color: var(--main-color);
+  font-weight: bold;
 }
 .salary
 {
@@ -187,7 +195,7 @@
     border: 1px solid #e7e7e7;
     background-position: center left 0.75rem;
     background-color: rgb(197, 197, 197);
-    margin: 10px;
+    margin: 12px 0px;
     background-size: 1.5rem 1.5rem;
     background-repeat: no-repeat;
     text-decoration: none;

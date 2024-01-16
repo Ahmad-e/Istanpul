@@ -11,7 +11,7 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
-import logo from '../../../../assets/images/LOGO.png';
+import logo from '../../../assets/images/LOGO.png';
 
 const theme = createTheme({
         components: {

@@ -17,7 +17,7 @@ import Form from './components/form'
 import Requests from './feature/products/pages/requests'
 import AdminApp from './Admin/adminApp';
 import { useSelector } from 'react-redux';
-import AdminHome from './Admin/adminHome';
+import HomePageAdmin from './Admin/home/pages/home_page_admin';
 import Create_Employee from './Admin/create_employee';
 import Delivery from './Admin/delivery';
 import AdminOffers from './Admin/offers';
@@ -26,7 +26,11 @@ import AdminRequests from './Admin/requests';
 import Sales from './Admin/sales';
 import AdminSuggestion from './Admin/suggestion';
 import Offers from './feature/products/pages/offers';
-import HomePageAdmin from "./Admin/pages/home/pages/home_page_admin";
+import Keywords from './Admin/keywords';
+import Forms from './Admin/forms';
+import Ads from './Admin/ads';
+
+
 function App() {
   const Lang = useSelector((state) => state.counter.language);
 
@@ -35,9 +39,8 @@ function App() {
   return (
     <div dir={Lang === "Ar" ? ("rtl") : ("ltr")} className="App" >
       <BrowserRouter >
-        {/* <Header /> */}
-        <HomePageAdmin />
-        {/* <Routes>
+        <Header />
+        <Routes>
           <Route index element={<Home />} />
           <Route path="aboutus" element={<Aboutus />} />
           <Route path="search" element={<Search />} />
@@ -50,7 +53,7 @@ function App() {
           <Route path="form" element={<Form />} />
           <Route path="offers" element={<Offers />} />
           <Route path="admin" element={<AdminApp />} >
-            <Route path="home" element={<AdminHome />} />
+            <Route path="home" element={<HomePageAdmin />} />
             <Route path="createEmployee" element={<Create_Employee />} />
             <Route path="delivery" element={<Delivery />} />
             <Route path="adminOffers" element={<AdminOffers />} />
@@ -58,9 +61,12 @@ function App() {
             <Route path="adminRequests" element={<AdminRequests />} />
             <Route path="adminSales" element={<Sales />} />
             <Route path="adminSuggestion" element={<AdminSuggestion />} />
+            <Route path="adminForms" element={<Forms />} />
+            <Route path="adminkeyword" element={<Keywords />} />
+            <Route path="adminAds" element={<Ads />} />
           </Route>
-        </Routes> */}
-        {/* <Down /> */}
+        </Routes>
+        <Down />
       </BrowserRouter>
     </div>
   );

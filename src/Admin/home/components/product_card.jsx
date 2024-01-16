@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, CardContent, CardActions, CardMedia, Box, Typography } from '@mui/material';
-import imageCard from '../../../../assets/images/test.jpg'
+import imageCard from '../../../assets/images/test.jpg'
 
 const ProductCard = ({title , image}) => {
         return (

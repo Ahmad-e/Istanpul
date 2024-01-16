@@ -1,25 +1,44 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 import StaticsCard from '../components/statics_card'
 import ProductCarousel from '../components/product_carsoul'
 import EmployeeTable from '../components/employee_table'
-import MainButton from '../components/main_button'
-import NavbarAdmin from '../components/navbar'
+import Button from 'react-bootstrap/Button';
 
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers-pro';
+import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
+import { DateRangeCalendar } from '@mui/x-date-pickers-pro/DateRangeCalendar';
+
+      
 const HomePageAdmin = () => {
+
         return (
                 <>
-                        <NavbarAdmin />
-               
                 <Box sx={{
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
-                        // height: '100vh',
-                        backgroundColor: 'white',
                         p: 2,
                 }}>
-
+                        <Box sx={{
+                                display: {
+                                        xs: 'block',
+                                        sm: 'flex',
+                                        md: 'flex',
+                                        xl: 'flex'
+                                },
+                                flexWrap: 'wrap',
+                                justifyContent: 'center',
+                        }}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DemoContainer  components={['DateRangeCalendar']}>
+                                                <DemoItem label="1 calendar">
+                                                        <DateRangeCalendar onChange={(e)=>console.log(e)} calendars={1} />
+                                                </DemoItem>
+                                        </DemoContainer>
+                                </LocalizationProvider>
+                        </Box>
                         <Box sx={{
                                 display: {
                                         xs: 'block',
@@ -60,7 +79,7 @@ const HomePageAdmin = () => {
                                         },
                                         fontFamily: 'Ubuntu',
                                         fontWeight: 'bold',
-                                        textAlign: 'end',
+                                        textAlign: 'center',
                                         p: 2
                                 }}>
                                         Best selling items
@@ -111,13 +130,9 @@ const HomePageAdmin = () => {
                                 }}>
                                         <EmployeeTable />
                                 </Box>
-
+                                <Button href="/admin/createEmployee" className="App_button"><h5>Add new</h5></Button>
                         </Box>
-                        <MainButton
-                                title='Add Employee'
-                                backgroundColor='#E6392B'
-                                width='200px'
-                        />
+                                
                         </Box>
                 </>
         )

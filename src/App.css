@@ -27,7 +27,7 @@
 {
 
 }
-@media only screen and (max-width: 507px) {
+@media only screen and (max-width: 766px) {
   .d_n_s{
     display: none;
   }
@@ -74,7 +74,9 @@
 .justify_content_between
 {
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+  padding: 50px 0px;
+
 }
 .b_r_0
 {

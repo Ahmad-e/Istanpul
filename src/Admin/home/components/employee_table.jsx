@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
+import Button from 'react-bootstrap/Button';
 
 function createData(name, email, section, phone) {
         return {
@@ -36,12 +37,12 @@ export default function EmployeeTable() {
                                                 <TableHead>
                                                         <TableRow>
                                                                 <TableCell padding="checkbox">
-                                                                        <Checkbox color="primary" />
+                                                                        
                                                                 </TableCell>
                                                                 <TableCell>Name</TableCell>
                                                                 <TableCell>Email</TableCell>
-                                                                <TableCell>Section</TableCell>
                                                                 <TableCell>Phone</TableCell>
+                                                                <TableCell>block</TableCell>
                                                         </TableRow>
                                                 </TableHead>
                                                 <TableBody>
@@ -54,12 +55,12 @@ export default function EmployeeTable() {
                                                                         sx={{ cursor: 'pointer' }}
                                                                 >
                                                                         <TableCell padding="checkbox">
-                                                                                <Checkbox color="primary" />
+                                                                                
                                                                         </TableCell>
                                                                         <TableCell>{row.name}</TableCell>
                                                                         <TableCell>{row.email}</TableCell>
-                                                                        <TableCell>{row.section}</TableCell>
                                                                         <TableCell>{row.phone}</TableCell>
+                                                                        <TableCell> <Button href="" variant="outline-danger" className="keyword_button"  >block</Button> </TableCell>
                                                                 </TableRow>
                                                         ))}
                                                 </TableBody>

@@ -3,8 +3,8 @@ import { Box, IconButton } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ProductCard from './product_card';
-import imageCard from '../../../../assets/images/test.jpg'
-import imageCard1 from '../../../../assets/images/camera.jpg'
+import imageCard from '../../../assets/images/test.jpg'
+import imageCard1 from '../../../assets/images/camera.jpg'
 
 const ProductCarousel = () => {
         const [currentPosition, setCurrentPosition] = useState(0);

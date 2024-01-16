@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Test from '../../../assets/images/test.jpg';
 import CardItem from '../../../components/card'
 import { useSelector } from 'react-redux';
+import CarouselItem  from '../components/carousel ';
 
 const Home =()=>{
 
@@ -28,7 +29,9 @@ const Home =()=>{
             <HomePage />
           </div>
         </div>
-
+        </Container>
+        <CarouselItem />
+        <Container>
         <div className="justify_content_between" >
           <span>
 

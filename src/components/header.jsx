@@ -21,7 +21,7 @@ import Badge from '@mui/material/Badge';
 import {setLanguege} from '../store';
 import { useSelector,useDispatch } from 'react-redux';
 
-
+import { useLocation } from 'react-router-dom';
 
 const Header = () =>{
     const dispatch = useDispatch();
@@ -43,12 +43,13 @@ const Header = () =>{
     const handleClose=()=>{
         setAnchorEl(null);
     }
+    const currentURL = useLocation().pathname;
     
 
 
     return(
         <>
-        <Navbar  collapseOnSelect expand="xxlg" className="bg-body-tertiary">
+        <Navbar  sticky="top" collapseOnSelect expand="xxlg" className="bg-body-tertiary">
          <Container>
           <Navbar.Brand href="/">
           <img
@@ -78,11 +79,11 @@ const Header = () =>{
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className=" flex-grow-1 pe-3">
-                    <Nav.Link className="app_link" href="/search">{Lang==="Ar" ? (" بدء التسوق ") : Lang==="En"? ("Start shopping") : "Начать покупки"} </Nav.Link>
-                    <Nav.Link className="app_link" href="/offers">{Lang==="Ar" ? (" العروض ") : Lang==="En"? ("offers") : "Цены со скидкой"}</Nav.Link>
-                    <Nav.Link className="app_link" href="/favorite">{Lang==="Ar" ? (" المفضلة ") : Lang==="En"? ("favorite") : "любимый"}</Nav.Link>
-                    <Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" أفضل المنتجات ") : Lang==="En"? (" best broduct") : "Лучшие продукты"}</Nav.Link>
-                    <Nav.Link className="app_link" onClick={() => setOpen(!open)}>{Lang==="Ar" ? ("ماذا لدينا ؟  ") : Lang==="En"? ("What we have ?") : "Что у нас есть ?"} {"    "} {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} </Nav.Link>
+                    <Nav.Link className={ currentURL==="/search" ? ("app_link App-text") : ("app_link") } href="/search">{Lang==="Ar" ? (" بدء التسوق ") : Lang==="En"? ("Start shopping") : "Начать покупки"} </Nav.Link>
+                    <Nav.Link className={ currentURL==="/offers" ? ("app_link App-text") : ("app_link") } href="/offers">{Lang==="Ar" ? (" العروض ") : Lang==="En"? ("offers") : "Цены со скидкой"}</Nav.Link>
+                    <Nav.Link className={ currentURL==="/favorite" ? ("app_link App-text") : ("app_link") } href="/favorite">{Lang==="Ar" ? (" المفضلة ") : Lang==="En"? ("favorite") : "любимый"}</Nav.Link>
+                    <Nav.Link className={ currentURL==="/search/*" ? ("app_link App-text") : ("app_link") } href="/">{Lang==="Ar" ? (" أفضل المنتجات ") : Lang==="En"? (" best broduct") : "Лучшие продукты"}</Nav.Link>
+                    <Nav.Link className="app_link" onClick={() => setOpen(!open)}>{Lang==="Ar" ? (" منتجاتنا ") : Lang==="En"? ("Our products") : "Наши продукты"} {"    "} {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} </Nav.Link>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <ul>
                             <li><Nav.Link className="app_link" href="/">{Lang==="Ar" ? (" الحلويات ") : Lang==="En"? (" sweets ") : "сладости"}</Nav.Link></li>
@@ -96,13 +97,13 @@ const Header = () =>{
                     <Nav.Link className="app_link" href="/aboutus">{Lang==="Ar" ? ("معلومات عنا") : Lang==="En"? ("about us") : "о нас"}</Nav.Link>
                 </Nav>
                 <Nav>
-                <Nav.Link className="app_link" eventKey={2} href="/requests">{Lang==="Ar" ? (" الطلبات ") : Lang==="En"? ("Requests") : "Запросы"}</Nav.Link>
-                <Nav.Link className="app_link" eventKey={2} href="/form">{Lang==="Ar" ? (" انضم إلينا ! ") : Lang==="En"? ("join us") : "Присоединяйтесь к нам"}</Nav.Link>
-                <Nav.Link className="app_link" eventKey={2} href="/sendMessage">{Lang==="Ar" ? (" أرسل إقتراح ") : Lang==="En"? ("Send a suggestion") : "Отправить предложение"}</Nav.Link>
-                    <Nav.Link className="app_link" eventKey={2} href="/login">{Lang==="Ar" ? ("تسجيل دخول") : Lang==="En"? ("login") : "войти"}</Nav.Link>
+                <Nav.Link className={ currentURL==="/requests" ? ("app_link App-text") : ("app_link") } eventKey={2} href="/requests">{Lang==="Ar" ? (" الطلبات ") : Lang==="En"? ("Requests") : "Запросы"}</Nav.Link>
+                <Nav.Link className={ currentURL==="/form" ? ("app_link App-text") : ("app_link") } eventKey={2} href="/form">{Lang==="Ar" ? (" انضم إلينا ! ") : Lang==="En"? ("join us") : "Присоединяйтесь к нам"}</Nav.Link>
+                <Nav.Link className={ currentURL==="/sendMessage" ? ("app_link App-text") : ("app_link") } eventKey={2} href="/sendMessage">{Lang==="Ar" ? (" أرسل إقتراح ") : Lang==="En"? ("Send a suggestion") : "Отправить предложение"}</Nav.Link>
+                    <Nav.Link className={ currentURL==="/login" ? ("app_link App-text") : ("app_link") } eventKey={2} href="/login">{Lang==="Ar" ? ("تسجيل دخول") : Lang==="En"? ("login") : "войти"}</Nav.Link>
                     <Button href="/regester" style={{ width:"130px" }} className="App_button">{Lang==="Ar" ? ("تسجيل حساب") : Lang==="En"? ("Regester") : "регистр"}</Button>
                     <Nav.Link  className="app_link" href="/baket">
-                        <Badge color="secondary" badgeContent={100} >
+                        <Badge  color="error" badgeContent={3} >
                         {/* <Badge color="secondary" badgeContent={100} color="error"> */}
                             <ShoppingCartIcon />
                         </Badge>
@@ -143,23 +144,25 @@ const Header = () =>{
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
-        </Container>
+            </Container>
+
+            
         </Navbar>
-        <Row style={{ margin :"0px" }}  className="justify-content-center">
-            <Form className="d-flex search_form">
-                <Form.Control
-                placeholder={Lang==="Ar" ? (" أكتب اسم أو نوع  أو صفة منتج ") : Lang==="En"? (" Write the name, type or description of a product ") : "Напишите название, тип или описание продукта"}
-                className={"text-search b_r_0 "+ (Lang==="Ar" ? ("b_r_br b_r_tr") : ("b_r_tl b_r_bl "))}
-                aria-label="Search"
-                />
-                <Button  
-                    variant="outline-success" 
-                    className={"search_button b_r_0 "+ (Lang==="Ar" ? ("b_r_tl b_r_bl ") : ("b_r_br b_r_tr"))}
-                    >
-                    <SearchIcon />
-                </Button>
-            </Form>
-        </Row>
+        <Row  style={{ margin :"0px" }}  className="justify-content-center">
+                <Form className="d-flex search_form">
+                    <Form.Control
+                    placeholder={Lang==="Ar" ? (" أكتب اسم أو نوع  أو صفة منتج ") : Lang==="En"? (" Write the name, type or description of a product ") : "Напишите название, тип или описание продукта"}
+                    className={"text-search b_r_0 "+ (Lang==="Ar" ? ("b_r_br b_r_tr") : ("b_r_tl b_r_bl "))}
+                    aria-label="Search"
+                    />
+                    <Button  
+                        variant="outline-success" 
+                        className={"search_button b_r_0 "+ (Lang==="Ar" ? ("b_r_tl b_r_bl ") : ("b_r_br b_r_tr"))}
+                        >
+                        <SearchIcon />
+                    </Button>
+                </Form>
+            </Row>
         </>
     )
 }

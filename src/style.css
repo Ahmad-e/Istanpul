@@ -29,6 +29,30 @@
     border-radius: 10px;
     margin: 4px;
 }
+.carousel_img
+{
+  max-height: 500px;
+  width: 100%;
+  object-fit: cover;
+
+}
+.carousel-indicators [data-bs-target]
+{
+  background-color:var(--main-color);
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  margin: 7px;
+}
+.carousel-control-next-icon , .carousel-control-prev-icon
+{
+  color:var(--main-color);
+  background-image: url(https://img.icons8.com/carbon-copy/100/e6392b/forward.png);
+}
+.carousel-control-prev-icon
+{
+  background-image: url(https://img.icons8.com/dotty/100/e6392b/back.png);
+}
 /* home style end */
 /* search style start */
 .col_filter
