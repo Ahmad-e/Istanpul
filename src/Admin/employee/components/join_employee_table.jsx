@@ -39,13 +39,27 @@ export default function JoinEmployeeTable() {
                                 <TableContainer>
                                         <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
                                                 <TableHead>
-                                                        <TableRow>
-                                                                <TableCell>Name</TableCell>
-                                                                <TableCell>Email</TableCell>
-                                                                <TableCell>Phone</TableCell>
-                                                                <TableCell>National</TableCell>
-                                                                <TableCell>Address</TableCell>
-                                                                <TableCell>Information</TableCell> 
+                                                        <TableRow sx={{
+                                                                backgroundColor: '#E6392B'
+                                                        }}>
+                                                                <TableCell sx={{
+                                                                        color: 'white'
+                                                                }}>Name</TableCell>
+                                                                <TableCell sx={{
+                                                                        color: 'white'
+                                                                }}>Email</TableCell>
+                                                                <TableCell sx={{
+                                                                        color: 'white'
+                                                                }}>Phone</TableCell>
+                                                                <TableCell sx={{
+                                                                        color: 'white'
+                                                                }}>National</TableCell>
+                                                                <TableCell sx={{
+                                                                        color: 'white'
+                                                                }}>Address</TableCell>
+                                                                <TableCell sx={{
+                                                                        color: 'white'
+                                                                }}>Information</TableCell>
                                                         </TableRow>
                                                 </TableHead>
                                                 <TableBody>
