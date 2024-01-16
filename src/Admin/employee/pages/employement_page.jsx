@@ -4,7 +4,8 @@ import JoinEmployeeTable from '../components/join_employee_table'
 
 const EmplyementPage = () => {
         return (
-                <Box>
+                <Box >
+                        <br/><br/>
                         <JoinEmployeeTable />
                 </Box>
         )

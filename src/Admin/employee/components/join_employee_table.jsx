@@ -35,7 +35,7 @@ const handleDownloadCV = (employee) => {
 export default function JoinEmployeeTable() {
         return (
                 <Box sx={{ width: '100%', overflowX: 'auto' }}>
-                        <Paper sx={{ width: '100%', mb: 2, pr: 5, pl: 5 }}>
+                        <Paper sx={{ width: '100%', mb: 2}}>
                                 <TableContainer>
                                         <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
                                                 <TableHead>
@@ -60,6 +60,9 @@ export default function JoinEmployeeTable() {
                                                                 <TableCell sx={{
                                                                         color: 'white'
                                                                 }}>Information</TableCell>
+                                                                <TableCell sx={{
+                                                                        color: 'white'
+                                                                }}>delete</TableCell>
                                                         </TableRow>
                                                 </TableHead>
                                                 <TableBody>
@@ -83,6 +86,15 @@ export default function JoinEmployeeTable() {
                                                                                         className="keyword_button"
                                                                                 >
                                                                                         Download CV
+                                                                                </Button>
+                                                                        </TableCell>
+                                                                        <TableCell>
+                                                                                <Button
+                                                                                        
+                                                                                        variant="outline-danger"
+                                                                                        className="keyword_button" 
+                                                                                >
+                                                                                        delete
                                                                                 </Button>
                                                                         </TableCell>
                                                                 </TableRow>

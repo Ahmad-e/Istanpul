@@ -187,7 +187,7 @@ const AdminProducts = () => {
             </Row>
             <Row>
                 <Col style={{ margin: "30px 0px" }} >
-                    <Button href="/regester" className="App_button"><h5>{Lang === "Ar" ? ("حفظ البيانات") : Lang === "En" ? ("save data") : "Начать покупки"}</h5></Button>
+                    <Button  className="App_button"><h5>{Lang === "Ar" ? ("حفظ البيانات") : Lang === "En" ? ("save data") : "Начать покупки"}</h5></Button>
                 </Col>
             </Row>
             <Row>

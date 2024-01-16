@@ -27,7 +27,6 @@ import Sales from './Admin/sales';
 import AdminSuggestion from './Admin/suggestion';
 import Offers from './feature/products/pages/offers';
 import Keywords from './Admin/keywords';
-import Forms from './Admin/forms';
 import Ads from './Admin/ads';
 import EmplyementPage from "./Admin/employee/pages/employement_page";
 
