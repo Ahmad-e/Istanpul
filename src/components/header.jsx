@@ -45,8 +45,6 @@ const Header = () =>{
     }
     const currentURL = useLocation().pathname;
     
-
-
     return(
         <>
         <Navbar  sticky="top" collapseOnSelect expand="xxlg" className="bg-body-tertiary">
