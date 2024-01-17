@@ -26,6 +26,11 @@ import AdminRequests from './Admin/requests';
 import Sales from './Admin/sales';
 import AdminSuggestion from './Admin/suggestion';
 import Offers from './feature/products/pages/offers';
+import Keywords from './Admin/keywords';
+import Ads from './Admin/ads';
+import EmplyementPage from "./Admin/employee/pages/employement_page";
+
+
 function App() {
   const Lang = useSelector((state) => state.counter.language);
 
@@ -56,6 +61,9 @@ function App() {
             <Route path="adminRequests" element={<AdminRequests />} />
             <Route path="adminSales" element={<Sales />} />
             <Route path="adminSuggestion" element={<AdminSuggestion />} />
+            <Route path="adminForms" element={<EmplyementPage />} />
+            <Route path="adminkeyword" element={<Keywords />} />
+            <Route path="adminAds" element={<Ads />} />
           </Route>
         </Routes>
         <Down />
