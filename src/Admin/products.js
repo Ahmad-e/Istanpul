@@ -24,6 +24,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -62,7 +72,22 @@ const rows = [
 
 const AdminProducts = () => {
     const Lang = useSelector((state) => state.counter.language);
+    const [openBlockDialog, setOpenBlockDialog] = React.useState(false);
+    const [openChangeDialog, setOpenChangeDialog] = React.useState(false);
 
+    const handleClickOpenBlockDialog = () => {
+        setOpenBlockDialog(true);
+    };
+    const handleCloseBlockDialog = () => {
+        setOpenBlockDialog(false);
+    };
+    const handleClickOpenChangeDialog = () => {
+        setOpenChangeDialog(true);
+    };
+    const handleCloseChangeDialog = () => {
+        setOpenChangeDialog(false);
+    };
+  
     const [selectedtype, setselectedType] = React.useState('');
     const [name, setName] = React.useState('');
     const [disc, setDesc] = React.useState('');
@@ -115,16 +140,16 @@ const AdminProducts = () => {
         <Container>
             <Row className="justify-content-center" >
                 <Col className="input_item_admin" lg={3} md={4} sm={12} >
-                    <TextField style={{ width: "100%" }} id="outlined-basic" label="name of product" variant="outlined" onChange={handleChangeName} />
+                    <TextField style={{ width: "100%" }} id="outlined-basic" label={Lang==="Ar" ? ("اسم العنصر ") : Lang==="En"? (" name ") : " имя "} variant="outlined" onChange={handleChangeName} />
                 </Col>
                 <Col className="input_item_admin" lg={3} md={4} sm={12}>
                     <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">type of product</InputLabel>
+                        <InputLabel id="demo-simple-select-label">{Lang==="Ar" ? (" النوع ") : Lang==="En"? (" type ") : " Тип "}</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={selectedtype}
-                            label="type of product"
+                            label={Lang==="Ar" ? (" النوع ") : Lang==="En"? (" type ") : " Тип "}
                             onChange={handleChangeProductType}
                         >
                             <MenuItem value={10}>sweets</MenuItem>
@@ -137,7 +162,7 @@ const AdminProducts = () => {
                 <Col className="input_item_admin" lg={6} md={8} sm={12}>
                     <Textarea
                         minRows={2}
-                        placeholder="discription"
+                        placeholder={Lang==="Ar" ? (" وصف المنتج ") : Lang==="En"? (" Discription ") : " Описание "}
                         size="md"
                         variant="outlined"
                         onChange={handleChangeDisc}
@@ -146,20 +171,20 @@ const AdminProducts = () => {
                 <Col className="input_item_admin" lg={6} md={8} sm={12}>
                     <Textarea
                         minRows={2}
-                        placeholder="Long discription in profile"
+                        placeholder={Lang==="Ar" ? (" وصف المنتج التفصيلي ") : Lang==="En"? (" Long discription ") : " длинное описание "}
                         size="md"
                         variant="outlined"
                         onChange={handleChangeLongDisc}
                     />
                 </Col>
                 <Col className="input_item_admin" lg={3} md={4} sm={12}>
-                    <TextField onChange={handleChangeQuantity} style={{ width: "100%" }} id="outlined-number" type="number" label="numper of product" variant="outlined" />
+                    <TextField onChange={handleChangeQuantity} style={{ width: "100%" }} id="outlined-number" type="number" label={Lang==="Ar" ? (" الكمية ") : Lang==="En"? (" quantity ") : " Количество "} variant="outlined" />
                 </Col>
                 <Col className="input_item_admin" lg={3} md={4} sm={12}>
-                    <TextField onChange={handleChangeSalary} style={{ width: "100%" }} id="outlined-number" type="number" label="price" variant="outlined" />
+                    <TextField onChange={handleChangeSalary} style={{ width: "100%" }} id="outlined-number" type="number" label={Lang==="Ar" ? ("سعر المبيع ") : Lang==="En"? (" Saling price ") : " цена продажи "} variant="outlined" />
                 </Col>
                 <Col className="input_item_admin" lg={3} md={4} sm={12}>
-                    <TextField onChange={handleChangeSourceSalary} style={{ width: "100%" }} id="outlined-number" type="number" label="source price" variant="outlined" />
+                    <TextField onChange={handleChangeSourceSalary} style={{ width: "100%" }} id="outlined-number" type="number" label={Lang==="Ar" ? ("سعر التكلفة ") : Lang==="En"? (" Cost price ") : " Себестоимость "} variant="outlined" />
                 </Col>
                 <Col className="input_item_admin" lg={12} sm={12}>
                     <div class="main-wrapper">
@@ -196,15 +221,15 @@ const AdminProducts = () => {
                         <Table sx={{ minWidth: 700 }} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} >Name</StyledTableCell>
-                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> Type </StyledTableCell>
-                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> Discription </StyledTableCell>
-                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> Quantity </StyledTableCell>
-                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> Price </StyledTableCell>
-                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> Source price </StyledTableCell>
-                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> Profits </StyledTableCell>
-                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> delete </StyledTableCell>
-                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> change </StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} >{Lang==="Ar" ? ("اسم العنصر ") : Lang==="En"? (" name ") : " имя "}</StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start">  {Lang==="Ar" ? (" النوع ") : Lang==="En"? (" type ") : " Тип "}</StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start">  {Lang==="Ar" ? (" وصف المنتج ") : Lang==="En"? (" Discription ") : " Описание "}</StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> {Lang==="Ar" ? (" الكمية ") : Lang==="En"? (" quantity ") : " Количество "} </StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> {Lang==="Ar" ? ("سعر المبيع ") : Lang==="En"? (" Saling price ") : " цена продажи "} </StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> {Lang==="Ar" ? ("سعر التكلفة ") : Lang==="En"? (" Cost price ") : " Себестоимость "} </StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start">  {Lang==="Ar" ? (" الأرباح ") : Lang==="En"? (" Profits ") : " Прибыль "}</StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> {Lang === "Ar" ? (" حظر ظهور ") : Lang === "En" ? ("Block") : "запретить"} </StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor: "#E6392B" }} align="start"> {Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"} </StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -219,8 +244,8 @@ const AdminProducts = () => {
                                         <StyledTableCell align="start">{row.protein}0</StyledTableCell>
                                         <StyledTableCell align="start">60</StyledTableCell>
                                         <StyledTableCell align="start">40</StyledTableCell>
-                                        <StyledTableCell align="start"><Button href="" variant="outline-danger" className="keyword_button"  >delete</Button></StyledTableCell>
-                                        <StyledTableCell align="start"><Button href="" variant="outline-danger" className="keyword_button"  >change</Button></StyledTableCell>
+                                        <StyledTableCell align="start"><Button onClick={handleClickOpenBlockDialog} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" حظر ظهور ") : Lang === "En" ? ("Block") : "запретить"}</Button></StyledTableCell>
+                                        <StyledTableCell align="start"><Button onClick={handleClickOpenChangeDialog} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                             </TableBody>
@@ -228,6 +253,115 @@ const AdminProducts = () => {
                     </TableContainer>
                 </Col>
             </Row>
+            {/* block dialog */}
+            <Dialog
+                open={openBlockDialog}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleCloseBlockDialog}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>{Lang === "Ar" ? ("  إيقاف العنصر ") : Lang === "En" ? ("Block product") : "Блокировать продукт"}</DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                    {Lang === "Ar" ? (" حظر المنتج يعني إيقاف ظهور المنتج للزبائن و منع الزبائن من شرائه ") : Lang === "En" ? ("Banning a product means stopping the product from appearing to customers and preventing customers from buying it") : "Запретить продукт означает прекратить показ продукта покупателям и помешать покупателям его покупать."}
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button className="App_button" onClick={handleCloseBlockDialog}>{Lang === "Ar" ? (" حظر ظهور ") : Lang === "En" ? ("Block") : "запретить"}</Button>
+                </DialogActions>
+            </Dialog>
+            
+            {/* change dialog */}
+            <Dialog
+                open={openChangeDialog}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleCloseChangeDialog}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>{Lang === "Ar" ? ("  تعديل العنصر ") : Lang === "En" ? ("change product") : "изменить продукт"}</DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                    <Row className="justify-content-center" >
+                    <Col className="input_item_admin" lg={3} md={4} sm={12} >
+                        <TextField style={{ width: "100%" }} id="outlined-basic" label={Lang==="Ar" ? ("اسم العنصر ") : Lang==="En"? (" name ") : " имя "} variant="outlined" onChange={handleChangeName} />
+                    </Col>
+                    <Col className="input_item_admin" lg={3} md={4} sm={12}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">{Lang==="Ar" ? (" النوع ") : Lang==="En"? (" type ") : " Тип "}</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={selectedtype}
+                                label={Lang==="Ar" ? (" النوع ") : Lang==="En"? (" type ") : " Тип "}
+                                onChange={handleChangeProductType}
+                            >
+                                <MenuItem value={10}>sweets</MenuItem>
+                                <MenuItem value={20}>drinks</MenuItem>
+                                <MenuItem value={30}>other kinds</MenuItem>
+                            </Select>
+                        </FormControl>
+
+                    </Col>
+                    <Col className="input_item_admin" lg={6} md={8} sm={12}>
+                        <Textarea
+                            minRows={2}
+                            placeholder={Lang==="Ar" ? (" وصف المنتج ") : Lang==="En"? (" Discription ") : " Описание "}
+                            size="md"
+                            variant="outlined"
+                            onChange={handleChangeDisc}
+                        />
+                    </Col>
+                    <Col className="input_item_admin" lg={6} md={8} sm={12}>
+                        <Textarea
+                            minRows={2}
+                            placeholder={Lang==="Ar" ? (" وصف المنتج التفصيلي ") : Lang==="En"? (" Long discription ") : " длинное описание "}
+                            size="md"
+                            variant="outlined"
+                            onChange={handleChangeLongDisc}
+                        />
+                    </Col>
+                    <Col className="input_item_admin" lg={3} md={4} sm={12}>
+                        <TextField onChange={handleChangeQuantity} style={{ width: "100%" }} id="outlined-number" type="number" label={Lang==="Ar" ? (" الكمية ") : Lang==="En"? (" quantity ") : " Количество "} variant="outlined" />
+                    </Col>
+                    <Col className="input_item_admin" lg={3} md={4} sm={12}>
+                        <TextField onChange={handleChangeSalary} style={{ width: "100%" }} id="outlined-number" type="number" label={Lang==="Ar" ? ("سعر المبيع ") : Lang==="En"? (" Saling price ") : " цена продажи "} variant="outlined" />
+                    </Col>
+                    <Col className="input_item_admin" lg={3} md={4} sm={12}>
+                        <TextField onChange={handleChangeSourceSalary} style={{ width: "100%" }} id="outlined-number" type="number" label={Lang==="Ar" ? ("سعر التكلفة ") : Lang==="En"? (" Cost price ") : " Себестоимость "} variant="outlined" />
+                    </Col>
+                    <Col className="input_item_admin" lg={12} sm={12}>
+                        <div class="main-wrapper">
+                            <div class="upload-main-wrapper">
+                                <div class="upload-wrapper">
+                                    <input type="file" id="upload-file" accept="image/*" />
+                                    <svg version="1.1" preserveAspectRatio="xMidYMid meet" viewBox="224.3881704980842 176.8527621722847 221.13266283524905 178.8472378277154" width="221.13" height="178.85"><defs><path d="M357.38 176.85C386.18 176.85 409.53 204.24 409.53 238.02C409.53 239.29 409.5 240.56 409.42 241.81C430.23 246.95 445.52 264.16 445.52 284.59C445.52 284.59 445.52 284.59 445.52 284.59C445.52 309.08 423.56 328.94 396.47 328.94C384.17 328.94 285.74 328.94 273.44 328.94C246.35 328.94 224.39 309.08 224.39 284.59C224.39 284.59 224.39 284.59 224.39 284.59C224.39 263.24 241.08 245.41 263.31 241.2C265.3 218.05 281.96 199.98 302.22 199.98C306.67 199.98 310.94 200.85 314.93 202.46C324.4 186.96 339.88 176.85 357.38 176.85Z" id="b1aO7LLtdW"></path><path d="M306.46 297.6L339.79 297.6L373.13 297.6L339.79 255.94L306.46 297.6Z" id="c4SXvvMdYD"></path><path d="M350.79 293.05L328.79 293.05L328.79 355.7L350.79 355.7L350.79 293.05Z" id="b11si2zUk"></path></defs><g><g><g><use opacity="1" fill="#ffffff" fill-opacity="1"></use></g><g><g><use opacity="1" fill="#363535" fill-opacity="1"></use></g><g><use opacity="1" fill="#363535" fill-opacity="1"></use></g></g></g></g></svg>
+                                    <span class="file-upload-text">Upload File</span>
+                                    <div class="file-success-text">
+                                        <svg version="1.1" id="check" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100">
+                                            <circle style={{ fill: "rgba(0,0,0,0)", stroke: "#ffffff", strokeWidth: 10, strokeMiterlimit: 10 }} cx="49.799" cy="49.746" r="44.757" />
+                                            <polyline style={{ fill: "rgba(0,0,0,0)", stroke: "#ffffff", strokeWidth: 10, strokeLinecap: "round", strokeLinejoin: "round", strokeMiterlimit: 10 }} points="27.114,51 41.402,65.288 72.485,34.205 " />
+                                        </svg>
+                                        <span>Successfully</span>
+                                    </div>
+                                </div>
+                                <p id="file-upload-name"></p>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col lg={12} xs={12} >
+                        <CardItem id={0} imgURL={""} name={name} disc={disc} price={salary} />
+                    </Col>
+
+                </Row>
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button className="App_button" onClick={handleCloseChangeDialog}>{Lang === "Ar" ? (" إلغاء التعديل ") : Lang === "En" ? ("console") : "Отменить изменение"}</Button>
+                <Button className="App_button" onClick={handleCloseChangeDialog}>{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     )
 }

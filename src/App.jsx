@@ -27,7 +27,7 @@ import Sales from './Admin/sales';
 import AdminSuggestion from './Admin/suggestion';
 import Offers from './feature/products/pages/offers';
 import Keywords from './Admin/keywords';
-import Ads from './Admin/ads';
+import Main_page_admin_ads from './Admin/ads/main_page';
 import EmplyementPage from "./Admin/employee/pages/employement_page";
 
 
@@ -63,7 +63,7 @@ function App() {
             <Route path="adminSuggestion" element={<AdminSuggestion />} />
             <Route path="adminForms" element={<EmplyementPage />} />
             <Route path="adminkeyword" element={<Keywords />} />
-            <Route path="adminAds" element={<Ads />} />
+            <Route path="adminAds" element={<Main_page_admin_ads />} />
           </Route>
         </Routes>
         <Down />

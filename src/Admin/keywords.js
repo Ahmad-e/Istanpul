@@ -15,6 +15,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -45,13 +55,23 @@ const Keywords = () => {
         setName(event.target.value)
     }
 
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
     return(
         <Container>
             <Row className="justify-content-center" >
                 <Col style={{ margin: "30px 0px" }}  className="input_item_admin" lg={4} md={6} sm={12}>
-                    <TextField style={{ width: "100%" }} id="outlined-basic" label="new keyword" variant="outlined" onChange={handleChangeName} />
+                    <TextField style={{ width: "100%" }} id="outlined-basic" label={Lang === "Ar" ? ("نوع بضائع جديد") : Lang === "En" ? ("New product type") : "Новый тип продукта"} variant="outlined" onChange={handleChangeName} />
                 </Col>
-                <Col className="input_item_admin" lg={2} md={3} sm={10}>
+                <Col style={{ margin: "30px 0px" }} className="input_item_admin" lg={2} md={3} sm={10}>
                 <Button className="App_button"><h5>{Lang === "Ar" ? ("حفظ البيانات") : Lang === "En" ? ("save data") : "Начать покупки"}</h5></Button>
                 </Col>
             </Row>
@@ -62,8 +82,8 @@ const Keywords = () => {
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start" >id</StyledTableCell>
-                                    <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> name </StyledTableCell>
-                                    <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> change </StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> {Lang==="Ar" ? (" النوع ") : Lang==="En"? (" type ") : " Тип "} </StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> {Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"} </StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -73,7 +93,7 @@ const Keywords = () => {
                                         {"1"}
                                     </StyledTableCell>
                                     <StyledTableCell align="start">drinks</StyledTableCell>
-                                    <StyledTableCell align="start"><Button href="" variant="outline-danger" className="keyword_button"  >change</Button></StyledTableCell>
+                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
                                 </StyledTableRow>
 
                                 <StyledTableRow key={"name"}>
@@ -81,7 +101,7 @@ const Keywords = () => {
                                         {"2"}
                                     </StyledTableCell>
                                     <StyledTableCell align="start">sweets</StyledTableCell>
-                                    <StyledTableCell align="start"><Button href="" variant="outline-danger" className="keyword_button"  >change</Button></StyledTableCell>
+                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
                                 </StyledTableRow>
                                 
                                 <StyledTableRow key={"name"}>
@@ -89,7 +109,7 @@ const Keywords = () => {
                                         {"3"}
                                     </StyledTableCell>
                                     <StyledTableCell align="start">test</StyledTableCell>
-                                    <StyledTableCell align="start"><Button href="" variant="outline-danger" className="keyword_button"  >change</Button></StyledTableCell>
+                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
                                 </StyledTableRow>
 
                                 
@@ -98,6 +118,28 @@ const Keywords = () => {
                     </TableContainer>
                 </Col>
             </Row>
+            <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>{Lang === "Ar" ? (" تعديل النوع ") : Lang === "En" ? ("Change type") : "изменить тип"}</DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                <Row className="justify-content-center" >
+                    <Col   className="input_item_admin" >
+                        <TextField style={{ width: "100%" }} id="outlined-basic" label={Lang === "Ar" ? ("نوع بضائع ") : Lang === "En" ? ("Product type") : "Новый тип продукта"} variant="outlined" onChange={handleChangeName} />
+                    </Col>
+                </Row>
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button className="App_button" onClick={handleClose}>{Lang === "Ar" ? (" إلغاء التعديل ") : Lang === "En" ? ("console") : "Отменить изменение"}</Button>
+                <Button className="App_button" onClick={handleClose}>{Lang === "Ar" ? ("حفظ البيانات") : Lang === "En" ? ("save data") : "Начать покупки"}</Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     )
     

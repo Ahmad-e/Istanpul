@@ -4,13 +4,11 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import CardItem from '../components/card';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useSelector } from 'react-redux';
-import Textarea from '@mui/joy/Textarea';
 
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -21,6 +19,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -45,6 +53,15 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const Delivery =()=>{
     const Lang=useSelector((state) => state.counter.language);
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     const [selectedCity,setSelectedCity] = React.useState("");
     const [salary,setSalary] = React.useState(0);
@@ -107,13 +124,13 @@ const Delivery =()=>{
                 </FormControl>
                 </Col>
                 <Col className="input_item_admin" lg={3} md={4} sm={12}>
-                    <TextField onChange={handleChangeSalary} style={{ width: "100%" }} id="outlined-number"  type="number" label="salary of delivary serve" variant="outlined" />
+                    <TextField onChange={handleChangeSalary} style={{ width: "100%" }} id="outlined-number"  type="number" label={Lang==="Ar" ? ("سعر خدمة التوصيل") : Lang==="En"? ("salary of delivery service") : "зарплата службы доставки"} variant="outlined" />
                 </Col>
             </Row>
             <Row  className="justify-content-center" >
                 <Col style={{ margin: "40px 0px" }}  >
-                    click save data to add delivary serve to table<br/>
-                    <Button href="/regester" className="App_button"><h5>{Lang==="Ar" ? ("حفظ البيانات") : Lang==="En"? ("save data") : "Начать покупки"}</h5></Button>    
+                  {Lang === "Ar" ? ("  انقر فوق حفظ البيانات لإضافة خدمة التسليم إلى الجدول ") : Lang === "En" ? (" click save data to add delivary serve to table") : "нажмите «Сохранить данные», чтобы добавить доставку в таблицу"}<br/>
+                    <Button className="App_button"><h5>{Lang==="Ar" ? ("حفظ البيانات") : Lang==="En"? ("save data") : "Начать покупки"}</h5></Button>    
                 </Col>
             </Row>
 
@@ -124,10 +141,9 @@ const Delivery =()=>{
                         <Table sx={{ minWidth: 700 }} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell style={{ backgroundColor:"#E6392B" }} >city</StyledTableCell>
-
-                                    <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> Enable </StyledTableCell>
-                                    <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> Desable </StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor:"#E6392B" }} >{Lang === "Ar" ? (" المدينة ") : Lang === "En" ? ("city") : "город"}</StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> {Lang === "Ar" ? (" السعر ") : Lang === "En" ? ("salary") : "зарплата"} </StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> {Lang === "Ar" ? (" تفعيل أو تعطيل الخدمة ") : Lang === "En" ? ("desable or enable") : "отключить или включить"} </StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -136,8 +152,8 @@ const Delivery =()=>{
                                     <StyledTableCell component="th" scope="row">
                                         {"mosco"}
                                     </StyledTableCell>
-                                    <StyledTableCell align="start"><Button href="" variant="outline-danger" className="keyword_button"  >Enable</Button></StyledTableCell>
-                                    <StyledTableCell align="start"><Button href="" variant="outline-danger" className="keyword_button"  >Desable</Button></StyledTableCell>
+                                    <StyledTableCell align="start">20$</StyledTableCell>
+                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تفعيل    ") : Lang === "En" ? ("desable") : "отключить"}</Button></StyledTableCell>
                                 </StyledTableRow>
 
                                 
@@ -146,6 +162,23 @@ const Delivery =()=>{
                     </TableContainer>
                 </Col>
             </Row>
+            <Dialog
+              open={open}
+              TransitionComponent={Transition}
+              keepMounted
+              onClose={handleClose}
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle>{Lang === "Ar" ? ("تفعيل خدمة التوصيل يعني إمكانية شرائها من قبل المستخدمين") : Lang === "En" ? ("Activating the delivery service means users can purchase it") : "Активация службы доставки означает, что пользователи могут ее приобрести."}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button className="App_button" onClick={handleClose}>{Lang === "Ar" ? (" تفعيل ") : Lang === "En" ? ("Activate") : "Активируйте"}</Button>
+              </DialogActions>
+            </Dialog>
         </Container>
     )
 }

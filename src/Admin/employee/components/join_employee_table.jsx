@@ -8,6 +8,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Button from 'react-bootstrap/Button';
+import { useSelector } from 'react-redux';
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+        return <Slide direction="up" ref={ref} {...props} />;
+      });
 
 function createData(name, email, phone, national, address, information) {
         return {
@@ -33,8 +46,23 @@ const handleDownloadCV = (employee) => {
 };
 
 export default function JoinEmployeeTable() {
+        const Lang=useSelector((state) => state.counter.language);
+        const [open, setOpen] = React.useState(false);
+      
+        const handleClickOpen = () => {
+            setOpen(true);
+        };
+          
+        const handleClose = () => {
+            setOpen(false);
+        };
+    
         return (
                 <Box sx={{ width: '100%', overflowX: 'auto' }}>
+                        
+                        {Lang === "Ar" ? ("هنا يتم عرض بيانات طلبات التوظيف التي أرسلها المستخدمون , يمكنك الحصول على بيانات الموظفين الجدد أو حذفها") :
+                         Lang === "En" ? ("Here the data for employment applications sent by users is displayed. You can obtain or delete data for new employees") :
+                          " Здесь отображаются данные по заявлениям о приеме на работу, отправленным пользователями. Вы можете получить или удалить данные о новых сотрудниках"}<br/><br/><br/><br/>
                         <Paper sx={{ width: '100%', mb: 2}}>
                                 <TableContainer>
                                         <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
@@ -44,25 +72,25 @@ export default function JoinEmployeeTable() {
                                                         }}>
                                                                 <TableCell sx={{
                                                                         color: 'white'
-                                                                }}>Name</TableCell>
+                                                                }}>{Lang==="Ar" ? ("الاسم") : Lang==="En"? ("name") : "имя"}</TableCell>
                                                                 <TableCell sx={{
                                                                         color: 'white'
-                                                                }}>Email</TableCell>
+                                                                }}>{Lang==="Ar" ? ("الأيميل") : Lang==="En"? ("Email") : "Электронная почта"}</TableCell>
                                                                 <TableCell sx={{
                                                                         color: 'white'
-                                                                }}>Phone</TableCell>
+                                                                }}>{Lang==="Ar" ? ("رقم الهاتف") : Lang==="En"? ("Phone") : "Номер телефона"}</TableCell>
                                                                 <TableCell sx={{
                                                                         color: 'white'
-                                                                }}>National</TableCell>
+                                                                }}>{Lang==="Ar" ? ("الجنسية") : Lang==="En"? ("National") : "Национальный"}</TableCell>
                                                                 <TableCell sx={{
                                                                         color: 'white'
-                                                                }}>Address</TableCell>
+                                                                }}>{Lang==="Ar" ? ("العنوان") : Lang==="En"? ("Address") : "Адрес"}</TableCell>
                                                                 <TableCell sx={{
                                                                         color: 'white'
-                                                                }}>Information</TableCell>
+                                                                }}>{Lang==="Ar" ? ("معلومات") : Lang==="En"? ("Information") : "Информация"}</TableCell>
                                                                 <TableCell sx={{
                                                                         color: 'white'
-                                                                }}>delete</TableCell>
+                                                                }}>{Lang==="Ar" ? ("حذف") : Lang==="En"? ("delete") : "удалить"}</TableCell>
                                                         </TableRow>
                                                 </TableHead>
                                                 <TableBody>
@@ -85,16 +113,16 @@ export default function JoinEmployeeTable() {
                                                                                         variant="outline-danger"
                                                                                         className="keyword_button"
                                                                                 >
-                                                                                        Download CV
+                                                                                        {Lang==="Ar" ? (" تنزيل الـCV") : Lang==="En"? ("download CV") : "скачать резюме"}
                                                                                 </Button>
                                                                         </TableCell>
                                                                         <TableCell>
                                                                                 <Button
-                                                                                        
+                                                                                        onClick={handleClickOpen}
                                                                                         variant="outline-danger"
                                                                                         className="keyword_button" 
                                                                                 >
-                                                                                        delete
+                                                                                        {Lang==="Ar" ? ("حذف") : Lang==="En"? ("delete") : "удалить"}
                                                                                 </Button>
                                                                         </TableCell>
                                                                 </TableRow>
@@ -103,6 +131,23 @@ export default function JoinEmployeeTable() {
                                         </Table>
                                 </TableContainer>
                         </Paper>
+                        <Dialog
+                                open={open}
+                                TransitionComponent={Transition}
+                                keepMounted
+                                onClose={handleClose}
+                                aria-describedby="alert-dialog-slide-description"
+                                >
+                                <DialogTitle>{Lang === "Ar" ? ("  حذف الطلب ") : Lang === "En" ? ("Delete request") : "Удалить запрос"}</DialogTitle>
+                                <DialogContent>
+                                        <DialogContentText id="alert-dialog-slide-description">
+                                                {Lang === "Ar" ? (" هل أنت متأكد من عملية الحذف") : Lang === "En" ? ("are sure of the deleting process") : "уверены в процессе удаления"}
+                                        </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                        <Button className="App_button" onClick={handleClose}>{Lang === "Ar" ? (" حذف ") : Lang === "En" ? ("delete") : "удалить"}</Button>
+                                </DialogActions>
+                        </Dialog>
                 </Box>
         );
 }

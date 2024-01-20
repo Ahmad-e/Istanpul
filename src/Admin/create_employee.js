@@ -63,7 +63,8 @@ const Create_Employee =()=>{
     return(
         <>
         <div>
-            You are create new employee in the system , save the date whene you end submit and take it to employee to start work 
+        {Lang === "Ar" ? ("تقوم بإنشاء موظف جديد في النظام، احفظ البيانات عند الانتهاء من الإرسال ونقلها إلى الموظف لبدء العمل") : Lang === "En" ? ("You are create new employee in the system , save the data whene you end submit and take it to employee to start work") : "Вы создаете нового сотрудника в системе, сохраняете данные по окончании отправки и передаете их сотруднику для начала работы."}
+             
         </div>
         <div dir="ltr" style={{ display: "inline-block" }}>
 
