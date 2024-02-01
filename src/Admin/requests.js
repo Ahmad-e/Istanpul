@@ -73,6 +73,8 @@ function createData(name, calories, fat, carbs, protein, price) {
           <TableCell align="start">{row.fat}</TableCell>
           <TableCell align="start">{row.carbs}</TableCell>
           <TableCell align="start">{row.protein}</TableCell>
+          <TableCell align="start">working</TableCell>
+          <TableCell align="start">1%</TableCell>
           <TableCell align="start" > <Button href="" variant="outline-danger" className="keyword_button"  >change</Button> </TableCell>
           <TableCell align="start"><Button href="" variant="outline-danger" className="keyword_button"  > cancellation </Button></TableCell>
         </TableRow>
@@ -89,6 +91,7 @@ function createData(name, calories, fat, carbs, protein, price) {
                       <TableCell>  {Lang==="Ar" ? ("اسم العنصر ") : Lang==="En"? (" name ") : " имя "} </TableCell>
                       <TableCell> {Lang==="Ar" ? ("السعر ") : Lang==="En"? (" price ") : " Цена "} </TableCell>
                       <TableCell align="start"> {Lang==="Ar" ? (" الكمية ") : Lang==="En"? (" quantity ") : " Количество "}  </TableCell>
+                      <TableCell align="start"> {Lang==="Ar" ? (" نسبة العرض ") : Lang==="En"? (" offer percentage ") : " процент предложения "}  </TableCell>
                       <TableCell align="start"> {Lang==="Ar" ? (" المجموع ") : Lang==="En"? (" Total price ") : " Итоговая цена "}</TableCell>
                     </TableRow>
                     </TableHead>
@@ -100,6 +103,7 @@ function createData(name, calories, fat, carbs, protein, price) {
                             </TableCell>
                             <TableCell>{historyRow.salary}</TableCell>
                             <TableCell align="start">{historyRow.quantity}</TableCell>
+                            <TableCell align="start">10%</TableCell>
                             <TableCell align="start">
                             {Math.round(historyRow.quantity * historyRow.salary)}
                             </TableCell>
@@ -260,7 +264,9 @@ const AdminRequests =()=>{
                                     <TableCell align="start">  {Lang==="Ar" ? (" عدد العناصر ") : Lang==="En"? (" total ") : "Количество предметов"} </TableCell>
                                     <TableCell align="start"> {Lang==="Ar" ? ("  سعر الطلب ") : Lang==="En"? (" price ") : "Спроси цену"} </TableCell>
                                     <TableCell align="start"> {Lang==="Ar" ? (" حالة التوصيل ") : Lang==="En"? (" delivery ") : "Возможность доставки"} </TableCell>
-                                    <TableCell align="start"> change</TableCell>
+                                    <TableCell align="start"> {Lang==="Ar" ? (" حالة الطلب ") : Lang==="En"? (" request state") : "состояние запроса"} </TableCell>
+                                    <TableCell align="start"> {Lang==="Ar" ? (" نسبة الخصم ") : Lang==="En"? (" discount percentage ") : "процент скидки"} </TableCell>
+                                    <TableCell align="start"> {Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</TableCell>
                                     <TableCell align="start"> cancellation </TableCell>
                                 </TableRow>
                             </TableHead>

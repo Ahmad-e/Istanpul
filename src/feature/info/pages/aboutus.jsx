@@ -1,7 +1,9 @@
+import Err404 from '../../../assets/SVGs/err404'
+
 const Aboutus = () => {
     return(
         <div>
-            Aboutus
+            <Err404 />
         </div>
     )
 }
