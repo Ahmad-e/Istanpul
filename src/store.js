@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
+import signUpServiceRaducer from './feature/auth/services/signUpSlice';
 
 
 export const counterSlice = createSlice({
@@ -69,5 +70,6 @@ export const counterSlice = createSlice({
 export default configureStore({
   reducer: {
     counter: counterSlice.reducer,
+    signUpService: signUpServiceRaducer
   },
 })
