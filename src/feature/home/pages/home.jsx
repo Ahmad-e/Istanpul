@@ -23,8 +23,17 @@ const Home = () => {
                 .then((response) => console.log(response))
                 .catch((error) => console.log(error));
                 */
-
-    axios({
+        try {
+          const response = axios.post('https://rest.istanbulru.com/api/addProductType', {
+            name:"type3"
+          }).then((response) => {
+            console.log(response.data);
+          }).catch((error) => console.log(error));
+          console.log( response);
+        } catch (e) {
+                throw e;
+        }
+    /*axios({
       method: 'POST',
       url: "http://rest.istanbulru.com/api/test",
       headers: {
