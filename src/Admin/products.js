@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -175,7 +174,7 @@ const AdminProducts = () => {
 
     const [data, setData] = React.useState([]);
     const [keywords, setKeywords] = React.useState([]);
-    useEffect(() => {
+    React.useEffect(() => {
         setLoading(true);
         console.log(kinds)
         axios.get("http://rest.istanbulru.com/api/showProducts")
