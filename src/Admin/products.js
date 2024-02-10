@@ -177,7 +177,7 @@ const AdminProducts = () => {
     React.useEffect(() => {
         setLoading(true);
         console.log(kinds)
-        axios.get("http://rest.istanbulru.com/api/showProducts")
+        axios.get("https://rest.istanbulru.com/api/showProducts")
             .then((response) => {
                 setData(response.data.products);
                 setKeywords(response.data.products_types)
