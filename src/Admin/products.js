@@ -192,7 +192,7 @@ const AdminProducts = () => {
     }, []);
 
     const addNewProduct = () => {
-        setLoading(true);
+        
         
          if (name === "")
              setErrName(true);
@@ -221,6 +221,7 @@ const AdminProducts = () => {
         form.append('code', code);
         if(name && code && selectedtype && disc &&  quantity && salary && sourceSalary )
         {
+            setLoading(true);
             try {
                 const response = axios.post('https://rest.istanbulru.com/api/addProduct',
                     form,
