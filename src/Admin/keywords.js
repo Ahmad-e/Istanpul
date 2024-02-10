@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import { useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
@@ -21,6 +22,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+import axios from "axios";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -49,18 +51,74 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const Keywords = () => {
     const Lang = useSelector((state) => state.counter.language);
+    const kinds = useSelector((state) => state.counter.kinds);
+    const [open, setOpen] = React.useState(false);
+    const [data,setData] = React.useState([]);
     const [name, setName] = React.useState('');
+    const [errNewName,setErrNewName] = React.useState(false);
+    const [errNewChangedName,setErrNewChangedName] = React.useState(false);
+    const [idChanged,setIdChanged] = React.useState(0);
+    const [nameChanged,setNameChanged] = React.useState('');
+
 
     const handleChangeName = (event) => {
         setName(event.target.value)
     }
+    const handleChangeNewName = (event) => {
+        setNameChanged(event.target.value)
+    }
+    /* axios conect with API */
 
-    const [open, setOpen] = React.useState(false);
+    useEffect(() => {
+        if(!kinds)
+        {            
+            axios.get("http://rest.istanbulru.com/api/showProductTypes")
+            .then((response) => setData(response.data.types))
+            .catch((error) => console.log(error));
+        }else
+            setData(kinds);
+    }, []);
+    const addNewWord = () =>{
+        if(name==='')
+        {
+            setErrNewName(true)
+        } else{
+            try {
+                const response = axios.post('https://rest.istanbulru.com/api/addProductType', {
+                name:name
+                }).then((response) => {
+                console.log(response.data);
+                setData(response.data.types);
+                }).catch((error) => console.log(error));
+                setErrNewName(false)
+            } catch (e) {
+                    throw e;
+            }
+        }
+    }
+    const changeWord = () =>{
+        if(nameChanged === '')
+        {
+            setErrNewChangedName(true)
+        }
+        else
+        {
+            try {
+                const response = axios.post('https://rest.istanbulru.com/api/editProductType', {
+                    id:idChanged,
+                    name:nameChanged
+                }).then((response) => {
+                    setData(response.data.types);
+                }).catch((error) => console.log(error));
+                setErrNewChangedName(false)
+            } catch (e) {
+                throw e;
+            }
+            setOpen(false);
+        }
+    }
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
+
     const handleClose = () => {
       setOpen(false);
     };
@@ -69,10 +127,10 @@ const Keywords = () => {
         <Container>
             <Row className="justify-content-center" >
                 <Col style={{ margin: "30px 0px" }}  className="input_item_admin" lg={4} md={6} sm={12}>
-                    <TextField style={{ width: "100%" }} id="outlined-basic" label={Lang === "Ar" ? ("نوع بضائع جديد") : Lang === "En" ? ("New product type") : "Новый тип продукта"} variant="outlined" onChange={handleChangeName} />
+                    <TextField error={errNewName} style={{ width: "100%" }} id="outlined-basic" label={Lang === "Ar" ? ("نوع بضائع جديد") : Lang === "En" ? ("New product type") : "Новый тип продукта"} variant="outlined" onChange={handleChangeName} />
                 </Col>
                 <Col style={{ margin: "30px 0px" }} className="input_item_admin" lg={2} md={3} sm={10}>
-                <Button className="App_button"><h5>{Lang === "Ar" ? ("حفظ البيانات") : Lang === "En" ? ("save data") : "Начать покупки"}</h5></Button>
+                    <Button onClick={()=>addNewWord()} className="App_button"><h5>{Lang === "Ar" ? ("حفظ البيانات") : Lang === "En" ? ("save data") : "Начать покупки"}</h5></Button>
                 </Col>
             </Row>
             <Row className="justify-content-center" >
@@ -87,30 +145,19 @@ const Keywords = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"1"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">drinks</StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
-                                </StyledTableRow>
-
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"2"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">sweets</StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
-                                </StyledTableRow>
-                                
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"3"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">test</StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
-                                </StyledTableRow>
+                                {
+                                    data.map((item)=>{
+                                        return(
+                                            <StyledTableRow key={"name"}>
+                                                <StyledTableCell component="th" scope="row">
+                                                    {item.id}
+                                                </StyledTableCell>
+                                                <StyledTableCell align="start">{item.name}</StyledTableCell>
+                                                <StyledTableCell align="start"><Button onClick={()=>{setIdChanged(item.id);setOpen(true);console.log(idChanged)}} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
+                                            </StyledTableRow>
+                                        )
+                                    })
+                                }
 
                                 
                             </TableBody>
@@ -130,14 +177,14 @@ const Keywords = () => {
                 <DialogContentText id="alert-dialog-slide-description">
                 <Row className="justify-content-center" >
                     <Col   className="input_item_admin" >
-                        <TextField style={{ width: "100%" }} id="outlined-basic" label={Lang === "Ar" ? ("نوع بضائع ") : Lang === "En" ? ("Product type") : "Новый тип продукта"} variant="outlined" onChange={handleChangeName} />
+                        <TextField error={setErrNewChangedName} style={{ width: "100%" }} id="outlined-basic" label={Lang === "Ar" ? ("نوع بضائع ") : Lang === "En" ? ("Product type") : "Новый тип продукта"} variant="outlined" onChange={handleChangeNewName} />
                     </Col>
                 </Row>
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                 <Button className="App_button" onClick={handleClose}>{Lang === "Ar" ? (" إلغاء التعديل ") : Lang === "En" ? ("console") : "Отменить изменение"}</Button>
-                <Button className="App_button" onClick={handleClose}>{Lang === "Ar" ? ("حفظ البيانات") : Lang === "En" ? ("save data") : "Начать покупки"}</Button>
+                <Button className="App_button" onClick={()=>changeWord()}>{Lang === "Ar" ? ("حفظ البيانات") : Lang === "En" ? ("save data") : "Начать покупки"}</Button>
                 </DialogActions>
             </Dialog>
         </Container>

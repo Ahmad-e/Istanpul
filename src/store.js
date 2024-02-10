@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
+import signUpServiceRaducer from './feature/auth/services/signUpSlice';
 
 
 export const counterSlice = createSlice({
@@ -12,6 +13,7 @@ export const counterSlice = createSlice({
         token:Cookies.get('TokeN_'),
         language:Cookies.get('Lang_'),
         baket:Cookies.get('BaKet_'),
+        kinds:Cookies.get('kindArr'),
     },
     reducers: {
       tuggleMode: (state) => {
@@ -31,13 +33,13 @@ export const counterSlice = createSlice({
         setAcc: (state,value) => {
           Cookies.set('acc_type', value.payload, { expires: 70 });
           state.account=value.payload;
-          console.log("tessst")
+          /*console.log("tessst")
           if(value.payload===1 || value.payload===2)
             window.location.href = '/profile';
           if(value.payload===0)
             window.location.href = '/';
           if(value.payload===3)
-            window.location.href = '/admin';
+            window.location.href = '/admin';*/
         },
         setToken:(status,value) => {
           status.token=value.payload;
@@ -60,14 +62,20 @@ export const counterSlice = createSlice({
           status.baket=i
           Cookies.set('BaKet_',  i, { expires: 70 });
           console.log(i)
+        },
+        setKinds:(status,value)=>{
+          status.kinds=value.payload;
+          Cookies.set('kindArr', value.payload, { expires: 70 });
+          console.log(value.payload)
         }
         
     },
   })
-  export const { tuggleMode,setAcc,setToken,setLanguege,setBaket,addProduct } = counterSlice.actions
+  export const { tuggleMode,setAcc,setToken,setLanguege,setBaket,addProduct,setKinds } = counterSlice.actions
 
 export default configureStore({
   reducer: {
     counter: counterSlice.reducer,
+    signUpService: signUpServiceRaducer
   },
 })
