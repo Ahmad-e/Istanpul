@@ -246,7 +246,7 @@ const AdminProducts = () => {
 
     const TuggleBlockProduct =()=>{
         setLoading(true);
-        axios.get("http://rest.istanbulru.com/api/editProductVis/"+selectedBlockProduct)
+        axios.get("https://rest.istanbulru.com/api/editProductVis/"+selectedBlockProduct)
         .then((response) => {
             setData(response.data.types);
             setLoading(false);
