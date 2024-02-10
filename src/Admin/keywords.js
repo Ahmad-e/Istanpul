@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import { useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
@@ -69,14 +68,10 @@ const Keywords = () => {
     }
     /* axios conect with API */
 
-    useEffect(() => {
-        if(!kinds)
-        {            
-            axios.get("http://rest.istanbulru.com/api/showProductTypes")
+    React.useEffect(() => {
+            axios.get("https://rest.istanbulru.com/api/showProductTypes")
             .then((response) => setData(response.data.types))
             .catch((error) => console.log(error));
-        }else
-            setData(kinds);
     }, []);
     const addNewWord = () =>{
         if(name==='')

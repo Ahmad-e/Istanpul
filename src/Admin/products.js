@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -175,10 +174,9 @@ const AdminProducts = () => {
 
     const [data, setData] = React.useState([]);
     const [keywords, setKeywords] = React.useState([]);
-    useEffect(() => {
+    React.useEffect(() => {
         setLoading(true);
-        console.log(kinds)
-        axios.get("http://rest.istanbulru.com/api/showProducts")
+        axios.get("https://rest.istanbulru.com/api/showProducts")
             .then((response) => {
                 setData(response.data.products);
                 setKeywords(response.data.products_types)
@@ -192,10 +190,9 @@ const AdminProducts = () => {
     }, []);
 
     const addNewProduct = () => {
-        setLoading(true);
         
-         if (name === "")
-             setErrName(true);
+        if (name === "")
+            setErrName(true);
          if (code === "")
              setErrCode(true);
          if (disc === "")
@@ -221,6 +218,7 @@ const AdminProducts = () => {
         form.append('code', code);
         if(name && code && selectedtype && disc &&  quantity && salary && sourceSalary )
         {
+            setLoading(true);
             try {
                 const response = axios.post('https://rest.istanbulru.com/api/addProduct',
                     form,
@@ -246,7 +244,7 @@ const AdminProducts = () => {
 
     const TuggleBlockProduct =()=>{
         setLoading(true);
-        axios.get("http://rest.istanbulru.com/api/editProductVis/"+selectedBlockProduct)
+        axios.get("https://rest.istanbulru.com/api/editProductVis/"+selectedBlockProduct)
         .then((response) => {
             setData(response.data.types);
             setLoading(false);
