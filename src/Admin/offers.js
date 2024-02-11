@@ -12,6 +12,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useSelector } from 'react-redux';
 import Textarea from '@mui/joy/Textarea';
+import axios from "axios";
+import Load from '../components/load';
 
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -58,7 +60,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const AdminOffers =()=>{
     const Lang=useSelector((state) => state.counter.language);
-
+    const [loading,setLoading]=React.useState(false);
     const [openBlockDialog, setOpenBlockDialog] = React.useState(false);
     const [openChangeDialog, setOpenChangeDialog] = React.useState(false);
 
@@ -76,25 +78,157 @@ const AdminOffers =()=>{
     };
 
 
-    const [selectedtype, setselectedType] = React.useState('');
-    const [offer, setOffer] = React.useState('');
+    const [selectedtype, setselectedType] = React.useState(0);
+    const [selectedProduct, setselectedProduct] = React.useState(0);
+    const [offer, setOffer] = React.useState([]);
     const [discount,setDiscount] = React.useState(0);
     const [quantity,setQuantity] = React.useState(0);
+
+    const [errQuantity,setErrQuantity] = React.useState(false);
+    const [errDiscount,setErrDiscount] = React.useState(false);
+    const [errSelectedProduct,setErrSelectedProduct] = React.useState(false);
+
+
+    const [changedDiscount,setChangedDiscount] = React.useState(0);
+    const [changedQuantity,setChangedQuantity] = React.useState(0);
+    const [ChangedOffer, setChangedOffer] = React.useState({});
 
     const handleChangeProductType = (event) => {
         setselectedType(event.target.value);
       };
+    const handleChangeProductId = (event) => {
+        setselectedProduct(event.target.value);
+    }
+      
     const handleChangediscount =(event)=>{
         setDiscount(event.target.value)
       }
     const handleChangeQuantity = (event)=>{
         setQuantity(event.target.value)
     }
+
+
+    const setOfferDataToChange=(offerData)=>{
+        setChangedOffer(offerData);
+        setOpenChangeDialog(true);
+        console.log(offerData)
+    }
+    const handleSetChangesdiscount =(event)=>{
+        ChangedOffer.percentage=(event.target.value);
+      }
+    const handleSetChangesQuantity = (event)=>{
+        ChangedOffer.offer_quantity=(event.target.value);
+    }
+
+    const [data, setData] = React.useState([]);
+    const [keywords, setKeywords] = React.useState([]);
+    React.useEffect(() => {
+        setLoading(true);
+        axios.get("https://rest.istanbulru.com/api/showOffers")
+            .then((response) => {
+                setData(response.data.products);
+                setKeywords(response.data.products_types);
+                setOffer(response.data.offers);
+                console.log(response.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error)
+                setLoading(false);
+            });
+    }, []);
+
+    const addOffer=()=>{
+        //console.log(selectedtype,selectedProduct);
+        if(!selectedProduct)
+            setErrSelectedProduct(true);
+        else
+            setErrSelectedProduct(false);
+        if(!discount || discount>100 || discount<0 )
+            setErrDiscount(true);
+        else
+            setErrDiscount(false);
+        if(!quantity || quantity>selectedProduct.quantity || quantity<0 )
+            setErrQuantity(true);
+        else
+            setErrQuantity(false);
+        if(selectedProduct && discount && quantity  )
+        if( discount<100 && discount>0 && quantity<selectedProduct.quantity && quantity>0  )
+        {
+            setErrDiscount(false);
+            setErrQuantity(false);
+            setErrSelectedProduct(false);
+            setLoading(true);
+            console.log("start axios")
+            try {
+                const response = axios.post('https://rest.istanbulru.com/api/addOffer', {
+                    product_id:selectedProduct.id,
+                    quantity:quantity,
+                    percentage:discount
+                }).then((response) => {
+                console.log(response.data);
+                setOffer(response.data.offers);
+                setLoading(false)
+                }).catch((error) => {
+                    console.log(error);
+                    setLoading(false);
+                });
+            } catch (e) {
+                    throw e;
+            }
+        }
+    }
+
+    const changeOffer=()=>{
+        setLoading(true);
+        try {
+                const response = axios.post('https://rest.istanbulru.com/api/editOffer', {
+                    offer_id:ChangedOffer.offer_id,
+                    quantity:ChangedOffer.offer_quantity,
+                    percentage:ChangedOffer.percentage,
+                }).then((response) => {
+                setOffer(response.data.offers);
+                setLoading(false)
+                }).catch((error) => {
+                    console.log(error);
+                    setLoading(false);
+                });
+            } catch (e) {
+                    throw e;
+            }
+            setOpenChangeDialog(false);
+    }
+    const [stoppedOffer, setStoppedOffer] = React.useState(0);
+    const setOfferToStop=(id)=>{
+        setStoppedOffer(id)
+        setOpenBlockDialog(true);
+    }
+
+    const stopOffer=()=>{
+        setLoading(true);
+        try {
+                const response = axios.post('https://rest.istanbulru.com/api/editOffer', {
+                    offer_id:stoppedOffer,
+                    quantity:0,
+                    percentage:0
+                }).then((response) => {
+                setOffer(response.data.offers);
+                setLoading(false)
+                }).catch((error) => {
+                    console.log(error);
+                    setLoading(false);
+                });
+            } catch (e) {
+                    throw e;
+            }
+            setOpenBlockDialog(false);
+    }
     
       
 
     return(
         <Container>
+            <Load run={loading} />
             <Row className="justify-content-center">
                 <Col className="input_item_admin" lg={3} md={4} sm={6} xs={12} >
                     <FormControl fullWidth>
@@ -106,9 +240,13 @@ const AdminOffers =()=>{
                             label={Lang==="Ar" ? (" النوع ") : Lang==="En"? (" type ") : " Тип "}
                             onChange={handleChangeProductType}
                             >
-                            <MenuItem value={10}>sweets</MenuItem>
-                            <MenuItem value={20}>drinks</MenuItem>
-                            <MenuItem value={30}>other kinds</MenuItem>
+                            {
+                                keywords.map((item)=>{
+                                    return(
+                                        <MenuItem value={item.id}>{item.name}</MenuItem>
+                                    )
+                                })
+                            }
                         </Select>
                     </FormControl>
                 </Col>
@@ -116,32 +254,39 @@ const AdminOffers =()=>{
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">{Lang==="Ar" ? ("اسم العنصر ") : Lang==="En"? (" name ") : " имя "}</InputLabel>
                         <Select
+                            error={errSelectedProduct}
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={selectedtype}
+                            value={selectedProduct}
                             label={Lang==="Ar" ? ("اسم العنصر ") : Lang==="En"? (" name ") : " имя "}
-                            onChange={handleChangeProductType}
+                            onChange={handleChangeProductId}
                             >
-                            <MenuItem value={10}>item-1</MenuItem>
-                            <MenuItem value={20}>item-2</MenuItem>
-                            <MenuItem value={30}>item-3</MenuItem>
+                            {
+                                
+                                data.map((item)=>{
+                                    if(selectedtype===item.type_id)
+                                    return(
+                                        <MenuItem value={item}>{item.name}</MenuItem>
+                                    )
+                                })
+                            }
                         </Select>
                     </FormControl>
                 </Col>
                 <Col lg={12} xs={12}>
-                <CardItem id={0} imgURL={""} name="Istanpul website" disc="bestwebsite in the world" price="10000" offer={discount} />
+                    <CardItem id={selectedProduct.id} imgURL={selectedProduct.img_url} name={selectedProduct.name} disc={selectedProduct.disc} price={selectedProduct.price} offer={discount} />
                 </Col>
                 <Col className="input_item_admin" lg={3} md={4} sm={12}>
-                    <TextField onChange={handleChangeQuantity} style={{ width: "100%" }} id="outlined-number"  type="number" label={Lang==="Ar" ? ("الكمية من العنصر") : Lang==="En"? ("Quantity of Offer") : "количество продукта"} variant="outlined" />
+                    <TextField placeholder={"max : "+selectedProduct.quantity} error={errQuantity} onChange={handleChangeQuantity} style={{ width: "100%" }} id="outlined-number"  type="number" inputProps={{ min: 0, max: selectedProduct.quantity }} label={(Lang==="Ar" ? ("الكمية من العنصر") : Lang==="En"? ("Quantity of Offer") : "количество продукта")}  variant="outlined" />
                 </Col>
                 <Col className="input_item_admin" lg={3} md={4} sm={12}>
-                    <TextField onChange={handleChangediscount} style={{ width: "100%" }} id="outlined-number"  type="number" label={Lang==="Ar" ? ("نسبة الخصم ") : Lang==="En"? (" discount percentage ") : " процент скидки "} variant="outlined" />
+                    <TextField error={errDiscount} onChange={handleChangediscount} style={{ width: "100%" }} id="outlined-number"  type="number" inputProps={{ min: 0, max: 100 }} label={Lang==="Ar" ? ("نسبة الخصم ") : Lang==="En"? (" discount percentage ") : " процент скидки "} variant="outlined" />
                 </Col>
             </Row>
             <Row  className="justify-content-center" >
                 <Col style={{ margin: "40px 0px" }}  >
                     {Lang==="Ar" ? ("اضغط حفظ البيانات لإضافة العرض إلى الجدول و ظهوره للمستخدمين") : Lang==="En"? (" click save data to add offer to table ") : " нажмите «Сохранить данные», чтобы добавить предложение в таблицу "}<br/>
-                    <Button href="/regester" className="App_button"><h5>{Lang==="Ar" ? ("حفظ البيانات") : Lang==="En"? ("save data") : "Начать покупки"}</h5></Button>    
+                    <Button onClick={()=>addOffer()} className="App_button"><h5>{Lang==="Ar" ? ("حفظ البيانات") : Lang==="En"? ("save data") : "Начать покупки"}</h5></Button>    
                 </Col>
             </Row>
 
@@ -153,7 +298,7 @@ const AdminOffers =()=>{
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell style={{ backgroundColor:"#E6392B" }} >{Lang==="Ar" ? ("اسم العنصر ") : Lang==="En"? (" name ") : " имя "}</StyledTableCell>
-                                    <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> id </StyledTableCell>
+                                    <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> {Lang === "Ar" ? (" الكمية ") : Lang === "En" ? (" quantity ") : " Количество "} </StyledTableCell>
                                     <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> {Lang==="Ar" ? ("السعر القديم") : Lang==="En"? (" Old salary ") : " Старая зарплата "} </StyledTableCell>
                                     <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> {Lang==="Ar" ? ("نسبة الخصم ") : Lang==="En"? (" discount percentage ") : " процент скидки "} </StyledTableCell>
                                     <StyledTableCell style={{ backgroundColor:"#E6392B" }} align="start"> {Lang==="Ar" ? ("السعر الجديد") : Lang==="En"? (" New salary ") : " Новая зарплата "} </StyledTableCell>
@@ -162,66 +307,24 @@ const AdminOffers =()=>{
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"name"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">1</StyledTableCell>
-                                    <StyledTableCell align="start">200</StyledTableCell>
-                                    <StyledTableCell align="start">10%</StyledTableCell>
-                                    <StyledTableCell align="start">180</StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpenBlockDialog} variant="outline-danger" className="keyword_button"  >{Lang==="Ar" ? ("إيقاف ") : Lang==="En"? (" stop ") : " останавливаться "}</Button></StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpenChangeDialog} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
-                                </StyledTableRow>
-
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"name"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">1</StyledTableCell>
-                                    <StyledTableCell align="start">200</StyledTableCell>
-                                    <StyledTableCell align="start">10%</StyledTableCell>
-                                    <StyledTableCell align="start">180</StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpenBlockDialog} variant="outline-danger" className="keyword_button"  >{Lang==="Ar" ? ("إيقاف ") : Lang==="En"? (" stop ") : " останавливаться "}</Button></StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpenChangeDialog} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
-                                </StyledTableRow>
-
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"name"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">1</StyledTableCell>
-                                    <StyledTableCell align="start">200</StyledTableCell>
-                                    <StyledTableCell align="start">10%</StyledTableCell>
-                                    <StyledTableCell align="start">180</StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpenBlockDialog} variant="outline-danger" className="keyword_button"  >{Lang==="Ar" ? ("إيقاف ") : Lang==="En"? (" stop ") : " останавливаться "}</Button></StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpenChangeDialog} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
-                                </StyledTableRow>
-
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"name"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">1</StyledTableCell>
-                                    <StyledTableCell align="start">200</StyledTableCell>
-                                    <StyledTableCell align="start">10%</StyledTableCell>
-                                    <StyledTableCell align="start">180</StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpenBlockDialog} variant="outline-danger" className="keyword_button"  >{Lang==="Ar" ? ("إيقاف ") : Lang==="En"? (" stop ") : " останавливаться "}</Button></StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpenChangeDialog} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
-                                </StyledTableRow>
-
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"name"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">1</StyledTableCell>
-                                    <StyledTableCell align="start">200</StyledTableCell>
-                                    <StyledTableCell align="start">10%</StyledTableCell>
-                                    <StyledTableCell align="start">180</StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpenBlockDialog} variant="outline-danger" className="keyword_button"  >{Lang==="Ar" ? ("إيقاف ") : Lang==="En"? (" stop ") : " останавливаться "}</Button></StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpenChangeDialog} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
-                                </StyledTableRow>
+                                {
+                                    offer.map((row)=>{
+                                        if(row.offer_quantity>0)
+                                        return(
+                                            <StyledTableRow>
+                                                <StyledTableCell component="th" scope="row">
+                                                    {row.name}
+                                                </StyledTableCell>
+                                                <StyledTableCell align="start">{row.offer_quantity}</StyledTableCell>
+                                                <StyledTableCell align="start">{row.old_price}</StyledTableCell>
+                                                <StyledTableCell align="start">{row.percentage}%</StyledTableCell>
+                                                <StyledTableCell align="start">{row.new_price}</StyledTableCell>
+                                                <StyledTableCell align="start"><Button onClick={()=>setOfferToStop(row.offer_id)} variant="outline-danger" className="keyword_button"  >{Lang==="Ar" ? ("إيقاف ") : Lang==="En"? (" stop ") : " останавливаться "}</Button></StyledTableCell>
+                                                <StyledTableCell align="start"><Button onClick={()=>setOfferDataToChange(row)} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button></StyledTableCell>
+                                            </StyledTableRow>
+                                        )
+                                    })
+                                }
 
                                 
                             </TableBody>
@@ -244,7 +347,7 @@ const AdminOffers =()=>{
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button className="App_button" onClick={handleCloseBlockDialog}>{Lang==="Ar" ? ("إيقاف ") : Lang==="En"? (" stop ") : " останавливаться "}</Button>
+                    <Button className="App_button" onClick={()=>stopOffer()}>{Lang==="Ar" ? ("إيقاف ") : Lang==="En"? (" stop ") : " останавливаться "}</Button>
                 </DialogActions>
             </Dialog>
             
@@ -260,16 +363,16 @@ const AdminOffers =()=>{
                 <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
                     <Col className="input_item_admin" >
-                        <TextField onChange={handleChangeQuantity} style={{ width: "100%" }} id="outlined-number"  type="number" label={Lang==="Ar" ? ("الكمية من العنصر") : Lang==="En"? ("Quantity of Offer") : "количество продукта"} variant="outlined" />
+                        <TextField onChange={handleSetChangesQuantity} style={{ width: "100%" }} id="outlined-number"  type="number" label={Lang==="Ar" ? ("الكمية من العنصر") : Lang==="En"? ("Quantity of Offer") : "количество продукта"} variant="outlined" />
                     </Col>
                     <Col className="input_item_admin" >
-                        <TextField onChange={handleChangediscount} style={{ width: "100%" }} id="outlined-number"  type="number" label={Lang==="Ar" ? ("نسبة الخصم ") : Lang==="En"? (" discount percentage ") : " процент скидки "} variant="outlined" />
+                        <TextField onChange={handleSetChangesdiscount} style={{ width: "100%" }} id="outlined-number"  type="number" label={Lang==="Ar" ? ("نسبة الخصم ") : Lang==="En"? (" discount percentage ") : " процент скидки "} variant="outlined" />
                     </Col>
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                 <Button className="App_button" onClick={handleCloseChangeDialog}>{Lang === "Ar" ? (" إلغاء التعديل ") : Lang === "En" ? ("console") : "Отменить изменение"}</Button>
-                <Button className="App_button" onClick={handleCloseChangeDialog}>{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button>
+                <Button className="App_button" onClick={()=>changeOffer()}>{Lang === "Ar" ? (" تعديل ") : Lang === "En" ? ("change") : "изменять"}</Button>
                 </DialogActions>
             </Dialog>
         </Container>
