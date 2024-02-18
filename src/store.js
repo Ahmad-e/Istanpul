@@ -12,7 +12,7 @@ export const counterSlice = createSlice({
         account:parseInt(Cookies.get('acc_type')),
         token:Cookies.get('TokeN_'),
         language:Cookies.get('Lang_'),
-        baket:Cookies.get('BaKet_'),
+        baket:(Cookies.get('BaKet_')),
         kinds:Cookies.get('kindArr'),
     },
     reducers: {
@@ -33,13 +33,13 @@ export const counterSlice = createSlice({
         setAcc: (state,value) => {
           Cookies.set('acc_type', value.payload, { expires: 70 });
           state.account=value.payload;
-          /*console.log("tessst")
-          if(value.payload===1 || value.payload===2)
-            window.location.href = '/profile';
-          if(value.payload===0)
-            window.location.href = '/';
+          //console.log("tessst")
+          if(value.payload===1)
+            window.location.href = '/search/*/*';
+          if(value.payload===2)
+            window.location.href = '/admin/adminProducts';
           if(value.payload===3)
-            window.location.href = '/admin';*/
+            window.location.href = '/admin/home';
         },
         setToken:(status,value) => {
           status.token=value.payload;
@@ -54,24 +54,29 @@ export const counterSlice = createSlice({
         setBaket:(status,value)=>{
           status.baket=value.payload;
           Cookies.set('BaKet_', value.payload, { expires: 70 });
-          console.log(value.payload)
+          console.log(status.baket);
         },
         addProduct:(status,value)=>{
-          var i=status.baket;
-          i.push(value.payload)
-          status.baket=i
-          Cookies.set('BaKet_',  i, { expires: 70 });
-          console.log(i)
+          status.baket.push(value.payload)
+          Cookies.set('BaKet_',  status.baket, { expires: 70 });
+          console.log(status.baket)
         },
         setKinds:(status,value)=>{
           status.kinds=value.payload;
           Cookies.set('kindArr', value.payload, { expires: 70 });
-          console.log(value.payload)
+        },
+        logOut:(state)=>{
+          state.token=null;
+          state.account=null;
+          Cookies.remove('TokeN_')
+          Cookies.remove('acc_type')
+          
+          window.location.href = '/login';
         }
         
     },
   })
-  export const { tuggleMode,setAcc,setToken,setLanguege,setBaket,addProduct,setKinds } = counterSlice.actions
+  export const { tuggleMode,setAcc,setToken,setLanguege,setBaket,addProduct,setKinds,logOut } = counterSlice.actions
 
 export default configureStore({
   reducer: {

@@ -64,7 +64,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const AdminProducts = () => {
     //const dispatch = useDispatch();
     const Lang = useSelector((state) => state.counter.language);
-    const kinds = useSelector((state) => state.counter.kinds);
+    const token = useSelector((state) => state.counter.token);
+    //const kinds = useSelector((state) => state.counter.kinds);
     const [openBlockDialog, setOpenBlockDialog] = React.useState(false);
     const [openChangeDialog, setOpenChangeDialog] = React.useState(false);
 
@@ -244,7 +245,12 @@ const AdminProducts = () => {
 
     const TuggleBlockProduct =()=>{
         setLoading(true);
-        axios.get("https://rest.istanbulru.com/api/editProductVis/"+selectedBlockProduct)
+        axios.get("https://rest.istanbulru.com/api/editProductVis/"+selectedBlockProduct,{
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : 'Bearer ' +token 
+            }
+        })
         .then((response) => {
             setData(response.data.types);
             setLoading(false);

@@ -8,16 +8,37 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Button from 'react-bootstrap/Button';
+import { useSelector,useDispatch } from 'react-redux';
+import axios from "axios";
+import {addProduct,setBaket} from '../store';
 
 
 const CardItem =(props)=>{
-
-    //const id = props.id;
+    const token=useSelector((state) => state.counter.token);
+    const baket=useSelector((state) => state.counter.baket);
+    const dispatch = useDispatch();
+    const id = props.id;
     const name= props.name;
     const disc = props.disc;
     const imageURL = props.imgURL;
     const price = props.price;
     const offer = props.offer
+
+
+    const tuglleFavorite =()=>{
+
+        console.log(id)
+        axios.get("https://rest.istanbulru.com/api/toggleFavourite/"+id,{
+            headers:{
+                "Accept":"application/json",
+                "Authorization":"Bearer "+token
+            }
+        })
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => console.log(error));
+    }
 
 
     return(
@@ -48,8 +69,23 @@ const CardItem =(props)=>{
                             </div>
                             <br/>
                             <div style={{ textAlign:"center" }}>
-                                <Button className="App_button">Add to besket <AddShoppingCartIcon /></Button>
-                                <Button className="App_button"><FavoriteIcon /></Button>
+                                <Button 
+                                    onClick={()=>dispatch(addProduct(
+                                        [{
+                                            "id":id,
+                                            "name":name,
+                                            "imgURL":imageURL,
+                                            "disc":disc,
+                                            "price":price,
+                                            "offer":offer,
+                                            //"offer_id":offerr_id
+                                        }]
+                                    ))}  
+                                    className="App_button"
+                                >
+                                    Add to besket <AddShoppingCartIcon />
+                                </Button>
+                                <Button onClick={()=>tuglleFavorite()} className="App_button"><FavoriteIcon /></Button>
                             </div>
 
                         </CardContent>

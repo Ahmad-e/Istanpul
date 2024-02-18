@@ -29,14 +29,14 @@ const Down = () =>{
                     <h2 className="logo text-start ">
                     { color === "light" ? (<img
                         alt="Samco"
-                        src={logo}
+                        src="https://rest.istanbulru.com/api/getLogoImg"
                         width="160"
                         height="80"
                         className="d-inline-block align-top"
                         />) :
                     (<img
                         alt="Samco"
-                        src={logo}
+                        src="https://rest.istanbulru.com/api/getLogoImg"
                         width="160"
                         height="80"
                         className="d-inline-block align-top"

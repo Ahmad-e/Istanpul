@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import CardItem from './card'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -11,48 +11,109 @@ import Select from '@mui/material/Select';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import './style.css';
 import Test from '../assets/images/LOGO.png'
+import { useSelector,useDispatch } from 'react-redux';
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import {setKinds} from '../store';
+
+
 function valuetext(value) {
     return `${value}°C`;
   }
 
 const Search =()=>{
+    const param = useParams();
+    const Lang=useSelector((state) => state.counter.language);
+    const dispatch = useDispatch();
+    const [keywords,setKeyword]=useState([]);
+    const [value, setValue] = useState([1, 900]);
+    const [checked, setChecked] = useState(true);
 
-    const [value, setValue] = useState([10, 90]);
-    const [checked, setChecked] = useState(false);
+    const [products,setProducts] = useState([]);
+    const [offers,setOffers] = useState([]);
+
 
     const handleRangeChange = (event, newValue) => {
       setValue(newValue);
     };
-
-
-    const [age, setAge] = useState('');
       
     const handleChange = (event) => {
-      setAge(event.target.value);
+      window.location.href = '/search/*/'+event.target.value;
     };
+
+    const send_data=()=>{
+        var body
+        if(param.name==="*" && param.type_id==='*')
+            body={
+                best:1
+            }
+        if(param.name!=="*")
+            body={
+                name:param.name
+            }
+        if(param.type_id!=="*")
+            body={
+                type_id:param.type_id
+            }
+
+        try {
+                const response = axios.post('https://rest.istanbulru.com/api/searchProductsAndOffers',body)
+            .then((response) => {
+                    setOffers(response.data.offers)
+                    setProducts(response.data.products)
+                    console.log(response.data)
+                }).catch((error) => {
+                    console.log(error);
+                });
+            } catch (e) {
+                    throw e;
+            }
+    }
+
+
+    useEffect(() => {
+        axios.get("https://rest.istanbulru.com/api/showProductTypes")
+        .then((response) => {
+            dispatch(setKinds(response.data.types));
+            setKeyword(response.data.types);
+        })
+        .catch((error) => console.log(error));
+
+        send_data();
+    }, []);
+
+
+
+
+
 
 
     return(
-        <div >
             <Container>
                 <Row className="justify-content-center">
                     <Col lg={10} md={9} sm={8} xs={12} >
                         <Row className="justify-content-center">
-                            <Col lg={4} md={6} sm={12} >
-                                <CardItem id={0} imgURL={Test} name="Istanpul website" disc="bestwebsite in the world" price="10000" />
-                            </Col>
-                            <Col lg={4} md={6} sm={12} >
-                                <CardItem id={0} imgURL={Test} name="Istanpul website" disc="bestwebsite in the world" price="10000" />
-                            </Col>
-                            <Col lg={4} md={6} sm={12} >
-                                <CardItem id={0} imgURL={Test} name="Istanpul website" disc="bestwebsite in the world" price="10000" />
-                            </Col>
-                            <Col lg={4} md={6} sm={12} >
-                                <CardItem id={0} imgURL={Test} name="Istanpul website" disc="bestwebsite in the world" price="10000" />
-                            </Col>
-                            <Col lg={4} md={6} sm={12} >
-                                <CardItem id={0} imgURL={Test} name="Istanpul website" disc="bestwebsite in the world" price="10000" />
-                            </Col>
+                        {
+                            products.map((item)=>{
+                                if(value[0]<item.price && value[1]>item.price  )
+                                return(
+                                    <Col className={checked ? ("") : (" d_n")} lg={4} md={6} sm={12} >
+                                        <CardItem id={item.id} imgURL={item.img_url} name={item.name} disc={item.disc} price={item.price} />
+                                    </Col>
+                                        )
+                                    })
+                                }
+                            {
+                            offers.map((item)=>{
+                                if(value[0]<item.new_price && value[1]>item.new_price )
+                                return(
+                                    <Col lg={4} md={6} sm={12} >
+                                        <CardItem id={item.product_id} imgURL={item.img_url} name={item.name} disc={item.disc} price={item.price} offer={item.percentage} />
+                                    </Col>
+                                        )
+                                    })
+                                }
+
                         </Row>
                     </Col>
                     <Col lg={2} md={3} sm={4} xs={0} className="col_filter" >
@@ -66,12 +127,12 @@ const Search =()=>{
                             value="1"
                             onChange={(e) => setChecked(e.currentTarget.checked)}
                         >
-                            Checked
+                            { checked ? (Lang === "Ar" ? (" العروض و البضائع") : Lang === "En" ? (" offers and products") : " предложения и продукты ") : (Lang === "Ar" ? (" العروض ") : Lang === "En" ? (" offers ") : " предложения ")}
                         </ToggleButton>
                         <Slider
                         style={{ color:"#E6392B" }}
                             min={1}
-                            max={100}
+                            max={1000}
                             getAriaLabel={() => 'Temperature range'}
                             value={value}
                             onChange={handleRangeChange}
@@ -84,23 +145,24 @@ const Search =()=>{
                                 style={{ borderColor:"#E6392B" }} 
                                 labelId="demo-simple-select-standard-label"
                                 id="demo-simple-select-standard"
-                                value={age}
                                 onChange={handleChange}
                                 label="Age"
                                 >
-                                <MenuItem value="">
+                                <MenuItem value="*">
                                     <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={10}>candies</MenuItem>
-                                <MenuItem value={20}>drinks</MenuItem>
-                                <MenuItem value={30}>Local products</MenuItem>
-                                <MenuItem value={30}>Imported products</MenuItem>
+                                {
+                                    keywords.map((item)=>{
+                                        return(
+                                            <MenuItem value={item.id}>{item.name}</MenuItem>
+                                        )
+                                    })
+                                }
                             </Select>
                         </FormControl>
                     </Col>
                 </Row>
             </Container>
-        </div>
     )
 }
 export default Search

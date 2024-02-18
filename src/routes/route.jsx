@@ -34,7 +34,7 @@ const RouteApp = () => {
          <Routes>
           <Route index element={<Home />} />
           <Route path="aboutus" element={<Aboutus />} />
-          <Route path="search" element={<Search />} />
+          <Route path="search/:name/:type_id" element={<Search />} />
           <Route path="login" element={<Login />} />
           <Route path="regester" element={<Singlin />} />
           <Route path="baket" element={<Baket />} />
