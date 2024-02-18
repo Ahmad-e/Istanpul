@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setToken , setAcc } from '../../../store'
 import Load from '../../../components/load';
 import axios from "axios";
+import Alert from '@mui/joy/Alert';
 
 const Singlin = () => {
 
@@ -37,6 +38,8 @@ const Singlin = () => {
     const [errorEmail, setErrorEmail] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
     const [errorCity, setErrorCity] = useState(false);
+
+    const [message,setMessage] = useState(false);
 
     const [errorText, setErrorText] = useState('');
 
@@ -106,11 +109,14 @@ const Singlin = () => {
                             dispatch(setAcc(response.data.user_data.type_id));
                             console.log(response.data);
                         }
+                        else
+                            setMessage(true)
                         setLoading(false);
 
                     })
                     .catch((error) =>{
                         console.log(error)
+                        setMessage(true)
                         setLoading(false);
                     });
             } catch (e) {
@@ -124,7 +130,7 @@ const Singlin = () => {
     };
 
     return (
-
+        <>
         <div dir="ltr" className="sign">
             <Load run={loading} />
             <TextField error={errorName} helperText="Incorrect entry." sx={{ m: 1, width: '25ch' }} id="Name" label={Lang === "Ar" ? ("الاسم") : Lang === "En" ? ("name") : "имя"} variant="standard" /><br />
@@ -180,6 +186,14 @@ const Singlin = () => {
             <a href="/login" className="App_link" > {Lang === "Ar" ? ("أنا أملك حساب") : Lang === "En" ? ("I have account") : "у меня есть аккаунт"} </a>
 
         </div>
+        <br/>
+        <div   style={{ display: "flex" , justifyContent: "center" }}>
+        <div className={message ? (""):("d_n")}>
+            <Alert  color="danger" size="md" variant="outlined"> 
+                {Lang==="Ar" ? ("كلمة السر أو الرقم خطأ") : Lang==="En"? ("The password or number is wrong") : "Пароль или номер неправильный"}
+            </Alert>
+        </div></div>
+        </>
     )
 }
 export default Singlin

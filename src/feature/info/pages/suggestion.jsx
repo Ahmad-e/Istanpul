@@ -8,11 +8,12 @@ import axios from "axios";
 import {useEffect,useState} from 'react';
 import Load from '../../../components/load'
 import Alert from '@mui/joy/Alert';
-
+import Err401 from '../../../assets/SVGs/err401'
 const Suggestion = () => {
 
     const Lang=useSelector((state) => state.counter.language);
     const token=useSelector((state) => state.counter.token);
+    const acc=useSelector((state) => state.counter.account);
     const [text ,setText] = useState();
     const [message,setMessage] = useState(false);
     const [loading,setLoading]=useState(false);
@@ -45,6 +46,16 @@ const Suggestion = () => {
                 throw e;
         }
     }
+
+    if(acc!==1)
+        return(
+            <>
+            <Err401 />
+                <h4>
+                {(Lang === "Ar" ? ("يجب عليك تسجيل الدخول أولا") : Lang === "En" ? ("you have to login first") : " сначала вам нужно войти в систему")}
+                </h4>
+            </>
+        )
 
     return(
         <Container>

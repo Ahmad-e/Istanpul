@@ -125,9 +125,9 @@ const Header = () =>{
                         </ul>
                     </Collapse>
                     <Nav.Link className="app_link" href="/aboutus">{Lang==="Ar" ? ("معلومات عنا") : Lang==="En"? ("about us") : "о нас"}</Nav.Link>
-                    <Nav.Link className={ currentURL==="/requests" ? ("app_link App-text") : ("app_link") } eventKey={2} href="/requests">{Lang==="Ar" ? (" الطلبات ") : Lang==="En"? ("Requests") : "Запросы"}</Nav.Link>
-                    <Nav.Link className={ currentURL==="/form" ? ("app_link App-text") : ("app_link") } eventKey={2} href="/form">{Lang==="Ar" ? (" انضم إلينا ! ") : Lang==="En"? ("join us") : "Присоединяйтесь к нам"}</Nav.Link>
-                    <Nav.Link className={ currentURL==="/sendMessage" ? ("app_link App-text") : ("app_link") } eventKey={2} href="/sendMessage">{Lang==="Ar" ? (" أرسل إقتراح ") : Lang==="En"? ("Send a suggestion") : "Отправить предложение"}</Nav.Link>
+                    <Nav.Link className={ (currentURL==="/requests" ? ("app_link App-text") : ("app_link"))+(  user_id===1  ? ("") : (" d_n") ) } eventKey={2} href="/requests">{Lang==="Ar" ? (" الطلبات ") : Lang==="En"? ("Requests") : "Запросы"}</Nav.Link>
+                    <Nav.Link className={ (currentURL==="/form" ? ("app_link App-text") : ("app_link"))+(  user_id===1  ? ("") : (" d_n") ) } eventKey={2} href="/form">{Lang==="Ar" ? (" انضم إلينا ! ") : Lang==="En"? ("join us") : "Присоединяйтесь к нам"}</Nav.Link>
+                    <Nav.Link className={ (currentURL==="/sendMessage" ? ("app_link App-text") : ("app_link"))+(  user_id===1  ? ("") : (" d_n") ) } eventKey={2} href="/sendMessage">{Lang==="Ar" ? (" أرسل إقتراح ") : Lang==="En"? ("Send a suggestion") : "Отправить предложение"}</Nav.Link>
                 </Nav>
                 <Nav>
 
@@ -189,10 +189,10 @@ const Header = () =>{
             <Row  style={{ margin :"0px" }}  className="justify-content-center">
                 <Form className="d-flex search_form">
                     <Form.Control
-                    placeholder={Lang==="Ar" ? (" أكتب اسم أو نوع  أو صفة منتج ") : Lang==="En"? (" Write the name, type or description of a product ") : "Напишите название, тип или описание продукта"}
-                    className={"text-search b_r_0 "+ (Lang==="Ar" ? ("b_r_br b_r_tr") : ("b_r_tl b_r_bl "))}
-                    aria-label="Search"
-                    onChange={handelChangeSearch}
+                        placeholder={Lang==="Ar" ? (" أكتب اسم أو نوع  أو صفة منتج ") : Lang==="En"? (" Write the name, type or description of a product ") : "Напишите название, тип или описание продукта"}
+                        className={"text-search b_r_0 "+ (Lang==="Ar" ? ("b_r_br b_r_tr") : ("b_r_tl b_r_bl "))}
+                        aria-label="Search"
+                        onChange={handelChangeSearch}
                     />
                     <Button  
                         href={"/search/"+searchData+"/*"}

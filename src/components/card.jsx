@@ -70,7 +70,7 @@ const CardItem =(props)=>{
                             <br/>
                             <div style={{ textAlign:"center" }}>
                                 <Button 
-                                    onClick={()=>dispatch(addProduct(
+                                    onClick={()=>dispatch(setBaket(
                                         [{
                                             "id":id,
                                             "name":name,

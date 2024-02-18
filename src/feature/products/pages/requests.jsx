@@ -14,7 +14,7 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useSelector } from 'react-redux';
-
+import Err401 from '../../../assets/SVGs/err401'
 
 function createData(name, calories, fat, carbs, protein, price) {
     return {
@@ -129,7 +129,19 @@ function createData(name, calories, fat, carbs, protein, price) {
   ];
 
 const Requests = () =>{
+    const acc=useSelector((state) => state.counter.account);
     const Lang=useSelector((state) => state.counter.language);
+
+    if(acc!==1)
+    return(
+        <>
+        <Err401 />
+            <h4>
+                {(Lang === "Ar" ? ("يجب عليك تسجيل الدخول أولا") : Lang === "En" ? ("you have to login first") : " сначала вам нужно войти в систему")}
+            </h4>
+        </>
+    )
+
     return(
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">

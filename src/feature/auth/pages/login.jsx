@@ -15,6 +15,7 @@ import { PhoneInput } from 'react-international-phone';
 import { setToken , setAcc } from '../../../store'
 import Load from '../../../components/load';
 import axios from "axios";
+import Alert from '@mui/joy/Alert';
 
 const Login =()=>{
     const dispatch = useDispatch();
@@ -28,6 +29,8 @@ const Login =()=>{
     const [phone, setPhone] = useState('');
     const [errorPassword, setErrorPassword] = useState(false);
     const [errorPhone, setErrorPhone] = useState(false);
+    const [message,setMessage] = useState(false);
+
     const send =()=>{
         const password = document.getElementById("Pass").value;
         
@@ -51,9 +54,16 @@ const Login =()=>{
                         setLoading(false);
                         dispatch(setToken(response.data.access_token));
                         dispatch(setAcc(response.data.user_data.type_id));
+                        
+                    }
+                    else
+                    {
+                        setMessage(true)
+                        setLoading(false);
                     }
 
                 }).catch((error) => {
+                    setMessage(true)
                     console.log(error)
                     setLoading(false)
                 });
@@ -65,6 +75,7 @@ const Login =()=>{
         }
     }
     return(
+        <>
         <div dir="ltr" className="sign">
             <Load run={loading} />
             <br/>
@@ -97,7 +108,14 @@ const Login =()=>{
 
             <Button onClick={()=>send()} className="App_button"> {Lang==="Ar" ? ("إرسال") : Lang==="En"? ("submit") : "отправлять"} </Button><br/><br/>
             <a href="/regester" className="App_link" > {Lang==="Ar" ? ("أنا لا أملك حساب") : Lang==="En"? ("I don't have an account") : "у меня нет аккаунта"} </a>
-        </div>
+        </div><br/>
+        <div   style={{ display: "flex" , justifyContent: "center" }}>
+        <div className={message ? (""):("d_n")}>
+            <Alert  color="danger" size="md" variant="outlined"> 
+                {Lang==="Ar" ? ("كلمة السر أو الرقم خطأ") : Lang==="En"? ("The password or number is wrong") : "Пароль или номер неправильный"}
+            </Alert>
+        </div></div>
+        </>
     )
 }
 export default Login

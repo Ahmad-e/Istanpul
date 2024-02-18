@@ -87,7 +87,7 @@ const Baket =()=>{
                     {Lang==="Ar" ? ("المجموع ") : Lang==="En"? ("total ") : "Общая "} : <h4 className="gold-color end_card_baket" >5190 $</h4>
                     </div>
                     <br/>
-                    <Button style={{     width: "200px" , margin: "auto" }} onClick={()=>console.log(backet)} className="App_button">Continue to payment<ArrowForwardIcon/> </Button>
+                    <Button style={{     width: "200px" , margin: "auto" }} onClick={()=>console.log(backet.data)} className="App_button">Continue to payment<ArrowForwardIcon/> </Button>
                 </Col>
             </Row>
         </Container>

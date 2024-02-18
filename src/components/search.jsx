@@ -15,7 +15,7 @@ import { useSelector,useDispatch } from 'react-redux';
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import {setKinds} from '../store';
-
+import Err404 from '../assets/SVGs/err404'
 
 function valuetext(value) {
     return `${value}°C`;
@@ -85,8 +85,15 @@ const Search =()=>{
 
 
 
-
-
+    if(products.length===0 && offers.length===0)
+        return(
+            <>
+            <Err404 />
+                <h4>
+                    {(Lang === "Ar" ? (" لا بضائع لدينا بهذا الاسم  , حاول البحث مجدداُ") : Lang === "En" ? ("We have no goods with this name, try searching again. ") : " У нас нет товаров с таким названием, попробуйте поискать еще раз.")}
+                </h4>
+            </>
+        )
 
     return(
             <Container>
@@ -108,7 +115,7 @@ const Search =()=>{
                                 if(value[0]<item.new_price && value[1]>item.new_price )
                                 return(
                                     <Col lg={4} md={6} sm={12} >
-                                        <CardItem id={item.product_id} imgURL={item.img_url} name={item.name} disc={item.disc} price={item.price} offer={item.percentage} />
+                                        <CardItem id={item.product_id} imgURL={item.img_url} name={item.product_name} disc={item.disc} price={item.old_price} offer={item.percentage} />
                                     </Col>
                                         )
                                     })
