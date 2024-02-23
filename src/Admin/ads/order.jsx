@@ -55,6 +55,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 const Order=(param)=>{
 
     const Lang = useSelector((state) => state.counter.language);
+    const token = useSelector((state) => state.counter.token);
     const [open, setOpen] = React.useState(false);
     const [data,setData] = React.useState(param.data);
     const [loading,setLoading] = React.useState(false);
@@ -95,7 +96,8 @@ const Order=(param)=>{
                     form,
                     {
                         headers: {
-                            'Content-Type': 'multipart/form-data'
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization' : 'Bearer ' +token 
                         }
                     })
                     .then((response) => {
@@ -116,7 +118,12 @@ const Order=(param)=>{
 
     const deleteOrder =()=>{
         setLoading(true);
-        axios.get("https://rest.istanbulru.com/api/deleteOrderImg/"+selectedIdDelete)
+        axios.get("https://rest.istanbulru.com/api/deleteOrderImg/"+selectedIdDelete,{
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token 
+            }
+        })
         .then((response) => {
             setData(response.data.Data);
             console.log(response.data);

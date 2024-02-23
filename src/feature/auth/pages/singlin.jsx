@@ -73,8 +73,8 @@ const Singlin = () => {
          if (!name) setErrorName(true);
          else setErrorName(false);
 
-         if (selectedCity===0) setErrorName(true);
-         else setErrorName(false);
+         if (selectedCity===0) setErrorCity(true);
+         else setErrorCity(false);
 
          if (password.length < 6) setErrorPassword(true);
          else setErrorPassword(false);

@@ -26,7 +26,7 @@ import Offers from '../feature/products/pages/offers';
 import Keywords from '../Admin/keywords';
 import Main_page_admin_ads from '../Admin/ads/main_page';
 import EmplyementPage from "../Admin/employee/pages/employement_page";
-
+import Err404 from '../assets/SVGs/err404'
 
 const RouteApp = () => {
   return (
@@ -43,6 +43,7 @@ const RouteApp = () => {
           <Route path="requests" element={<Requests />} />
           <Route path="form" element={<Form />} />
           <Route path="offers" element={<Offers />} />
+          <Route path="*" element={<Err404 />} />
           <Route path="admin" element={<AdminApp />} >
             <Route path="home" element={<HomePageAdmin />} />
             <Route path="createEmployee" element={<Create_Employee />} />

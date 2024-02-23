@@ -18,6 +18,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import axios from "axios";
+import Load from '../components/load';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -50,9 +52,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 
+  
 
 const Delivery =()=>{
     const Lang=useSelector((state) => state.counter.language);
+    const token = useSelector((state) => state.counter.token);
+    const [loading,setLoading]=React.useState(false);
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -62,6 +67,23 @@ const Delivery =()=>{
     const handleClose = () => {
       setOpen(false);
     };
+
+    const [citis,setCitis]=React.useState([]);
+
+    React.useEffect(() => {
+      setLoading(true);
+      axios.get("https://rest.istanbulru.com/api/showCities")
+          .then((response) => {
+
+              console.log(response.data);
+              setLoading(false);
+          })
+          .catch((error) => {
+              console.log(error)
+              setLoading(false);
+          });
+  }, []);
+
 
     const [selectedCity,setSelectedCity] = React.useState("");
     const [salary,setSalary] = React.useState(0);
@@ -79,7 +101,8 @@ const Delivery =()=>{
 
 
     return(
- <Container>
+      <Container>
+        <Load run={loading} />
             <Row className="justify-content-center">
                 <Col className="input_item_admin" lg={3} md={4} sm={6} xs={12} >
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>

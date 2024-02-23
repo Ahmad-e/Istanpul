@@ -90,7 +90,7 @@ const Home = () => {
 
         </div>
         <Row>
-          <h1>
+          <h1 className="App-text">
             <br/>
             Top products
             <br/><br/>
@@ -109,7 +109,7 @@ const Home = () => {
         </Row>
 
         <Row>
-          <h1>
+          <h1 className="App-text">
             <br/>
             Top offers
             <br/><br/>
@@ -120,7 +120,7 @@ const Home = () => {
             offer.map((item)=>{
               return(
                 <Col lg={3} md={6} sm={12} >
-                  <CardItem id={item.product_id} imgURL={item.img_url} name={item.name} disc={item.disc} price={item.price} offer={item.percentage} />
+                  <CardItem id={item.product_id} imgURL={item.img_url} name={item.product_name} disc={item.disc} price={item.price} offer={item.percentage} />
                 </Col>
               )
             })

@@ -26,7 +26,7 @@ const Search =()=>{
     const Lang=useSelector((state) => state.counter.language);
     const dispatch = useDispatch();
     const [keywords,setKeyword]=useState([]);
-    const [value, setValue] = useState([1, 900]);
+    const [value, setValue] = useState([1, 9000]);
     const [checked, setChecked] = useState(true);
 
     const [products,setProducts] = useState([]);
@@ -104,7 +104,7 @@ const Search =()=>{
                             products.map((item)=>{
                                 if(value[0]<item.price && value[1]>item.price  )
                                 return(
-                                    <Col className={checked ? ("") : (" d_n")} lg={4} md={6} sm={12} >
+                                    <Col className={checked ? ("") : (" d_n")} xlg={2} lg={3} md={5} sm={12} >
                                         <CardItem id={item.id} imgURL={item.img_url} name={item.name} disc={item.disc} price={item.price} />
                                     </Col>
                                         )
@@ -114,7 +114,7 @@ const Search =()=>{
                             offers.map((item)=>{
                                 if(value[0]<item.new_price && value[1]>item.new_price )
                                 return(
-                                    <Col lg={4} md={6} sm={12} >
+                                    <Col xlg={2} lg={3} md={5} sm={12} >
                                         <CardItem id={item.product_id} imgURL={item.img_url} name={item.product_name} disc={item.disc} price={item.old_price} offer={item.percentage} />
                                     </Col>
                                         )
@@ -139,7 +139,7 @@ const Search =()=>{
                         <Slider
                         style={{ color:"#E6392B" }}
                             min={1}
-                            max={1000}
+                            max={10000}
                             getAriaLabel={() => 'Temperature range'}
                             value={value}
                             onChange={handleRangeChange}

@@ -53,6 +53,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const Ads =(param)=>{
     const Lang = useSelector((state) => state.counter.language);
+    const token = useSelector((state) => state.counter.token);
     const [open, setOpen] = React.useState(false);
     const [data,setData] = React.useState(param.data);
     const [loading,setLoading] = React.useState(false);
@@ -88,8 +89,9 @@ const Ads =(param)=>{
                 const response = axios.post('https://rest.istanbulru.com/api/uploadAdImg',
                     form,
                     {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
+                        headers:{
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization' : 'Bearer ' +token 
                         }
                     })
                     .then((response) => {
@@ -116,7 +118,12 @@ const Ads =(param)=>{
     const deleteAds = () =>{
         
         setLoading(true);
-        axios.get("https://rest.istanbulru.com/api/deleteAdImg/"+selectedIdDelete)
+        axios.get("https://rest.istanbulru.com/api/deleteAdImg/"+selectedIdDelete,{
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token 
+            }
+        })
         .then((response) => {
             setData(response.data.data);
             console.log(response.data.data);

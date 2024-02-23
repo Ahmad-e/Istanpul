@@ -60,6 +60,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const AdminOffers =()=>{
     const Lang=useSelector((state) => state.counter.language);
+    const token = useSelector((state) => state.counter.token);
     const [loading,setLoading]=React.useState(false);
     const [openBlockDialog, setOpenBlockDialog] = React.useState(false);
     const [openChangeDialog, setOpenChangeDialog] = React.useState(false);
@@ -165,6 +166,12 @@ const AdminOffers =()=>{
                     product_id:selectedProduct.id,
                     quantity:quantity,
                     percentage:discount
+                },
+                {
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Authorization' : 'Bearer ' +token 
+                    }
                 }).then((response) => {
                 console.log(response.data);
                 setOffer(response.data.offers);
@@ -186,6 +193,12 @@ const AdminOffers =()=>{
                     offer_id:ChangedOffer.offer_id,
                     quantity:ChangedOffer.offer_quantity,
                     percentage:ChangedOffer.percentage,
+                },
+                {
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Authorization' : 'Bearer ' +token 
+                    }
                 }).then((response) => {
                 setOffer(response.data.offers);
                 setLoading(false)
@@ -211,6 +224,11 @@ const AdminOffers =()=>{
                     offer_id:stoppedOffer,
                     quantity:0,
                     percentage:0
+                },{
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Authorization' : 'Bearer ' +token 
+                    }
                 }).then((response) => {
                 setOffer(response.data.offers);
                 setLoading(false)

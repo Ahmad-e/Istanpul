@@ -225,7 +225,8 @@ const AdminProducts = () => {
                     form,
                     {
                         headers: {
-                            'Content-Type': 'multipart/form-data'
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization' : 'Bearer ' +token 
                         }
                     })
                     .then((response) => {
@@ -252,6 +253,7 @@ const AdminProducts = () => {
             }
         })
         .then((response) => {
+            console.log(response.data)
             setData(response.data.types);
             setLoading(false);
         })
@@ -280,7 +282,8 @@ const AdminProducts = () => {
                     form,
                     {
                         headers: {
-                            'Content-Type': 'multipart/form-data'
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization' : 'Bearer ' +token 
                         }
                     })
                     .then((response) => {

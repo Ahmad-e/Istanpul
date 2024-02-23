@@ -43,6 +43,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const Logo=(param)=>{
     const Lang = useSelector((state) => state.counter.language);
+    const token = useSelector((state) => state.counter.token);
     const [selectedValue, setSelectedValue] = useState(0);
     const [data,setData] = useState(param.data);
     const [loading,setLoading] = useState(false);
@@ -70,7 +71,8 @@ const Logo=(param)=>{
                     form,
                     {
                         headers: {
-                            'Content-Type': 'multipart/form-data'
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization' : 'Bearer ' +token 
                         }
                     })
                     .then((response) => {
@@ -92,7 +94,12 @@ const Logo=(param)=>{
     const setSelected =(id)=>{
         //console.log(id)
         setLoading(true);
-        axios.get("https://rest.istanbulru.com/api/selectLogo/"+id)
+        axios.get("https://rest.istanbulru.com/api/selectLogo/"+id,{
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token 
+            }
+        })
         .then((response) => {
             setData(response.data.data);
             console.log(response.data.data);
