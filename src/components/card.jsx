@@ -46,11 +46,11 @@ const CardItem =(props)=>{
                 <Card  style={{ borderRadius:"20px" }}  sx={{ maxWidth: 345 }}>
                     <CardActionArea >
                         <div dir="ltr" className={"offer_div "+(offer ? (""):("d_n") )} >
-                        {offer}%
+                            {offer}%
                         </div>
                         <CardMedia
                         component="img"
-                        height="150"
+                        height="255"
                         image={imageURL}
                         alt="Downloading image ... "
                         />

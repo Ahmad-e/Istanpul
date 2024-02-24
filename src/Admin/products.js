@@ -253,7 +253,7 @@ const AdminProducts = () => {
             }
         })
         .then((response) => {
-            console.log(response.data)
+            console.log("يشفش",response.data)
             setData(response.data.types);
             setLoading(false);
         })
