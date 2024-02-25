@@ -38,7 +38,7 @@ const Favorit =()=>{
                     data.map((item)=>{
                         return(
                             <Col lg={3} md={6} sm={12} >
-                                <CardItem id={item.product_id} imgURL={item.img_url} name={item.name} disc={item.disc} price={item.price} />
+                                <CardItem id={item.product_id} imgURL={item.img_url} name={item.name} disc={item.disc} price={item.price} offer_id={0} />
                             </Col>
                         )
                     })

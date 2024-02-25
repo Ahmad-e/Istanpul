@@ -101,7 +101,7 @@ const Home = () => {
               product.map((item)=>{
                 return(
                   <Col lg={3} md={6} sm={12} >
-                    <CardItem id={item.id} imgURL={item.img_url} name={item.name} disc={item.disc} price={item.price} />
+                    <CardItem id={item.id} imgURL={item.img_url} name={item.name} disc={item.disc} price={item.price} offer_id={0} />
                   </Col>
                 )
               })
@@ -120,7 +120,7 @@ const Home = () => {
             offer.map((item)=>{
               return(
                 <Col lg={3} md={6} sm={12} >
-                  <CardItem id={item.product_id} imgURL={item.img_url} name={item.product_name} disc={item.disc} price={item.price} offer={item.percentage} />
+                  <CardItem id={item.product_id} imgURL={item.img_url} name={item.product_name} disc={item.disc} price={item.price} offer={item.percentage} offer_id={item.offer_id} />
                 </Col>
               )
             })

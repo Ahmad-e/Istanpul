@@ -27,6 +27,7 @@ import Keywords from '../Admin/keywords';
 import Main_page_admin_ads from '../Admin/ads/main_page';
 import EmplyementPage from "../Admin/employee/pages/employement_page";
 import Err404 from '../assets/SVGs/err404'
+import UserData from '../Admin/userData'
 
 const RouteApp = () => {
   return (
@@ -56,6 +57,7 @@ const RouteApp = () => {
             <Route path="adminForms" element={<EmplyementPage />} />
             <Route path="adminkeyword" element={<Keywords />} />
             <Route path="adminAds" element={<Main_page_admin_ads />} />
+            <Route path="userInfo/:token" element={<UserData />} />
           </Route>
         </Routes>
     </div>

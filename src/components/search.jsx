@@ -115,7 +115,7 @@ const Search =()=>{
                                 if(value[0]<item.new_price && value[1]>item.new_price )
                                 return(
                                     <Col xlg={2} lg={3} md={5} sm={12} >
-                                        <CardItem id={item.product_id} imgURL={item.img_url} name={item.product_name} disc={item.disc} price={item.old_price} offer={item.percentage} />
+                                        <CardItem id={item.product_id} imgURL={item.img_url} name={item.product_name} disc={item.disc} price={item.old_price} offer={item.percentage} offer_id={item.offer_id} />
                                     </Col>
                                         )
                                     })

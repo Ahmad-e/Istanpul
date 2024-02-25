@@ -40,6 +40,7 @@ const Header = () =>{
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [auth] = React.useState(true);
     const Lang=useSelector((state) => state.counter.language);
+    const backet=useSelector((state) => state.counter.baket);
     const user_id=useSelector((state) => state.counter.account);
     const [open, setOpen] = React.useState(false);
     const [openDealog, setOpenDealog] = React.useState(false);
@@ -141,7 +142,7 @@ const Header = () =>{
                         {Lang==="Ar" ? ("تسجيل حساب") : Lang==="En"? ("Regester") : "регистр"}
                     </Button>
                     <Nav.Link   className={"app_link " + (  user_id===1  ? ("") : (" d_n") ) } href="/baket">
-                        <Badge  color="error" badgeContent={3} >
+                        <Badge  color="error" badgeContent={backet.length} >
                         {/* <Badge color="secondary" badgeContent={100} color="error"> */}
                             <ShoppingCartIcon />
                         </Badge>

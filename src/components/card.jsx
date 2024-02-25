@@ -22,7 +22,8 @@ const CardItem =(props)=>{
     const disc = props.disc;
     const imageURL = props.imgURL;
     const price = props.price;
-    const offer = props.offer
+    const offer = props.offer;
+    const offer_id = props.offer_id;
 
 
     const tuglleFavorite =()=>{
@@ -54,6 +55,7 @@ const CardItem =(props)=>{
                         image={imageURL}
                         alt="Downloading image ... "
                         />
+
                         <CardContent  style={{ textAlign:"start" }} >
                             <Typography style={{ textAlign:"start" }} gutterBottom variant="h5" component="div">
                             {name}
@@ -70,7 +72,7 @@ const CardItem =(props)=>{
                             <br/>
                             <div style={{ textAlign:"center" }}>
                                 <Button 
-                                    onClick={()=>dispatch(setBaket(
+                                    onClick={()=>dispatch(addProduct(
                                         [{
                                             "id":id,
                                             "name":name,
@@ -78,7 +80,8 @@ const CardItem =(props)=>{
                                             "disc":disc,
                                             "price":price,
                                             "offer":offer,
-                                            //"offer_id":offerr_id
+                                            "offer_id":offer_id,
+                                            "quantity":1
                                         }]
                                     ))}  
                                     className="App_button"
