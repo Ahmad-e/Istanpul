@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState,useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -9,14 +9,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Button from 'react-bootstrap/Button';
 import { useSelector } from 'react-redux';
-
+import Load from '../../../components/load';
+import axios from "axios";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-
+//import fileDownload from 'js-file-download'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
@@ -39,16 +40,55 @@ const rows = [
         createData('ghith', 'g@app.com', +65467868678, 'RS', 'US - New'),
 ];
 
-// Function to handle the CV download
-const handleDownloadCV = (employee) => {
-        // Add your logic to download the CV for the given employee
-        console.log(`Downloading CV for ${employee.name}`);
-};
+
 
 export default function JoinEmployeeTable() {
+
+
+        function handleDownloadCV(url, fileName){
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", url, true);
+                xhr.responseType = "blob";
+                xhr.onload = function(){
+                    var urlCreator = window.URL || window.webkitURL;
+                    var imageUrl = urlCreator.createObjectURL(this.response);
+                    var tag = document.createElement('a');
+                    tag.href = imageUrl;
+                    tag.download = fileName;
+                    document.body.appendChild(tag);
+                    tag.click();
+                    document.body.removeChild(tag);
+                }
+                xhr.send();
+                //var fileDownload = require('js-file-download');
+                //fileDownload(data, 'filename.csv');
+            }
+            
+        const downloadFile = (url) => {
+                fetch(url)
+                  .then(response => {
+                    return response.blob();
+                  })
+                  .then(blob => {
+                    const url = window.URL.createObjectURL(new Blob([blob]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'file.pdf'); // Set the desired file name here
+                    document.body.appendChild(link);
+                    link.click();
+                    link.parentNode.removeChild(link);
+                  })
+                  .catch(error => {
+                    console.error('Error downloading file:', error);
+                  });
+              };
+
         const Lang=useSelector((state) => state.counter.language);
         const [open, setOpen] = React.useState(false);
-      
+
+        const token = useSelector((state) => state.counter.token);
+        const [loading,setLoading]=React.useState(false);
+        const [idDelete,setIdDelete] = React.useState(0)
         const handleClickOpen = () => {
             setOpen(true);
         };
@@ -56,6 +96,44 @@ export default function JoinEmployeeTable() {
         const handleClose = () => {
             setOpen(false);
         };
+        const [data,setData] = React.useState([]);
+        React.useEffect(() => {
+                setLoading(true);
+                axios.get("https://rest.istanbulru.com/api/showEmploymentRequests",{
+                    headers: {
+                        'Content-Type' : 'application/json',
+                        'Authorization' : 'Bearer ' +token 
+                    }
+                })
+                    .then((response) => {
+                        console.log(response.data);
+                        setData(response.data.data);
+                        setLoading(false);
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                        setLoading(false);
+                    });
+            }, []);
+
+        const deleteForm=()=>{
+                setLoading(true);
+                axios.get("https://rest.istanbulru.com/api/deleteEmploymentRequest/"+idDelete,{
+                    headers: {
+                        'Content-Type' : 'application/json',
+                        'Authorization' : 'Bearer ' +token 
+                    }
+                })
+                    .then((response) => {
+                        console.log(response.data);
+                        setData(response.data.data);
+                        setLoading(false);
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                        setLoading(false);
+                    });
+        }
     
         return (
                 <Box sx={{ width: '100%', overflowX: 'auto' }}>
@@ -81,9 +159,6 @@ export default function JoinEmployeeTable() {
                                                                 }}>{Lang==="Ar" ? ("رقم الهاتف") : Lang==="En"? ("Phone") : "Номер телефона"}</TableCell>
                                                                 <TableCell sx={{
                                                                         color: 'white'
-                                                                }}>{Lang==="Ar" ? ("الجنسية") : Lang==="En"? ("National") : "Национальный"}</TableCell>
-                                                                <TableCell sx={{
-                                                                        color: 'white'
                                                                 }}>{Lang==="Ar" ? ("العنوان") : Lang==="En"? ("Address") : "Адрес"}</TableCell>
                                                                 <TableCell sx={{
                                                                         color: 'white'
@@ -94,22 +169,22 @@ export default function JoinEmployeeTable() {
                                                         </TableRow>
                                                 </TableHead>
                                                 <TableBody>
-                                                        {rows.map((row, index) => (
+                                                        {data.map((row, index) => (
                                                                 <TableRow
                                                                         hover
                                                                         role="checkbox"
-                                                                        tabIndex={-1}
                                                                         key={index}
                                                                         sx={{ cursor: 'pointer' }}
                                                                 >
-                                                                        <TableCell>{row.name}</TableCell>
+                                                                        <TableCell>{row.user_name}</TableCell>
                                                                         <TableCell>{row.email}</TableCell>
-                                                                        <TableCell>{row.phone}</TableCell>
-                                                                        <TableCell>{row.national}</TableCell>
-                                                                        <TableCell>{row.address}</TableCell>
+                                                                        <TableCell>{row.phone_no}</TableCell>
+                                                                        <TableCell>{row.city}</TableCell>
                                                                         <TableCell>
                                                                                 <Button
-                                                                                        onClick={() => handleDownloadCV(row)}
+                                                                                        //onClick={() => handleDownloadCV(row.file_url,"test.pdf")}
+                                                                                        href={row.file_url}
+                                                                                        target="blank"
                                                                                         variant="outline-danger"
                                                                                         className="keyword_button"
                                                                                 >
@@ -118,7 +193,7 @@ export default function JoinEmployeeTable() {
                                                                         </TableCell>
                                                                         <TableCell>
                                                                                 <Button
-                                                                                        onClick={handleClickOpen}
+                                                                                        onClick={()=>{setIdDelete(row.form_id); setOpen(true)}}
                                                                                         variant="outline-danger"
                                                                                         className="keyword_button" 
                                                                                 >
@@ -145,7 +220,7 @@ export default function JoinEmployeeTable() {
                                         </DialogContentText>
                                 </DialogContent>
                                 <DialogActions>
-                                        <Button className="App_button" onClick={handleClose}>{Lang === "Ar" ? (" حذف ") : Lang === "En" ? ("delete") : "удалить"}</Button>
+                                        <Button className="App_button" onClick={()=>deleteForm()}>{Lang === "Ar" ? (" حذف ") : Lang === "En" ? ("delete") : "удалить"}</Button>
                                 </DialogActions>
                         </Dialog>
                 </Box>

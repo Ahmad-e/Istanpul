@@ -50,6 +50,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const Keywords = () => {
     const Lang = useSelector((state) => state.counter.language);
+    const token = useSelector((state) => state.counter.token);
     const kinds = useSelector((state) => state.counter.kinds);
     const [open, setOpen] = React.useState(false);
     const [data,setData] = React.useState([]);
@@ -68,11 +69,14 @@ const Keywords = () => {
     }
     /* axios conect with API */
 
-    React.useEffect(() => {  
+
+    React.useEffect(() => {
+
             axios.get("https://rest.istanbulru.com/api/showProductTypes")
             .then((response) => setData(response.data.types))
             .catch((error) => console.log(error));
     }, []);
+  
     const addNewWord = () =>{
         if(name==='')
         {
@@ -81,6 +85,12 @@ const Keywords = () => {
             try {
                 const response = axios.post('https://rest.istanbulru.com/api/addProductType', {
                 name:name
+                },
+                {
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Authorization' : 'Bearer ' +token 
+                    }
                 }).then((response) => {
                 console.log(response.data);
                 setData(response.data.types);
@@ -102,7 +112,13 @@ const Keywords = () => {
                 const response = axios.post('https://rest.istanbulru.com/api/editProductType', {
                     id:idChanged,
                     name:nameChanged
-                }).then((response) => {
+                },{
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Authorization' : 'Bearer ' +token 
+                    }
+                }
+                ).then((response) => {
                     setData(response.data.types);
                 }).catch((error) => console.log(error));
                 setErrNewChangedName(false)

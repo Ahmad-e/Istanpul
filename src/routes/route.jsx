@@ -26,7 +26,8 @@ import Offers from '../feature/products/pages/offers';
 import Keywords from '../Admin/keywords';
 import Main_page_admin_ads from '../Admin/ads/main_page';
 import EmplyementPage from "../Admin/employee/pages/employement_page";
-
+import Err404 from '../assets/SVGs/err404'
+import UserData from '../Admin/userData'
 
 const RouteApp = () => {
   return (
@@ -34,7 +35,7 @@ const RouteApp = () => {
          <Routes>
           <Route index element={<Home />} />
           <Route path="aboutus" element={<Aboutus />} />
-          <Route path="search" element={<Search />} />
+          <Route path="search/:name/:type_id" element={<Search />} />
           <Route path="login" element={<Login />} />
           <Route path="regester" element={<Singlin />} />
           <Route path="baket" element={<Baket />} />
@@ -43,6 +44,7 @@ const RouteApp = () => {
           <Route path="requests" element={<Requests />} />
           <Route path="form" element={<Form />} />
           <Route path="offers" element={<Offers />} />
+          <Route path="*" element={<Err404 />} />
           <Route path="admin" element={<AdminApp />} >
             <Route path="home" element={<HomePageAdmin />} />
             <Route path="createEmployee" element={<Create_Employee />} />
@@ -55,6 +57,7 @@ const RouteApp = () => {
             <Route path="adminForms" element={<EmplyementPage />} />
             <Route path="adminkeyword" element={<Keywords />} />
             <Route path="adminAds" element={<Main_page_admin_ads />} />
+            <Route path="userInfo/:token" element={<UserData />} />
           </Route>
         </Routes>
     </div>

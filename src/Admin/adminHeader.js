@@ -18,14 +18,19 @@ import { useLocation } from 'react-router-dom';
 const AdminHeader = () => {
 
     const Lang = useSelector((state) => state.counter.language);
+    const user_id=useSelector((state) => state.counter.account);
     const currentURL = useLocation().pathname;
 
     console.log(currentURL)
 
     return (
         <div >
-            <Nav.Link className={currentURL === "/admin/home" ? ("app_link bar_link App-text") : ("app_link bar_link")} eventKey={2} href="home">
-                <HomeRepairServiceIcon /><br /><span className="d_n_s" > {Lang === "Ar" ? (" البيانات ") : Lang === "En" ? ("home") : "дом"}</span>
+            <Nav.Link  
+                className={(currentURL === "/admin/home" ? ("app_link bar_link App-text") : ("app_link bar_link"))+(user_id===3 ? (" ") : ( "d_n" ))} 
+                eventKey={2} href="home">
+                    <div className={user_id===3 ? (" ") : ( "d_n" )} >
+                        <HomeRepairServiceIcon /><br /><span className="d_n_s" > {Lang === "Ar" ? (" البيانات ") : Lang === "En" ? ("home") : "дом"}</span>
+                    </div>
             </Nav.Link>
             <Nav.Link className={currentURL === "/admin/adminProducts" ? ("app_link bar_link App-text") : ("app_link bar_link")} eventKey={2} href="adminProducts">
                 <PostAddIcon /><br /><span className="d_n_s" > {Lang === "Ar" ? (" البضائع ") : Lang === "En" ? ("Products") : "Продукты"}</span>
@@ -52,11 +57,21 @@ const AdminHeader = () => {
             <Nav.Link className={currentURL === "/admin/adminSuggestion" ? ("app_link bar_link App-text") : ("app_link bar_link")} eventKey={2} href="adminSuggestion">
                 <AnnouncementIcon /><br /><span className="d_n_s" > {Lang === "Ar" ? (" الشكاوي ") : Lang === "En" ? ("Suggestion") : "Предположение"}</span>
             </Nav.Link>
-            <Nav.Link className={currentURL === "/admin/createEmployee" ? ("app_link bar_link App-text") : ("app_link bar_link")} eventKey={2} href="createEmployee">
-                <PersonAddIcon /> <br /> <span className="d_n_s" > {Lang === "Ar" ? (" موظف جديد ") : Lang === "En" ? ("Create employee") : "Создать сотрудника"} </span>
+            <Nav.Link 
+                className={(currentURL === "/admin/createEmployee" ? ("app_link bar_link App-text") : ("app_link bar_link"))+(user_id===3 ? (" ") : ( "d_n" ))} 
+                eventKey={2} 
+                href="createEmployee">
+                    <div className={user_id===3 ? (" ") : ( "d_n" )}>
+                        <PersonAddIcon /> <br /> <span className="d_n_s" > {Lang === "Ar" ? (" موظف جديد ") : Lang === "En" ? ("Create employee") : "Создать сотрудника"} </span>
+                    </div>
             </Nav.Link>
-            <Nav.Link className={currentURL === "/admin/adminForms" ? ("app_link bar_link App-text") : ("app_link bar_link")} eventKey={2} href="adminForms">
-                <AddReactionIcon /><br /><span className="d_n_s" > {Lang === "Ar" ? (" طلبات التوظيف ") : Lang === "En" ? ("Employment") : "Работа"}</span>
+            <Nav.Link 
+                className={(currentURL === "/admin/adminForms" ? ("app_link bar_link App-text") : ("app_link bar_link"))+(user_id===3 ? (" ") : ( "d_n" ))} 
+                eventKey={2} 
+                href="adminForms">
+                    <div className={user_id===3 ? (" ") : ( "d_n" )} >
+                        <AddReactionIcon /><br /><span className="d_n_s" > {Lang === "Ar" ? (" طلبات التوظيف ") : Lang === "En" ? ("Employment") : "Работа"}</span>
+                    </div>
             </Nav.Link>
         </div>
     )

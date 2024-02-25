@@ -10,8 +10,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useSelector, useDispatch } from 'react-redux';
-import { setKinds } from '../store';
+import { useSelector } from 'react-redux';
+//import { setKinds } from '../store';
 import Textarea from '@mui/joy/Textarea';
 
 import FormData from 'form-data'
@@ -64,7 +64,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const AdminProducts = () => {
     //const dispatch = useDispatch();
     const Lang = useSelector((state) => state.counter.language);
-    const kinds = useSelector((state) => state.counter.kinds);
+    const token = useSelector((state) => state.counter.token);
+    //const kinds = useSelector((state) => state.counter.kinds);
     const [openBlockDialog, setOpenBlockDialog] = React.useState(false);
     const [openChangeDialog, setOpenChangeDialog] = React.useState(false);
 
@@ -176,7 +177,7 @@ const AdminProducts = () => {
     const [keywords, setKeywords] = React.useState([]);
     React.useEffect(() => {
         setLoading(true);
-        console.log(kinds)
+
         axios.get("https://rest.istanbulru.com/api/showProducts")
             .then((response) => {
                 setData(response.data.products);
@@ -191,10 +192,8 @@ const AdminProducts = () => {
     }, []);
 
     const addNewProduct = () => {
-        
-        
-         if (name === "")
-             setErrName(true);
+        if (name === "")
+            setErrName(true);
          if (code === "")
              setErrCode(true);
          if (disc === "")
@@ -226,7 +225,8 @@ const AdminProducts = () => {
                     form,
                     {
                         headers: {
-                            'Content-Type': 'multipart/form-data'
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization' : 'Bearer ' +token 
                         }
                     })
                     .then((response) => {
@@ -246,8 +246,15 @@ const AdminProducts = () => {
 
     const TuggleBlockProduct =()=>{
         setLoading(true);
-        axios.get("https://rest.istanbulru.com/api/editProductVis/"+selectedBlockProduct)
+
+        axios.get("https://rest.istanbulru.com/api/editProductVis/"+selectedBlockProduct,{
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : 'Bearer ' +token 
+            }
+        })
         .then((response) => {
+            console.log("يشفش",response.data)
             setData(response.data.types);
             setLoading(false);
         })
@@ -276,7 +283,8 @@ const AdminProducts = () => {
                     form,
                     {
                         headers: {
-                            'Content-Type': 'multipart/form-data'
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization' : 'Bearer ' +token 
                         }
                     })
                     .then((response) => {

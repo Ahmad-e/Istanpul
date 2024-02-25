@@ -21,12 +21,17 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
+import Load from '../components/load';
+import axios from "axios";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const AdminSuggestion =()=>{
     const Lang = useSelector((state) => state.counter.language);
+    const token = useSelector((state) => state.counter.token);
+    const [loading,setLoading]=React.useState(false);
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
           backgroundColor: theme.palette.common.black,
@@ -48,14 +53,61 @@ const AdminSuggestion =()=>{
       }));
       
       const [open, setOpen] = React.useState(false);
-
-      const handleClickOpen = () => {
-        setOpen(true);
-      };
     
       const handleClose = () => {
         setOpen(false);
       };
+
+    const [data,setData] = React.useState([]);
+    const [userData,setUserData] = React.useState({});
+
+    React.useEffect(() => {
+        setLoading(true);
+        axios.get("https://rest.istanbulru.com/api/showComplaints",{
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : 'Bearer ' +token 
+            }
+        })
+            .then((response) => {
+                console.log(response.data);
+                setData(response.data.message);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error)
+                setLoading(false);
+            });
+    }, []);
+
+    const deleteSugg=(id)=>{
+        setLoading(true);
+        axios.get("https://rest.istanbulru.com/api/deleteComplaint/"+id,{
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : 'Bearer ' +token 
+            }
+        })
+            .then((response) => {
+                console.log(response.data);
+                //setData(response.data.message);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error)
+                setLoading(false);
+            });
+    }
+
+    const showData=(name,email,phone)=>{
+        setUserData({
+            "name":name,
+            "email":email,
+            "phone":phone
+        })
+        setOpen(true);
+        
+    }
 
 
     return(
@@ -74,55 +126,20 @@ const AdminSuggestion =()=>{
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"alaa"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">I cant add product to my basket </StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  > {Lang==="Ar" ? ("معلومات العميل") : Lang==="En"? ("customer information") : "Информация для клиентов"}</Button></StyledTableCell>
-                                    <StyledTableCell align="start"><Button  variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" حذف ") : Lang === "En" ? ("delete") : "удалить"}</Button></StyledTableCell>
-                                </StyledTableRow>  
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"alaa"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">I cant add product to my basket </StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  > {Lang==="Ar" ? ("معلومات العميل") : Lang==="En"? ("customer information") : "Информация для клиентов"}</Button></StyledTableCell>
-                                    <StyledTableCell align="start"><Button  variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" حذف ") : Lang === "En" ? ("delete") : "удалить"}</Button></StyledTableCell>
-                                </StyledTableRow>  
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"alaa"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">I cant add product to my basket </StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  > {Lang==="Ar" ? ("معلومات العميل") : Lang==="En"? ("customer information") : "Информация для клиентов"}</Button></StyledTableCell>
-                                    <StyledTableCell align="start"><Button  variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" حذف ") : Lang === "En" ? ("delete") : "удалить"}</Button></StyledTableCell>
-                                </StyledTableRow>  
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"alaa"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">I cant add product to my basket </StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  > {Lang==="Ar" ? ("معلومات العميل") : Lang==="En"? ("customer information") : "Информация для клиентов"}</Button></StyledTableCell>
-                                    <StyledTableCell align="start"><Button  variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" حذف ") : Lang === "En" ? ("delete") : "удалить"}</Button></StyledTableCell>
-                                </StyledTableRow>    
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"alaa"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">I cant add product to my basket </StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  > {Lang==="Ar" ? ("معلومات العميل") : Lang==="En"? ("customer information") : "Информация для клиентов"}</Button></StyledTableCell>
-                                    <StyledTableCell align="start"><Button  variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" حذف ") : Lang === "En" ? ("delete") : "удалить"}</Button></StyledTableCell>
-                                </StyledTableRow>  
-                                <StyledTableRow key={"name"}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {"alaa"}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="start">I cant add product to my basket </StyledTableCell>
-                                    <StyledTableCell align="start"><Button onClick={handleClickOpen} variant="outline-danger" className="keyword_button"  > {Lang==="Ar" ? ("معلومات العميل") : Lang==="En"? ("customer information") : "Информация для клиентов"}</Button></StyledTableCell>
-                                    <StyledTableCell align="start"><Button  variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" حذف ") : Lang === "En" ? ("delete") : "удалить"}</Button></StyledTableCell>
-                                </StyledTableRow>  
+                                {
+                                    data.map((item)=>{
+                                        return(
+                                            <StyledTableRow>
+                                            <StyledTableCell component="th" scope="row">
+                                                {item.user_name}
+                                            </StyledTableCell>
+                                            <StyledTableCell align="start"> {item.complaint} </StyledTableCell>
+                                            <StyledTableCell align="start"><Button onClick={()=>showData( item.user_name , item.email , item.phone_no )} variant="outline-danger" className="keyword_button"  > {Lang==="Ar" ? ("معلومات العميل") : Lang==="En"? ("customer information") : "Информация для клиентов"}</Button></StyledTableCell>
+                                            <StyledTableCell align="start"><Button onClick={()=>deleteSugg(item.complaint_id)} variant="outline-danger" className="keyword_button"  >{Lang === "Ar" ? (" حذف ") : Lang === "En" ? ("delete") : "удалить"}</Button></StyledTableCell>
+                                        </StyledTableRow>
+                                        )
+                                    })
+                                }
                             </TableBody>
                         </Table>
                     </TableContainer>
@@ -138,9 +155,9 @@ const AdminSuggestion =()=>{
                 <DialogTitle>{Lang==="Ar" ? ("معلومات العميل") : Lang==="En"? ("customer information") : "Информация для клиентов"}</DialogTitle>
                 <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
-                {Lang==="Ar" ? ("اسم العميل") : Lang==="En"? ("customer name") : "Имя Клиента"} : Ahmad<br/>
-                {Lang==="Ar" ? ("رقم الهاتف") : Lang==="En"? ("Phone number") : "номер телефона"} : 097517235<br/>
-                {Lang==="Ar" ? ("الأيميل") : Lang==="En"? ("Email") : "Электронная почта"} : homse@gmail.com<br/>
+                {Lang==="Ar" ? ("اسم العميل") : Lang==="En"? ("customer name") : "Имя Клиента"} : {userData.name}<br/>
+                {Lang==="Ar" ? ("رقم الهاتف") : Lang==="En"? ("Phone number") : "номер телефона"} : {userData.phone}<br/>
+                {Lang==="Ar" ? ("الأيميل") : Lang==="En"? ("Email") : "Электронная почта"} : {userData.email} <br/>
                 </DialogContentText>
                 </DialogContent>
             </Dialog>
