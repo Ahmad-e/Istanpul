@@ -69,11 +69,14 @@ const Keywords = () => {
     }
     /* axios conect with API */
 
+
     React.useEffect(() => {
+
             axios.get("https://rest.istanbulru.com/api/showProductTypes")
             .then((response) => setData(response.data.types))
             .catch((error) => console.log(error));
     }, []);
+  
     const addNewWord = () =>{
         if(name==='')
         {

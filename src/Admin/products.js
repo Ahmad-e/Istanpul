@@ -177,6 +177,7 @@ const AdminProducts = () => {
     const [keywords, setKeywords] = React.useState([]);
     React.useEffect(() => {
         setLoading(true);
+
         axios.get("https://rest.istanbulru.com/api/showProducts")
             .then((response) => {
                 setData(response.data.products);
@@ -191,7 +192,6 @@ const AdminProducts = () => {
     }, []);
 
     const addNewProduct = () => {
-        
         if (name === "")
             setErrName(true);
          if (code === "")
@@ -246,6 +246,7 @@ const AdminProducts = () => {
 
     const TuggleBlockProduct =()=>{
         setLoading(true);
+
         axios.get("https://rest.istanbulru.com/api/editProductVis/"+selectedBlockProduct,{
             headers: {
                 'Content-Type' : 'application/json',
